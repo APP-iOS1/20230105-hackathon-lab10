@@ -8,6 +8,13 @@
 import SwiftUI
 
 struct MainView: View {
+//    private enum Field : Int, Hashable{
+//        case name, location, data, addAttendee
+//    }
+//    @FocusState private var focusField : Field?
+
+    
+    
     @State private var showingSheet = false
     
     @State private var showingCreatDiaryView = false
@@ -72,6 +79,11 @@ struct MainView: View {
                                              }
                                              Button("그룹 참가하기") {
                                                  showingEnterCodeView.toggle()
+//                                                 if showingEnterCodeView{
+//                                                     DispatchQueue.main.asyncAfter(deadline: .now()) {
+//                                                         focusField = .addAttendee
+//                                                     }
+//                                                 }
                                              }
                                              Button("취소", role: .cancel) {
                                              }

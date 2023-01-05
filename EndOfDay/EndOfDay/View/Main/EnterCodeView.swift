@@ -27,6 +27,7 @@ struct EnterCodeView: View {
                     .frame(width: 340, height: 70)
                     .foregroundColor(Color("LightGray"))
                     .overlay(
+                        
                         TextField("코드를 입력해주세요", text: $codeText)
                             .padding(.horizontal)
                             .focused($focusField, equals: .addAttendee)
@@ -46,12 +47,12 @@ struct EnterCodeView: View {
                 
             }
             .onAppear {
-                DispatchQueue.main.asyncAfter(deadline: .now()) {
-                    focusField = .addAttendee
-                }
-                //            Task{
-                //                focusField = await .addAttendee
-                //            }
+                    DispatchQueue.main.asyncAfter(deadline: .now()) {
+                        focusField = .addAttendee
+                    }
+                    //            Task{
+                    //                focusField = await .addAttendee
+                    //            }
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {

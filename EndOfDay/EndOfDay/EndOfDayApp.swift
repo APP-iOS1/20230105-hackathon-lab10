@@ -18,8 +18,9 @@ struct EndOfDayApp: App {
     
     var body: some Scene {
         WindowGroup {
-            MainView()
-//            ContentView()
+            //MainView()
+            MyPageView()
+            //ContentView()
 //                .environmentObject(userStore)
         }
     }
