@@ -6,8 +6,17 @@
 //
 
 import SwiftUI
+import UniformTypeIdentifiers
 
 struct SettingView: View {
+    @EnvironmentObject var diaryStore: DiaryStore
+//    var diary: Diary
+    
+    @State private var text: String = "초대코드askdjadjklkl"
+    @State private var buttonText  = "초대코드 복사하기"
+    
+    private let pasteboard = UIPasteboard.general
+    
     var body: some View {
         List {
             HStack {
@@ -16,12 +25,18 @@ struct SettingView: View {
                     Text("일기를 같이 쓰고싶은 친구를 초대하세요!")
                         .padding()
                     
+                    // TODO: 다이어리 아이디 복사하기
+                    
                     Button {
-                        
+                        copyToClipboard()
                     } label: {
-                        Text("초대코드 복사하기")
+                        Label(buttonText, systemImage: "doc.on.doc")
+                            .modifier(MaxWidthColoredButtonModifier(cornerRadius: 30))
                     }
-                    .modifier(MaxWidthColoredButtonModifier(cornerRadius: 30))
+                    .buttonStyle(PlainButtonStyle())
+                    
+                    
+                    
                 }
             }
             .padding()
@@ -33,11 +48,15 @@ struct SettingView: View {
 //            )
 
             Section(header: Text("함께하는 사람들"), content: {
+//                ForEach(diary.membersNickname, id: \.self) { nickname in
+//                    Text(nickname)
+//                }
                 Text("조운상")
                 Text("이영우")
                 Text("김태성")
             })
             
+            // TODO: 일기장 생성 뷰 재사용 가능한지 확인하기
             Button {
                 
             } label: {
@@ -45,13 +64,33 @@ struct SettingView: View {
             }
             
             Button {
-                
+                Task {
+//                    await diaryStore.outDiary(diaryID: diary.id, userID: "")
+                }
             } label: {
                 Text("일기장 나가기")
             }
         }
         .listStyle(SidebarListStyle())
         .navigationBarTitle("일기 설정", displayMode: .inline)
+    }
+    
+    
+    
+    func paste(){
+        if let string = pasteboard.string {
+            text = string
+        }
+    }
+    
+    func copyToClipboard() {
+        pasteboard.string = self.text
+        
+        self.buttonText = "Copied!"
+        // self.text = "" // clear the text after copy
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            self.buttonText = "Copy to clipboard"
+        }
     }
 }
 
@@ -73,7 +112,7 @@ struct MaxWidthColoredButtonModifier: ViewModifier {
             .font(.subheadline)
             .foregroundColor(.white)
             .padding()
-            .frame(width: UIScreen.main.bounds.width - 50, height: 44)
+            .frame(width: UIScreen.main.bounds.width - 70, height: 44)
             .bold()
             .background(Color.black.opacity(0.6))
             .clipShape(RoundedRectangle(cornerRadius: cornerRadius))

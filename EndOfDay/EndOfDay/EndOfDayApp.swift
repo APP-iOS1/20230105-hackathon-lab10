@@ -17,8 +17,10 @@ struct EndOfDayApp: App {
     }
     
     var body: some Scene {
+        let diaryStore: DiaryStore = DiaryStore()
         WindowGroup {
             MainView()
+                .environmentObject(diaryStore)
 //            ContentView()
 //                .environmentObject(userStore)
         }
