@@ -54,17 +54,19 @@ struct WriteDetailView: View {//
                             .foregroundColor(.black)
                     }
                 })
-                if trimTitle.count > 0 && trimContent.count > 0 {
-                    ToolbarItem(placement: .navigationBarTrailing, content: {
-                        Button {
-                            showingCategory.toggle()
-                            
-                        } label: {
-                            Text("완료")
-                                .foregroundColor(.black)
-                        }
-                    })
-                }
+                ToolbarItem(placement: .navigationBarTrailing, content: {
+                    Button {
+                        showingCategory.toggle()
+                        
+                    } label: {
+                        Text("완료")
+                            .foregroundColor(.black)
+                    }
+                    .opacity(trimTitle.count > 0 && trimContent.count > 0 ? 1.0 : 0.3)
+//                    .animation(.easeInOut(duration: 3), value: true)
+                    .disabled(trimTitle.count > 0 && trimContent.count > 0 ? false : true)
+                })
+               
             }
             .sheet(isPresented: $isPickerShowing, onDismiss: nil){
                 ImagePicker(image: $selectedImage)
