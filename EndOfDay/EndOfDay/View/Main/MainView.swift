@@ -8,16 +8,9 @@
 import SwiftUI
 
 struct MainView: View {
-//    private enum Field : Int, Hashable{
-//        case name, location, data, addAttendee
-//    }
-//    @FocusState private var focusField : Field?
-    
     @State private var showingSheet = false
-    
     @State private var showingCreatDiaryView = false
     @State private var showingEnterCodeView = false
-
     
     var columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
 
