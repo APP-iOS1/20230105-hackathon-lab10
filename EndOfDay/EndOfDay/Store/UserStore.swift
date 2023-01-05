@@ -34,7 +34,7 @@ class UserStore: ObservableObject {
             })
         }
         
-        // TODO: await async 로 변경해야함
+        // TODO: await async로 변경해야함
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
           // 1초 후 실행될 부분
             self.currentUserNickname = Auth.auth().currentUser?.displayName

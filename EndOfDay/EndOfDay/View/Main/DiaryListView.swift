@@ -11,8 +11,8 @@ import FirebaseFirestore
 
 struct DiaryListView: View {
     @StateObject private var recordStore: RecordStore = RecordStore()
-    
     @State var currentDate: Date = Date()
+    var diary: Diary
     
     var body: some View {
         NavigationStack {
@@ -27,7 +27,7 @@ struct DiaryListView: View {
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(spacing: 20) {
                         // Custom Date Picker
-                        CustomDatePicker(currentDate: $currentDate)
+                        CustomDatePicker(currentDate: $currentDate, diaryID: diary.id)
                     }
                     .padding(.vertical)
                 }
@@ -46,7 +46,7 @@ struct DiaryListView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink {
-                        //                    WriteDetailView(recordeStore: recordStore)
+                        WriteDetailView()
                     } label: {
                         Image(systemName: "square.and.pencil")
                         
@@ -54,7 +54,7 @@ struct DiaryListView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink {
-                        //                    WriteDetailView(recordeStore: recordStore)
+                        SettingView(diary: diary)
                     } label: {
                         Image(systemName: "gearshape.fill")
                     }
@@ -63,14 +63,15 @@ struct DiaryListView: View {
         }
         .onAppear {
             Task {
+                recordStore.diaryID = diary.id
                await recordStore.fetchRecords()
             }
         }
     }
 }
 
-struct DiaryListView_Previews: PreviewProvider {
-    static var previews: some View {
-        DiaryListView()
-    }
-}
+//struct DiaryListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        DiaryListView()
+//    }
+//}

@@ -23,13 +23,9 @@ class RecordStore: ObservableObject {
     func fetchRecords() async {
         do {
             self.records.removeAll()
-//            if !diaryID.isEmpty {
-                let snapshot = try await database.document("0A16CC1D-FBDC-4509-822F-64B42B999235").collection("Records").getDocuments()
+            if !diaryID.isEmpty {
+                let snapshot = try await database.document(diaryID).collection("Records").getDocuments()
                 for document in snapshot.documents {
-                    
-//                    print("for문 시작")
-//                    print(document)
-                    
                     let docData = document.data()
                     let id: String = document.documentID
                     let recordTitle: String = docData["recordTitle"] as? String ?? ""
@@ -49,9 +45,10 @@ class RecordStore: ObservableObject {
                     let record: Record = Record(id: id, recordTitle: recordTitle, recordContent: recordContent, createdAt: createdAt, writerID: writerID, userNickName: userNickName, photoID: photoID, photo: photo)
                     self.records.append(record)
                 }
-//            }
+            }
                 self.records = records.sorted{ $0.createdAt > $1.createdAt}
-            } catch{
+        } catch{
+            fatalError()
         }
     }
     

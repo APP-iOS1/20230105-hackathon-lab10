@@ -4,7 +4,6 @@ import SwiftUI
 
 struct WriteDetailView: View {//
     @EnvironmentObject private var userStore: UserStore
-    @EnvironmentObject var recordStore: RecordStore
     
     @State private var recordTitle: String = ""
     @State private var recordContent: String = ""

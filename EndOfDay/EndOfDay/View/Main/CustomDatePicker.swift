@@ -12,6 +12,7 @@ struct CustomDatePicker: View {
     @Binding var currentDate: Date
     @State var currentMonth: Int = 0
     @StateObject var recordStore: RecordStore = RecordStore()
+    var diaryID: String
     
     var body: some View {
         VStack(spacing: 35) {
@@ -117,7 +118,12 @@ struct CustomDatePicker: View {
                 ForEach(recordStore.records.filter { record in
                     return isSameDay(date1: Date(timeIntervalSince1970: record.createdAt), date2: currentDate)
                 }) { record in
-                    DiaryCellView(record: record)
+                    NavigationLink {
+                        DiaryDetailView()
+                    } label: {
+                        DiaryCellView(record: record)
+                    }
+
                 }
             }
 //            .padding()
@@ -130,6 +136,7 @@ struct CustomDatePicker: View {
         }
         .onAppear {
             Task {
+                recordStore.diaryID = diaryID
                 await recordStore.fetchRecords()
             }
         }

@@ -14,8 +14,8 @@ class DiaryStore: ObservableObject {
     @Published var diaries: [Diary] = []
     @Published var privateDiary: Diary = Diary(id: "", dairyTitle: "", colorIndex: 0, createdAt: 0, membersID: [], membersNickname: [""])
     
-    lazy var userID = Auth.auth().currentUser?.uid
-    lazy var userNickNAme = Auth.auth().currentUser?.displayName
+    lazy var userID = Auth.auth().currentUser?.uid ?? ""
+    lazy var userNickname = Auth.auth().currentUser?.displayName ?? ""
     
     let database = Firestore.firestore().collection("Diaries")
     
@@ -24,7 +24,7 @@ class DiaryStore: ObservableObject {
         do {
             print("fetch")
             diaries.removeAll()
-            if let userID = userID {
+            if userID != "" {
                 let snapshot = try await database.whereField("membersID", arrayContains: userID).getDocuments()
                 
                 for document in snapshot.documents {
@@ -34,7 +34,8 @@ class DiaryStore: ObservableObject {
                     let colorIndex: Int = docData["colorIndex"] as? Int ?? 0
                     let createdAt: Double = docData["createdAt"] as? Double ?? 0
                     let membersID: [String] = docData["membersID"] as? [String] ?? []
-                    let diary: Diary = Diary(id: id,dairyTitle: diaryTitle, colorIndex: colorIndex, createdAt: createdAt, membersID: membersID, membersNickname: membersID)
+                    let membersNickname: [String] = docData["membersNickname"] as? [String] ?? []
+                    let diary: Diary = Diary(id: id,dairyTitle: diaryTitle, colorIndex: colorIndex, createdAt: createdAt, membersID: membersID, membersNickname: membersNickname)
                     if id == userID{
                         
                     } else {
@@ -58,7 +59,8 @@ class DiaryStore: ObservableObject {
                     "diaryTitle": "\(nickName)님의 일기장",
                     "colorIndex": 0,
                     "createdAt": time,
-                    "membersID" : [userID]])
+                    "membersID" : [userID],
+                    "membersNickname" : [nickName]])
             
             await fetchDiaries()
         } catch {
@@ -75,7 +77,8 @@ class DiaryStore: ObservableObject {
                     "diaryTitle": diary.dairyTitle,
                     "colorIndex": diary.colorIndex,
                     "createdAt": diary.createdAt,
-                    "membersID" : diary.membersID])
+                    "membersID" : diary.membersID,
+                    "membersNickname" : diary.membersNickname])
             
             await fetchDiaries()
         } catch {
@@ -83,7 +86,7 @@ class DiaryStore: ObservableObject {
         }
     }
     
-    // MARK: Diary 초대 수락(그룹 들어가기)
+    // MARK: Diary 초대 수락(그룹 들어가기) - 에러처리 필요
     // 초대코드를 입력하고 버튼을 눌렀을때 실행된다
     func joinDiary(diaryID: String) async {
         do {
@@ -92,11 +95,15 @@ class DiaryStore: ObservableObject {
             
             // 기존 uid배열에 지금 입력받은 아이디를 추가해준다.
             var membersID: [String] = docData["membersID"] as? [String] ?? []
-            membersID.append(userID ?? "")
+            membersID.append(userID)
+            var membersNickname: [String] = docData["membersNickname"] as? [String] ?? []
+            membersNickname.append(userNickname)
             
             try await database.document(diaryID)
                 .updateData([
-                    "membersID" : membersID])
+                    "membersID" : membersID,
+                    "membersNickname": membersNickname])
+
             await fetchDiaries()
         } catch {
             fatalError()
@@ -126,8 +133,10 @@ class DiaryStore: ObservableObject {
             
             // 기존 uid배열에 지금 입력받은 아이디를 삭제해준다.
             var membersID: [String] = docData["membersID"] as? [String] ?? []
-            guard let removeIndex = membersID.firstIndex(of: userID ?? "") else { return }
+            var membersNickname: [String] = docData["membersNickname"] as? [String] ?? []
+            guard let removeIndex = membersID.firstIndex(of: userID) else { return }
             membersID.remove(at: removeIndex)
+            membersNickname.remove(at: removeIndex)
             
             if membersID.isEmpty { // 마지막 사람이 나간경우 일기장을 삭제
                 await deleteDiary(diaryID)

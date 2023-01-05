@@ -21,7 +21,7 @@ struct EndOfDayApp: App {
         let diaryStore: DiaryStore = DiaryStore()
         let recordStore: RecordStore = RecordStore()
         WindowGroup {
-            MainView()
+            ContentView()
                 .environmentObject(diaryStore)
                 .environmentObject(userStore)
                 .environmentObject(recordStore)

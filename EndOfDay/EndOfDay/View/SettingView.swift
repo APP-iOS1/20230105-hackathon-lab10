@@ -10,7 +10,7 @@ import UniformTypeIdentifiers
 
 struct SettingView: View {
     @EnvironmentObject var diaryStore: DiaryStore
-//    var diary: Diary
+    var diary: Diary
     
     @State private var text: String = "초대코드askdjadjklkl"
     @State private var buttonText  = "초대코드 복사하기"
@@ -48,12 +48,12 @@ struct SettingView: View {
 //            )
 
             Section(header: Text("함께하는 사람들"), content: {
-//                ForEach(diary.membersNickname, id: \.self) { nickname in
-//                    Text(nickname)
-//                }
-                Text("조운상")
-                Text("이영우")
-                Text("김태성")
+                ForEach(diary.membersNickname, id: \.self) { nickname in
+                    Text(nickname)
+                }
+//                Text("조운상")
+//                Text("이영우")
+//                Text("김태성")
             })
             
             // TODO: 일기장 생성 뷰 재사용 가능한지 확인하기
@@ -65,7 +65,7 @@ struct SettingView: View {
             
             Button {
                 Task {
-//                    await diaryStore.outDiary(diaryID: diary.id, userID: "")
+                    await diaryStore.outDiary(diaryID: diary.id)
                 }
             } label: {
                 Text("일기장 나가기")
@@ -94,13 +94,13 @@ struct SettingView: View {
     }
 }
 
-struct SettingView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationStack {
-            SettingView()
-        }
-    }
-}
+//struct SettingView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        NavigationStack {
+//            SettingView()
+//        }
+//    }
+//}
 
 
 struct MaxWidthColoredButtonModifier: ViewModifier {

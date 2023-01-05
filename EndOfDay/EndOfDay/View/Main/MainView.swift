@@ -84,7 +84,7 @@ struct MainView: View {
                     
                     ForEach(diaryStore.diaries) { diary in
                         NavigationLink {
-                            DiaryFeedView()
+                            DiaryListView(diary: diary)
                         } label: {
                             DiaryCell(diary: diary)
                                 .padding(.vertical, 10)
@@ -99,7 +99,7 @@ struct MainView: View {
             Task {
                 await diaryStore.fetchDiaries()
             }
-            print("닉네임: \(userStore.currentUserNickname)")
+//            print("닉네임: \(userStore.currentUserNickname)")
         }
         .sheet(isPresented: $showingCreatDiaryView) {
             createDiaryView(showingSheet: $showingCreatDiaryView)
