@@ -15,6 +15,7 @@ struct SettingView: View {
     @State private var text: String = "초대코드askdjadjklkl"
     @State private var buttonText  = "초대코드 복사하기"
     
+    @State private var showingAlert: Bool = false
     private let pasteboard = UIPasteboard.general
     
     var body: some View {
@@ -40,20 +41,20 @@ struct SettingView: View {
                 }
             }
             .padding()
-//            .overlay(
-//                Rectangle()
-//                    .frame(width: UIScreen.main.bounds.width - 30)
-//                    .cornerRadius(15)
-//                    .foregroundColor(.gray.opacity(0.1))
-//            )
-
+            //            .overlay(
+            //                Rectangle()
+            //                    .frame(width: UIScreen.main.bounds.width - 30)
+            //                    .cornerRadius(15)
+            //                    .foregroundColor(.gray.opacity(0.1))
+            //            )
+            
             Section(header: Text("함께하는 사람들"), content: {
                 ForEach(diary.membersNickname, id: \.self) { nickname in
                     Text(nickname)
                 }
-//                Text("조운상")
-//                Text("이영우")
-//                Text("김태성")
+                //                Text("조운상")
+                //                Text("이영우")
+                //                Text("김태성")
             })
             
             // TODO: 일기장 생성 뷰 재사용 가능한지 확인하기
@@ -64,18 +65,23 @@ struct SettingView: View {
             }
             
             Button {
-                Task {
-                    await diaryStore.outDiary(diaryID: diary.id)
-                }
+                showingAlert.toggle()
+            
             } label: {
                 Text("일기장 나가기")
             }
+            .alert(isPresented: $showingAlert) {
+                Alert(title: Text("삭제"), message: Text("일기장을 삭제하시겠습니까?"), primaryButton: .destructive(Text("삭제"), action: {
+                    Task {
+                        await diaryStore.outDiary(diaryID: diary.id)
+                    }
+                }), secondaryButton: .cancel(Text("취소")))
+            }
+            
         }
         .listStyle(SidebarListStyle())
         .navigationBarTitle("일기 설정", displayMode: .inline)
     }
-    
-    
     
     func paste(){
         if let string = pasteboard.string {
