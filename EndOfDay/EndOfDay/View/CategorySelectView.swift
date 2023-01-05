@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AlertToast
 
 struct CategorySelectView: View {
 //    @State private var diariesID: [Int] = []
@@ -16,6 +17,7 @@ struct CategorySelectView: View {
     @EnvironmentObject var diaryStore: DiaryStore
     @EnvironmentObject var recordStore: RecordStore
     @Environment(\.dismiss) private var dismiss
+    @State private var isShowingPopup = false
     var record: Record
     var body: some View {
         NavigationStack {
@@ -43,7 +45,12 @@ struct CategorySelectView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button() {
                         showingSheet.toggle()
-                        dismiss()
+                        isShowingPopup = true
+                        
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.0) {
+                          // 1초 후 실행될 부분
+                            dismiss()
+                        }
                         Task{
                             await recordStore.addRecord(record:record, diariesID: diariesID)
                         }
@@ -52,6 +59,14 @@ struct CategorySelectView: View {
                             .foregroundColor(.black)
                     }
                 }
+            }
+            .toast(isPresenting: $isShowingPopup){
+                
+                // `.alert` is the default displayMode
+//                AlertToast(type: .regular, title: "Message Sent!")
+                
+                //Choose .hud to toast alert from the top of the screen
+                AlertToast(displayMode: .hud, type: .regular, title: "Message Sent!")
             }
         }
         

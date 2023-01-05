@@ -48,7 +48,7 @@
 		EBD3745B2966FFCD00C5C4A4 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD3745A2966FFCD00C5C4A4 /* CommentView.swift */; };
 		EBD3745D296719DF00C5C4A4 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD3745C296719DF00C5C4A4 /* SettingView.swift */; };
 		EBD3745F2967357700C5C4A4 /* CopyTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD3745E2967357700C5C4A4 /* CopyTestView.swift */; };
-
+		EBD3746229677D1800C5C4A4 /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = EBD3746129677D1800C5C4A4 /* AlertToast */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -99,6 +99,7 @@
 				A89C3D3029481A550050F31F /* FirebaseDatabaseSwift in Frameworks */,
 				A89C3D3229481A550050F31F /* FirebaseFirestore in Frameworks */,
 				A89C3D2E29481A550050F31F /* FirebaseDatabase in Frameworks */,
+				EBD3746229677D1800C5C4A4 /* AlertToast in Frameworks */,
 				A89C3D2C29481A550050F31F /* FirebaseAuth in Frameworks */,
 				61413F342949C1D70068B4E0 /* FirebaseStorage in Frameworks */,
 			);
@@ -252,6 +253,7 @@
 				A89C3D3329481A550050F31F /* FirebaseFirestoreSwift */,
 				61413F332949C1D70068B4E0 /* FirebaseStorage */,
 				EBD374562966C42B00C5C4A4 /* PopupView */,
+				EBD3746129677D1800C5C4A4 /* AlertToast */,
 			);
 			productName = EndOfDay;
 			productReference = 6187AEDF29473206004AB9BD /* EndOfDay.app */;
@@ -284,6 +286,7 @@
 			packageReferences = (
 				A89C3D2A29481A550050F31F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				EBD374552966C42B00C5C4A4 /* XCRemoteSwiftPackageReference "PopupView" */,
+				EBD3746029677D1800C5C4A4 /* XCRemoteSwiftPackageReference "AlertToast" */,
 			);
 			productRefGroup = 6187AEE029473206004AB9BD /* Products */;
 			projectDirPath = "";
@@ -559,6 +562,14 @@
 				kind = branch;
 			};
 		};
+		EBD3746029677D1800C5C4A4 /* XCRemoteSwiftPackageReference "AlertToast" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/elai950/AlertToast.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -596,6 +607,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = EBD374552966C42B00C5C4A4 /* XCRemoteSwiftPackageReference "PopupView" */;
 			productName = PopupView;
+		};
+		EBD3746129677D1800C5C4A4 /* AlertToast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EBD3746029677D1800C5C4A4 /* XCRemoteSwiftPackageReference "AlertToast" */;
+			productName = AlertToast;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

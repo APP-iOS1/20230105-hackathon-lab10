@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AlertToast
 
 struct MyPageView: View {
     private enum Field : Int, Hashable{
@@ -16,6 +17,7 @@ struct MyPageView: View {
     @State var nickname : String = ""
     @EnvironmentObject var userStore: UserStore
     @Environment(\.dismiss) private var dismiss
+    @State private var isShowingPopup = false
     
     var body: some View {
         VStack{
@@ -101,12 +103,28 @@ struct MyPageView: View {
                     )
                     .onTapGesture {
                         userStore.logOut()
-                        dismiss()
+                        
+                        
+                        isShowingPopup = true
+                        
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.5) {
+                          // 1초 후 실행될 부분
+                            dismiss()
+                        }
                         print("코드 제출 완료")
                     }
                     .padding(.bottom, 10)
             }
             .padding(.top, 20)
+        }
+        .toast(isPresenting: $isShowingPopup){
+            
+            // `.alert` is the default displayMode
+//                AlertToast(type: .regular, title: "Message Sent!")
+            
+            //Choose .hud to toast alert from the top of the screen
+            AlertToast(displayMode: .hud, type: .regular, title: "tt")
+//            AlertToast(type: .image("yellow", Color.red), title: "로그아웃 완료")
         }
     }
 }

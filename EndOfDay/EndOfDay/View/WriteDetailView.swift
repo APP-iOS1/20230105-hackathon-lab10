@@ -24,10 +24,10 @@ struct WriteDetailView: View {//
     var body: some View {
         VStack {
             ScrollView {
-                    TextField("일기 제목을 입력해주세요", text: $recordTitle)
+                TextField("일기 제목을 입력해주세요", text: $recordTitle)
                     .multilineTextAlignment(TextAlignment.center)
-//                        .frame(width: 250)
-//                        .border(.black)
+                //                        .frame(width: 250)
+                //                        .border(.black)
                 Divider()
                     .padding(.horizontal, 80)
                 if let image = selectedImage {
@@ -86,8 +86,11 @@ struct WriteDetailView: View {//
                 CategorySelectView(showingSheet: $showingCategory, record: record)
                     .presentationDetents([.medium])
             }
+            
     }
+    
 }
+
 
 //struct WriteDetailView_Previews: PreviewProvider {
 //    static var previews: some View {

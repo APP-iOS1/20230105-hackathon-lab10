@@ -55,8 +55,9 @@ struct SignUpView: View {
                         Text("이메일 형식이 맞지 않습니다")
                             .foregroundColor(.red)
                     } else if !emailID.isEmpty && isCheckValidEmail {
-                        Text("사용가능한 이메일입니다")
-                            .foregroundColor(.blue)
+//                        Text("사용가능한 이메일입니다")
+                        Image(systemName: "checkmark.circle")
+                            .foregroundColor(.green)
                     }else if emailID.isEmpty{
                         Text(" ")
                     }
@@ -78,8 +79,8 @@ struct SignUpView: View {
                         Text("닉네임 형식이 맞지 않습니다")
                             .foregroundColor(.red)
                     }else if !nickname.isEmpty && (nickname.count > 1 && nickname.count < 9){
-                        Text("사용가능한 닉네임입니다")
-                            .foregroundColor(.blue)
+                        Image(systemName: "checkmark.circle")
+                            .foregroundColor(.green)
                     }else if nickname.isEmpty{
                         Text(" ")
                     }
@@ -99,8 +100,8 @@ struct SignUpView: View {
                         Text("비밀번호 형식이 맞지 않습니다")
                             .foregroundColor(.red)
                     } else if !password.isEmpty && (password.count > 7) {
-                        Text("사용가능한 비밀번호입니다")
-                            .foregroundColor(.blue)
+                        Image(systemName: "checkmark.circle")
+                            .foregroundColor(.green)
                     } else if password.isEmpty{
                         Text(" ")
                     }
@@ -120,8 +121,8 @@ struct SignUpView: View {
                         Text("비밀번호가 일치하지 않습니다")
                             .foregroundColor(.red)
                     } else if !passwordCheck.isEmpty && password == passwordCheck {
-                        Text("비밀번호가 일치합니다")
-                            .foregroundColor(.blue)
+                        Image(systemName: "checkmark.circle")
+                            .foregroundColor(.green)
                     }else if passwordCheck.isEmpty{
                         Text(" ")
                     }
@@ -147,7 +148,14 @@ struct SignUpView: View {
                     
                 } label: {
                     Text("회원가입하기")
-                        .modifier(MaxWidthColoredButtonModifier(cornerRadius: 15))
+                        .font(.subheadline)
+                        .foregroundColor(.white)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .bold()
+                        .background(Color.black)
+                        .clipShape(RoundedRectangle(cornerRadius: 15))
+                        .padding(EdgeInsets(top: 5, leading: 20, bottom: 0, trailing: 20))
                 }
             }else{
                 Button{

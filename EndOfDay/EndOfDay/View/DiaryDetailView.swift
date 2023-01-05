@@ -6,16 +6,55 @@
 //
 
 import SwiftUI
+struct ListCell: View {
+    var record: Record
+    var body: some View {
+        VStack(alignment: .leading, spacing: 7) {
+            HStack {
+                Circle()
+                    .foregroundColor(.black)
+                    .frame(width: 40, height: 40)
+                VStack {
+                    HStack {
+                        Text("\(record.userNickName) |")
+                        Text(record.recordTitle)
+                            .lineLimit(1)
+                    }
+                }
+            }
+            .font(.subheadline)
+            .bold()
+            Text(record.recordContent)
+            HStack {
+                Spacer()
+                Text("\(record.createdDate)")
+                    .font(.caption)
+                    .foregroundColor(.gray)
+            }
+        }
+        .padding(.vertical, 5)
+    }
+}
 
 struct DiaryDetailView: View {
+    @StateObject private var recordStore: RecordStore = RecordStore()
+    
     var colors = Color(red: 52 / 255, green: 152 / 255, blue: 255 / 255)
     
     var body: some View {
         VStack {
-            Rectangle()
-                .frame(width: UIScreen.main.bounds.width - 40, height: UIScreen.main.bounds.height - 650)
-                .cornerRadius(15)
-                .foregroundColor(colors.opacity(0.3))
+            
+            NavigationLink {
+                RecordDetailView(record: recordStore.records.first!)
+            } label: {
+                ListCell(record: recordStore.records.first!)
+            }
+            
+//            Rectangle()
+//                .frame(width: UIScreen.main.bounds.width - 40, height: UIScreen.main.bounds.height - 650)
+//                .cornerRadius(15)
+//                .foregroundColor(colors.opacity(0.3))
+
             
             VStack(alignment: .leading) {
                 
