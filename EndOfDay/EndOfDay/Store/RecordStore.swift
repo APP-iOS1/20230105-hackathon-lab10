@@ -21,9 +21,8 @@ class RecordStore: ObservableObject {
         do {
             print("fetch시작")
             self.records.removeAll()
-//            if !diaryID.isEmpty {
-                let snapshot = try await Firestore.firestore().collection("Records").getDocuments()
-//                let snapshot = try await database.collection("Records").getDocuments()
+            if !diaryID.isEmpty {
+                let snapshot = try await database.document(diaryID).collection("Records").getDocuments()
                 for document in snapshot.documents {
                     print("for문 작동")
                     let docData = document.data()
@@ -48,8 +47,9 @@ class RecordStore: ObservableObject {
                     self.records.append(record)
                     print("for문 종료")
                 }
+            }
                 self.records = records.sorted{ $0.createdAt > $1.createdAt}
-        } catch{
+            } catch{
         }
     }
     
@@ -58,7 +58,7 @@ class RecordStore: ObservableObject {
         do {
             for diaryID in diariesID{
                 if !diaryID.isEmpty {
-                    try await database.document(diaryID).collection("Record").document(record.id)
+                    try await database.document(diaryID).collection("Records").document(record.id)
                         .setData([
                             "recordTitle": record.recordTitle,
                             "recordContent": record.recordContent,
@@ -85,7 +85,7 @@ class RecordStore: ObservableObject {
             
             for diaryID in diariesID {
                 if !diaryID.isEmpty {
-                    try await database.document(diaryID).collection("Record").document(record.id)
+                    try await database.document(diaryID).collection("Records").document(record.id)
                         .updateData([
                             "recordTitle": record.recordTitle,
                             "recordContent": record.recordContent,
