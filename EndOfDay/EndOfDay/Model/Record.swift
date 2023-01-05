@@ -15,9 +15,9 @@ struct Record: Identifiable {
     var createdAt: Double
     var userID: String
     var userNickName: String
-    var photos: String?
+    var photoID: String?
     //TODO: UIImage배열을 구조체에 넘겨주기 
-//    var photo: [UIImage]
+    var photo: UIImage?
     
     var createdDate: String {
         let dateFormatter = DateFormatter()
