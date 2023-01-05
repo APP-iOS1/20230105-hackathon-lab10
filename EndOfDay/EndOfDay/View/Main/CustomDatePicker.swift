@@ -17,7 +17,7 @@ struct CustomDatePicker: View {
         VStack(spacing: 35) {
             
             // Days
-            let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+            let days = ["일", "월", "화", "수", "목", "금", "토"]
                         
             HStack(spacing: 20) {
                 
@@ -92,7 +92,7 @@ struct CustomDatePicker: View {
                 Text("Diaries")
                     .font(.title2.bold())
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.vertical , 20)
+                    .padding(.horizontal)
                 
 //                let dateCreatedAt = Date(timeIntervalSince1970: $0.createdAt)
                 
@@ -120,7 +120,7 @@ struct CustomDatePicker: View {
                     DiaryCellView(record: record)
                 }
             }
-            .padding()
+//            .padding()
 
             
         }

@@ -69,8 +69,8 @@ struct DiaryListView: View {
     }
 }
 
-//struct DiaryListView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        DiaryListView()
-//    }
-//}
+struct DiaryListView_Previews: PreviewProvider {
+    static var previews: some View {
+        DiaryListView()
+    }
+}
