@@ -102,6 +102,7 @@ class UserStore: ObservableObject {
                     currentUser.commitChanges(completion: {error in
                         if let error = error {
                             print(error)
+                            return
                         } else {
                             print("DisplayName changed")
                         }
