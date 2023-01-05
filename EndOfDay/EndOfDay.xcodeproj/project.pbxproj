@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		234F223A296685F90049EB08 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234F2239296685F90049EB08 /* MainView.swift */; };
 		23F9C9C6294861640058D112 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F9C9C5294861640058D112 /* TestView.swift */; };
 		23F9C9C8294861AF0058D112 /* DiaryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F9C9C7294861AF0058D112 /* DiaryStore.swift */; };
 		23F9C9CA29486F8C0058D112 /* RecordStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F9C9C929486F8C0058D112 /* RecordStore.swift */; };
@@ -40,6 +41,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		234F2239296685F90049EB08 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		23F9C9C5294861640058D112 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		23F9C9C7294861AF0058D112 /* DiaryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryStore.swift; sourceTree = "<group>"; };
 		23F9C9C929486F8C0058D112 /* RecordStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordStore.swift; sourceTree = "<group>"; };
@@ -84,6 +86,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		234F22342966846E0049EB08 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				A89C3D3929481CAE0050F31F /* LoginView.swift */,
+				A89C3D3B29481D520050F31F /* SignUpView.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		234F22352966849F0049EB08 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				234F2239296685F90049EB08 /* MainView.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
 		61413F322949B2A00068B4E0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -135,9 +154,9 @@
 		6189E51E2947FA6200A7B659 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				234F22352966849F0049EB08 /* Main */,
+				234F22342966846E0049EB08 /* Login */,
 				6189E5342948431D00A7B659 /* ContentView.swift */,
-				A89C3D3929481CAE0050F31F /* LoginView.swift */,
-				A89C3D3B29481D520050F31F /* SignUpView.swift */,
 				6189E5262947FDAA00A7B659 /* DiaryFeedView.swift */,
 				6189E5282947FDB100A7B659 /* RecordDetailView.swift */,
 				6189E52A2947FDCB00A7B659 /* WriteDetailView.swift */,
@@ -268,6 +287,7 @@
 				61413F382949EFCA0068B4E0 /* ImageStore.swift in Sources */,
 				611BABA829496E9F00ADB6DA /* AddingCommentView.swift in Sources */,
 				6189E52D2947FE1C00A7B659 /* Diary.swift in Sources */,
+				234F223A296685F90049EB08 /* MainView.swift in Sources */,
 				6189E5292947FDB100A7B659 /* RecordDetailView.swift in Sources */,
 				6189E5352948431D00A7B659 /* ContentView.swift in Sources */,
 				61413F362949CDB00068B4E0 /* ImagePicker.swift in Sources */,
