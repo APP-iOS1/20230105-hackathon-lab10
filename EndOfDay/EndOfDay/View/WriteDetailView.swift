@@ -56,8 +56,10 @@ struct WriteDetailView: View {
                                 createdAt: createdAt,
                                 userID: userStore.user?.uid ?? "",
                                 userNickName: userStore.user?.displayName ?? "",
-                                photos: imageId)
-                            recordeStore.addRecord(record)
+                                photoID: imageId)
+                            Task{
+//                                await recordeStore.addRecord(record)
+                            }
                         } label: {
                             Text("완료")
                         }
@@ -70,10 +72,10 @@ struct WriteDetailView: View {
     }
 }
 
-struct WriteDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationStack{
-            WriteDetailView(recordeStore: RecordStore())
-        }
-    }
-}
+//struct WriteDetailView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        NavigationStack{
+//            WriteDetailView(recordeStore: RecordStore())
+//        }
+//    }
+//}

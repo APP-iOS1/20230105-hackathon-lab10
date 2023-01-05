@@ -41,7 +41,7 @@ class ImageStore: ObservableObject{
                     paths.append(doc["photos"] as! String)
                 }
                 for path in paths {
-                    if path == record.photos {
+                    if path == record.photoID {
                         let storageRef = Storage.storage().reference()
                         let fileRef = storageRef.child("images/\(path).jpg")
                         fileRef.getData(maxSize: 5*1024*1024) { data, error in

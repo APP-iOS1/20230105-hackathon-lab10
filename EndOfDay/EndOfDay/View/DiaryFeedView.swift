@@ -11,6 +11,7 @@ import FirebaseFirestore
 
 struct DiaryFeedView: View {
     @StateObject private var recordStore: RecordStore = RecordStore()
+    @StateObject private var imageStore: ImageStore = ImageStore()
     @EnvironmentObject private var userStore: UserStore
     
     var body: some View {
@@ -50,10 +51,14 @@ struct DiaryFeedView: View {
         //            ImagePicker(image: $selectedImage)}
     
         .onAppear {
-            recordStore.fetchRecords()
+            Task{
+                await recordStore.fetchRecords()
+            }
         }
         .refreshable {
-            recordStore.fetchRecords()
+            Task{
+                await recordStore.fetchRecords()
+            }
         }
     }
 }
@@ -71,6 +76,7 @@ struct ListCell: View {
                         Text("\(record.userNickName) |")
                         Text(record.recordTitle)
                             .lineLimit(1)
+                        Image(uiImage: record.photo ?? UIImage())
                     }
                 }
             }
@@ -87,8 +93,8 @@ struct ListCell: View {
         .padding(.vertical, 5)
     }
 }
-struct DiaryFeedView_Previews: PreviewProvider {
-    static var previews: some View {
-        DiaryFeedView()
-    }
-}
+//struct DiaryFeedView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        DiaryFeedView()
+//    }
+//}

@@ -57,14 +57,17 @@ struct RecordDetailView: View {
             }
         }
         .onAppear{
-            commentStore.recordID = record.id
-            commentStore.fetchComments()
-            imageStore.retrievePhotos(record)
+            Task {
+                commentStore.recordID = record.id
+                await commentStore.fetchComments()
+            }
 //            print(photo)
         }
         .refreshable {
-            commentStore.recordID = record.id
-            commentStore.fetchComments()
+            Task {
+                commentStore.recordID = record.id
+                await commentStore.fetchComments()
+            }
         }
         AddingCommentView(commentStore: commentStore, record: record)
     }
