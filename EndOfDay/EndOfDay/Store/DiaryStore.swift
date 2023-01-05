@@ -17,6 +17,8 @@ class DiaryStore: ObservableObject {
     // MARK: Diary 불러오기
     func fetchDiaries(userID: String) async {
         do {
+            print("fetch")
+            diaries.removeAll()
             let snapshot = try await database.whereField("membersID", arrayContains: userID).getDocuments()
             
             for document in snapshot.documents {
@@ -35,17 +37,20 @@ class DiaryStore: ObservableObject {
         } catch{
             fatalError()
         }
+        
     }
     
     // MARK: Diary 만들기
     func addDiary(diary: Diary, userID: String) async {
         do {
+            print("add")
             try await database.document(diary.id)
                 .setData([
                     "diaryTitle": diary.dairyTitle,
                     "colorIndex": diary.colorIndex,
                     "createdAt": diary.createdAt,
-                    "membersID" : [diary.membersID]])
+                    "membersID" : diary.membersID])
+                    
             
             await fetchDiaries(userID: userID)
         } catch {
@@ -81,7 +86,7 @@ class DiaryStore: ObservableObject {
                     "diaryTitle": diary.dairyTitle,
                     "colorIndex": diary.colorIndex,
                     "createdAt": diary.createdAt,
-                    "membersID" : [diary.membersID]])
+                    "membersID" : diary.membersID])
             await fetchDiaries(userID: userID)
         } catch {
             fatalError()

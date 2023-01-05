@@ -25,7 +25,9 @@ struct ChangeNickNameView: View {
             
             Button {
                 isShowingTextField.toggle()
-                userStore.updateNickname(nickname)
+                Task {
+                    await userStore.updateNickname(nickname)
+                }
             } label: {
                 Text("닉네임 변경")
             }

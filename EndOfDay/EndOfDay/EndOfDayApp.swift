@@ -10,17 +10,21 @@ import FirebaseCore
 
 @main
 struct EndOfDayApp: App {
-    @StateObject var userStore = UserStore()
+    
     
     init() {
         FirebaseApp.configure()
     }
     
     var body: some Scene {
+        let userStore: UserStore = UserStore()
+        let diaryStore: DiaryStore = DiaryStore()
+        let recordStore: RecordStore = RecordStore()
         WindowGroup {
             MainView()
-//            ContentView()
-//                .environmentObject(userStore)
+                .environmentObject(diaryStore)
+                .environmentObject(userStore)
+                .environmentObject(recordStore)
         }
     }
 }

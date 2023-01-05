@@ -24,7 +24,7 @@ struct DiaryFeedView: View {//
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink {
-                        WriteDetailView(recordeStore: recordStore)
+                        WriteDetailView()
                     } label: {
                         Image(systemName: "plus")
                             .foregroundColor(.black)
