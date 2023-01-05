@@ -13,7 +13,7 @@ struct DiaryCellView: View {
     
     var body: some View {
         VStack {
-//            Form {
+            Form {
                 HStack {
                     Spacer()
                     Rectangle()
@@ -34,9 +34,9 @@ struct DiaryCellView: View {
                 .padding()
                 
                 
-//            }
+            }
+            .frame(width: .infinity, height: 450)
         }
-//        .frame(maxHeight: .infinity)
     }
 }
 
