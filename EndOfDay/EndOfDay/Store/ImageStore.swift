@@ -30,32 +30,4 @@ class ImageStore: ObservableObject{
         
         return uuid
     }
-    
-    func retrievePhotos(_ record: Record){
-        self.images = []
-        let db = Firestore.firestore()
-        db.collection("Records").getDocuments { snapshot, error in
-            if error == nil && snapshot != nil {
-                var paths = [String]()
-                for doc in snapshot!.documents {
-                    paths.append(doc["photos"] as! String)
-                }
-                for path in paths {
-                    if path == record.photoID {
-                        let storageRef = Storage.storage().reference()
-                        let fileRef = storageRef.child("images/\(path).jpg")
-                        fileRef.getData(maxSize: 5*1024*1024) { data, error in
-                            if error == nil && data != nil {
-                                if let image = UIImage(data: data!) {
-                                    DispatchQueue.main.async{
-                                        self.images.append(image)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
 }
