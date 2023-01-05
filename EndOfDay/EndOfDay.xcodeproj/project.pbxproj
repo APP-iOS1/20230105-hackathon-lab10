@@ -38,6 +38,9 @@
 		A89C3D3A29481CAE0050F31F /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89C3D3929481CAE0050F31F /* LoginView.swift */; };
 		A89C3D3C29481D520050F31F /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89C3D3B29481D520050F31F /* SignUpView.swift */; };
 		A89C3D3E29481DC90050F31F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89C3D3D29481DC90050F31F /* HomeView.swift */; };
+		AD1CF014296694DC004EAA51 /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1CF013296694DC004EAA51 /* MyPageView.swift */; };
+		AD1CF01629669686004EAA51 /* createDiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1CF01529669686004EAA51 /* createDiaryView.swift */; };
+		AD1CF01829669A2B004EAA51 /* EnterCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1CF01729669A2B004EAA51 /* EnterCodeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +70,9 @@
 		A89C3D3929481CAE0050F31F /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		A89C3D3B29481D520050F31F /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		A89C3D3D29481DC90050F31F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		AD1CF013296694DC004EAA51 /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
+		AD1CF01529669686004EAA51 /* createDiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = createDiaryView.swift; sourceTree = "<group>"; };
+		AD1CF01729669A2B004EAA51 /* EnterCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterCodeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +105,9 @@
 			isa = PBXGroup;
 			children = (
 				234F2239296685F90049EB08 /* MainView.swift */,
+				AD1CF013296694DC004EAA51 /* MyPageView.swift */,
+				AD1CF01529669686004EAA51 /* createDiaryView.swift */,
+				AD1CF01729669A2B004EAA51 /* EnterCodeView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -290,11 +299,14 @@
 				234F223A296685F90049EB08 /* MainView.swift in Sources */,
 				6189E5292947FDB100A7B659 /* RecordDetailView.swift in Sources */,
 				6189E5352948431D00A7B659 /* ContentView.swift in Sources */,
+				AD1CF014296694DC004EAA51 /* MyPageView.swift in Sources */,
 				61413F362949CDB00068B4E0 /* ImagePicker.swift in Sources */,
 				23F9C9CC294872AB0058D112 /* CommentStore.swift in Sources */,
 				A89C3D3C29481D520050F31F /* SignUpView.swift in Sources */,
+				AD1CF01829669A2B004EAA51 /* EnterCodeView.swift in Sources */,
 				6189E52F2947FE2C00A7B659 /* Record.swift in Sources */,
 				23F9C9CA29486F8C0058D112 /* RecordStore.swift in Sources */,
+				AD1CF01629669686004EAA51 /* createDiaryView.swift in Sources */,
 				23F9C9C8294861AF0058D112 /* DiaryStore.swift in Sources */,
 				6189E5312947FE5C00A7B659 /* UserInfo.swift in Sources */,
 				6189E52B2947FDCB00A7B659 /* WriteDetailView.swift in Sources */,
