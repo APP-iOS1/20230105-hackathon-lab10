@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AddingCommentView: View {
+struct AddingCommentView: View {//
     @StateObject var commentStore : CommentStore
     @State var commentText: String = ""
     let record: Record

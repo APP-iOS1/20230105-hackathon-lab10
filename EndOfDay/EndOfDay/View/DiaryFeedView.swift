@@ -9,7 +9,7 @@ import SwiftUI
 import FirebaseStorage
 import FirebaseFirestore
 
-struct DiaryFeedView: View {
+struct DiaryFeedView: View {//
     @StateObject private var recordStore: RecordStore = RecordStore()
     @EnvironmentObject private var userStore: UserStore
     

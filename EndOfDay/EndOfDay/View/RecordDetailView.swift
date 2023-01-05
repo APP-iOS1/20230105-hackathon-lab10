@@ -14,7 +14,7 @@ struct RecordDetailView: View {
 //    @State var retrievedImages = [UIImage]()
     
     var record: Record
-    var body: some View{
+    var body: some View{//
         VStack{
             ScrollView{
                 VStack(alignment: .leading, spacing: 15) {

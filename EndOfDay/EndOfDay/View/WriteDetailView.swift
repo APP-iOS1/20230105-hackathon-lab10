@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct WriteDetailView: View {
+struct WriteDetailView: View {//
     @EnvironmentObject private var userStore: UserStore
     
     @State private var recordTitle: String = ""
