@@ -1,9 +1,3 @@
-//
-//  AddingCommentView.swift
-//  EndOfDay
-//
-//  Created by 조석진 on 2022/12/14.
-//
 
 import SwiftUI
 
@@ -40,3 +34,4 @@ struct AddingCommentView_Previews: PreviewProvider {
         AddingCommentView(commentStore: CommentStore(), record: Record(id: "123123", recordTitle: "프리뷰야 보여라", recordContent: "여기도 회색이 되어버렸네요", createdAt: 1.1, userID: "ted123123", userNickName: "Ned"))
     }
 }
+

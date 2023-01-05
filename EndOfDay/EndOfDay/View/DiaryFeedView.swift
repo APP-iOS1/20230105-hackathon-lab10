@@ -1,9 +1,4 @@
-//
-//  DairyDetailView.swift
-//  EndOfDay
-//
-//  Created by 조석진 on 2022/12/13.
-//
+
 
 import SwiftUI
 import FirebaseStorage
@@ -92,3 +87,4 @@ struct DiaryFeedView_Previews: PreviewProvider {
         DiaryFeedView()
     }
 }
+

@@ -1,9 +1,4 @@
-//
-//  WriteDetailView.swift
-//  EndOfDay
-//
-//  Created by 조석진 on 2022/12/13.
-//
+
 
 import SwiftUI
 
@@ -77,3 +72,4 @@ struct WriteDetailView_Previews: PreviewProvider {
         }
     }
 }
+
