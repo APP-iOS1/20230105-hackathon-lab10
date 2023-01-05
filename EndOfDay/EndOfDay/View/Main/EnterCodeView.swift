@@ -15,6 +15,7 @@ struct EnterCodeView: View {
     @State var codeText : String = ""
     @Binding var showingSheet : Bool
     
+    @EnvironmentObject var diaryStore: DiaryStore
     @FocusState private var focusField : Field?
     //focusField = .addAttendee
     
@@ -38,15 +39,16 @@ struct EnterCodeView: View {
                         Text("완료")
                     )
                     .onTapGesture {
+                        Task {
+                            await diaryStore.joinDiary(diaryID: codeText)
+                        }
                         print("코드 제출 완료")
                         showingSheet.toggle()
                     }
             }
             .onAppear {
+                focusField = .addAttendee
                 
-                Task{
-                    await focusField = .addAttendee
-                }
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {

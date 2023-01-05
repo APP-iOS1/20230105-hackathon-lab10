@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseFirestore
+import FirebaseAuth
 
 @MainActor
 class CommentStore: ObservableObject {
@@ -14,6 +15,9 @@ class CommentStore: ObservableObject {
     
     var diaryID: String = ""
     var recordID: String = ""
+    let userID: String = Auth.auth().currentUser?.uid ?? ""
+    let userNickName: String = Auth.auth().currentUser?.displayName ?? ""
+    
     
     let database = Firestore.firestore().collection("Diaries")
     // MARK: 댓글 불러오기
@@ -27,10 +31,10 @@ class CommentStore: ObservableObject {
                     let id: String = document.documentID
                     let commentContent: String = docData["commentContent"] as? String ?? ""
                     let createdAt: Double = docData["createdAt"] as? Double ?? 0
-                    let userID: String = docData["userID"] as? String ?? ""
+                    let writerID: String = docData["writerID"] as? String ?? ""
                     let userNickName: String = docData["userNickName"] as? String ?? ""
                     
-                    let comment: Comment = Comment(id: id, commentContent: commentContent, createdAt: createdAt, userID: userID, userNickName: userNickName)
+                    let comment: Comment = Comment(id: id, commentContent: commentContent, createdAt: createdAt, writerID: writerID, userNickName: userNickName)
                     
                     self.comments.append(comment)
                 }
@@ -48,9 +52,9 @@ class CommentStore: ObservableObject {
                 try await database.document(diaryID).collection("Records").document(recordID).collection("Comments").document(comment.id)
                     .setData([
                         "commentContent": comment.commentContent,
-                        "userID": comment.userID,
+                        "writerID": userID,
                         "createdAt": comment.createdAt,
-                        "userNickName": comment.userNickName])
+                        "userNickName": userNickName])
                 await fetchComments()
             }
         } catch {

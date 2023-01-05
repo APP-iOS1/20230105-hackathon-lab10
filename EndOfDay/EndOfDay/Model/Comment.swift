@@ -11,7 +11,7 @@ struct Comment: Identifiable {
     var id: String
     var commentContent: String
     var createdAt: Double
-    var userID: String
+    var writerID: String
     var userNickName: String
     
     var createdDate: String {

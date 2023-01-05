@@ -5,19 +5,22 @@
 //  Created by 기태욱 on 2023/01/05.
 //
 
+
 import SwiftUI
 
 struct createDiaryView: View {
     @Binding var showingSheet: Bool
     
-    @State private var memo: String = ""
+    @State private var title: String = ""
     @State private var colorIndex: Int = 2
+    @EnvironmentObject var diaryStore: DiaryStore
     
     var rows: [GridItem] = Array(repeating: .init(.fixed(50)), count: 2)
     
+    // TODO: color 수정
     let colors: [Color] = [.red, .orange, .yellow, .green, .mint, .cyan, .blue, .indigo, .purple, .brown]
     var trimMemo: String {
-        memo.trimmingCharacters(in: .whitespaces)
+        title.trimmingCharacters(in: .whitespaces)
     }
     
     var body: some View {
@@ -29,7 +32,7 @@ struct createDiaryView: View {
                             .frame(width: 200, height: 330)
                             .foregroundColor(colors[colorIndex])
                             .overlay(
-                                TextField("제목을 입력하세요", text: $memo, axis: .vertical) // axis: TextField 줄바꿈용
+                                TextField("제목을 입력하세요", text: $title, axis: .vertical) // axis: TextField 줄바꿈용
                                     .padding()
                             )
                     }
@@ -83,10 +86,12 @@ struct createDiaryView: View {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button("생성") {
                             let time = Date().timeIntervalSince1970
-                            memo = memo.trimmingCharacters(in: .whitespaces)
-                            //                                let postit: Postit = Postit(id: UUID().uuidString, user: "Steve", memo: memo, colorIndex: colorIndex, createdAt: time)
+                            title = title.trimmingCharacters(in: .whitespaces)
+                            let diary: Diary = Diary(id: UUID().uuidString, dairyTitle: title, colorIndex: colorIndex, createdAt: time, membersID: [], membersNickname: [])
                             showingSheet.toggle()
-                            //postitStore.addPostit(postit)
+                            Task {
+                                await diaryStore.addDiary(diary: diary)
+                            }
                         }
                         .foregroundColor(.black)
                     }

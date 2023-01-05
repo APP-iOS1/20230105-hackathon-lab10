@@ -16,14 +16,16 @@ struct TestView: View {
                 HStack{
                     Button {
                         Task {
-                            await diaryStore.fetchDiaries(userID: "")
+//                            await diaryStore.fetchDiaries(userID: "")
                         }
                     } label: {
                         Text("읽기")
                     }
                     Button {
                         Task{
-                            await diaryStore.addDiary(diary: Diary(id: UUID().uuidString, dairyTitle: "타이틀", colorIndex: 2, createdAt: 2, membersID: []), userID: "")
+
+//                            await diaryStore.addDiary(diary: Diary(id: UUID().uuidString, dairyTitle: "타이틀", colorIndex: 2, createdAt: 2, membersID: []), use, membersNickname: <#[String]#>rID: "")
+
                         }
                     } label: {
                         Text("쓰기")
@@ -58,14 +60,14 @@ struct TestView: View {
             }
             Button(action: {
                 Task{
-                    await diaryStore.addDiary(diary: Diary(id: UUID().uuidString, dairyTitle: "타이틀", colorIndex: 2, createdAt: 2, membersID: []), userID: "")
+//                    await diaryStore.addDiary(diary: Diary(id: UUID().uuidString, dairyTitle: "타이틀", colorIndex: 2, createdAt: 2, membersID: []), userID: "")
                 }
             }) {
                 Text("추가")
             }
             Button(action: {
                 Task {
-                    await diaryStore.fetchDiaries(userID: "")
+//                    await diaryStore.fetchDiaries(userID: "")
                 }
             }) {
                 Text("읽기")

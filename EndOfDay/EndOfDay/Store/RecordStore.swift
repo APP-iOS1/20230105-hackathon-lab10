@@ -8,12 +8,14 @@
 import SwiftUI
 import FirebaseFirestore
 import FirebaseStorage
+import FirebaseAuth
 
 @MainActor
 class RecordStore: ObservableObject {
     @Published var records: [Record] = []
     
-    
+    let userID = Auth.auth().currentUser?.uid
+
     var diaryID: String = ""
     let database = Firestore.firestore().collection("Diaries")
     
@@ -33,21 +35,18 @@ class RecordStore: ObservableObject {
                     let recordTitle: String = docData["recordTitle"] as? String ?? ""
                     let recordContent: String = docData["recordContent"] as? String ?? ""
                     let createdAt: Double = docData["createdAt"] as? Double ?? 0
-                    let userID: String = docData["userID"] as? String ?? ""
+                    let writerID: String = docData["writerID"] as? String ?? ""
                     let userNickName: String = docData["userNickName"] as? String ?? ""
                     let photoID: String = docData["photoID"] as? String ?? ""
                     var photo: UIImage = UIImage()
-                    let storageRef = Storage.storage().reference()
-                    if !photoID.isEmpty {
-                        
-//                        print("image")
-//                        print(recordTitle)
-                        
-//                        let fileRef = storageRef.child("images/\(photoID).jpg")
-//                        let imageData = try await fileRef.data(maxSize: 5*1024*1024)
+                    //MARK: 스토리지 잠시 주석처리
+//                    let storageRef = Storage.storage().reference()
+//                    if !photoID.isEmpty {
+//                    let fileRef = storageRef.child("images/\(photoID).jpg")
+//                    let imageData = try await fileRef.data(maxSize: 5*1024*1024)
 //                        photo = UIImage(data: imageData) ?? UIImage()
-                    }
-                    let record: Record = Record(id: id, recordTitle: recordTitle, recordContent: recordContent, createdAt: createdAt, userID: userID, userNickName: userNickName, photoID: photoID, photo: photo)
+//                    }
+                    let record: Record = Record(id: id, recordTitle: recordTitle, recordContent: recordContent, createdAt: createdAt, writerID: writerID, userNickName: userNickName, photoID: photoID, photo: photo)
                     self.records.append(record)
                 }
 //            }
@@ -58,6 +57,8 @@ class RecordStore: ObservableObject {
     
     // MARK: Record 추가하기
     func addRecord(record: Record, diariesID: [String]) async {
+        var diaryIDArr = diariesID
+        diaryIDArr.append(userID ?? "")
         do {
             for diaryID in diariesID{
                 if !diaryID.isEmpty {
@@ -65,7 +66,7 @@ class RecordStore: ObservableObject {
                         .setData([
                             "recordTitle": record.recordTitle,
                             "recordContent": record.recordContent,
-                            "userID": record.userID,
+                            "writerID": record.writerID,
                             "createdAt": record.createdAt,
                             "userNickName": record.userNickName,
                             "photoID": record.photoID ?? ""])
@@ -92,7 +93,7 @@ class RecordStore: ObservableObject {
                         .updateData([
                             "recordTitle": record.recordTitle,
                             "recordContent": record.recordContent,
-                            "userID": record.userID,
+                            "writerID": record.writerID,
                             "createdAt": record.createdAt,
                             "userNickName": record.userNickName,
                             "photoID": record.photoID ?? ""])
@@ -106,7 +107,7 @@ class RecordStore: ObservableObject {
     }
 
 
-    // MARK: Record 삭제하기 - 수정필요 사용금지
+    // MARK: Record 삭제하기
     func removeRecord(recordID: String) async {
         do{
             let snapshot = try await database.getDocuments()
@@ -115,12 +116,12 @@ class RecordStore: ObservableObject {
                 diariesID.append(document.documentID)
             }
             
-            //for diaryID in diariesID {
+            for diaryID in diariesID {
                 if !diaryID.isEmpty {
-                    try await database.document(diaryID).collection("Record").document(recordID).delete()
+                    try await database.document(diaryID).collection("Records").document(recordID).delete()
                     await fetchRecords()
                 }
-            //}
+            }
         } catch{
             fatalError()
         }
