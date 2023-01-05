@@ -23,7 +23,9 @@ struct TestView: View {
                     }
                     Button {
                         Task{
-//                            await diaryStore.addDiary(diary: Diary(id: UUID().uuidString, dairyTitle: "타이틀", colorIndex: 2, createdAt: 2, membersID: []), userID: "")
+
+//                            await diaryStore.addDiary(diary: Diary(id: UUID().uuidString, dairyTitle: "타이틀", colorIndex: 2, createdAt: 2, membersID: []), use, membersNickname: <#[String]#>rID: "")
+
                         }
                     } label: {
                         Text("쓰기")

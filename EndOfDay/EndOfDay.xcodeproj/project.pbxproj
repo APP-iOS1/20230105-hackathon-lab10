@@ -44,6 +44,11 @@
 		AD1CF01829669A2B004EAA51 /* EnterCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1CF01729669A2B004EAA51 /* EnterCodeView.swift */; };
 		EBD3744B29668AD900C5C4A4 /* ChangeNickNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD3744A29668AD900C5C4A4 /* ChangeNickNameView.swift */; };
 		EBD374572966C42B00C5C4A4 /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = EBD374562966C42B00C5C4A4 /* PopupView */; };
+		EBD374592966F47900C5C4A4 /* DiaryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD374582966F47900C5C4A4 /* DiaryDetailView.swift */; };
+		EBD3745B2966FFCD00C5C4A4 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD3745A2966FFCD00C5C4A4 /* CommentView.swift */; };
+		EBD3745D296719DF00C5C4A4 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD3745C296719DF00C5C4A4 /* SettingView.swift */; };
+		EBD3745F2967357700C5C4A4 /* CopyTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD3745E2967357700C5C4A4 /* CopyTestView.swift */; };
+
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +83,10 @@
 		AD1CF01529669686004EAA51 /* createDiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = createDiaryView.swift; sourceTree = "<group>"; };
 		AD1CF01729669A2B004EAA51 /* EnterCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterCodeView.swift; sourceTree = "<group>"; };
 		EBD3744A29668AD900C5C4A4 /* ChangeNickNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeNickNameView.swift; sourceTree = "<group>"; };
+		EBD374582966F47900C5C4A4 /* DiaryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDetailView.swift; sourceTree = "<group>"; };
+		EBD3745A2966FFCD00C5C4A4 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
+		EBD3745C296719DF00C5C4A4 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		EBD3745E2967357700C5C4A4 /* CopyTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyTestView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				23F9C9C5294861640058D112 /* TestView.swift */,
+				EBD3745E2967357700C5C4A4 /* CopyTestView.swift */,
 				6187AEE129473206004AB9BD /* EndOfDay */,
 				6187AEE029473206004AB9BD /* Products */,
 				61413F322949B2A00068B4E0 /* Frameworks */,
@@ -176,6 +186,9 @@
 				6189E5262947FDAA00A7B659 /* DiaryFeedView.swift */,
 				6189E5282947FDB100A7B659 /* RecordDetailView.swift */,
 				6189E52A2947FDCB00A7B659 /* WriteDetailView.swift */,
+				EBD374582966F47900C5C4A4 /* DiaryDetailView.swift */,
+				EBD3745A2966FFCD00C5C4A4 /* CommentView.swift */,
+				EBD3745C296719DF00C5C4A4 /* SettingView.swift */,
 				611BABA729496E9F00ADB6DA /* AddingCommentView.swift */,
 				61413F352949CDB00068B4E0 /* ImagePicker.swift */,
 				A89C3D3D29481DC90050F31F /* HomeView.swift */,
@@ -318,13 +331,17 @@
 				AD1CF01829669A2B004EAA51 /* EnterCodeView.swift in Sources */,
 				6189E52F2947FE2C00A7B659 /* Record.swift in Sources */,
 				23F9C9CA29486F8C0058D112 /* RecordStore.swift in Sources */,
+				EBD374592966F47900C5C4A4 /* DiaryDetailView.swift in Sources */,
 				AD1CF01629669686004EAA51 /* createDiaryView.swift in Sources */,
 				23F9C9C8294861AF0058D112 /* DiaryStore.swift in Sources */,
 				6189E5312947FE5C00A7B659 /* UserInfo.swift in Sources */,
 				6189E52B2947FDCB00A7B659 /* WriteDetailView.swift in Sources */,
 				6187AEE329473206004AB9BD /* EndOfDayApp.swift in Sources */,
 				A89C3D3A29481CAE0050F31F /* LoginView.swift in Sources */,
+				EBD3745F2967357700C5C4A4 /* CopyTestView.swift in Sources */,
 				6189E533294806C000A7B659 /* Comment.swift in Sources */,
+				EBD3745B2966FFCD00C5C4A4 /* CommentView.swift in Sources */,
+				EBD3745D296719DF00C5C4A4 /* SettingView.swift in Sources */,
 				6189E5272947FDAA00A7B659 /* DiaryFeedView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

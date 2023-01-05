@@ -28,7 +28,7 @@ class DiaryStore: ObservableObject {
                 let colorIndex: Int = docData["colorIndex"] as? Int ?? 0
                 let createdAt: Double = docData["createdAt"] as? Double ?? 0
                 let membersID: [String] = docData["membersID"] as? [String] ?? []
-                let diary: Diary = Diary(id: id,dairyTitle: diaryTitle, colorIndex: colorIndex, createdAt: createdAt, membersID: membersID)
+                let diary: Diary = Diary(id: id,dairyTitle: diaryTitle, colorIndex: colorIndex, createdAt: createdAt, membersID: membersID, membersNickname: [])
                 
                 self.diaries.append(diary)
             }

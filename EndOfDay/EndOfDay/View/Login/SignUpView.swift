@@ -201,22 +201,7 @@ struct SignUpView_Previews: PreviewProvider {
 }
 
 
-struct MaxWidthColoredButtonModifier: ViewModifier {
-    var color: Color = Color("AccentColor")
-    var cornerRadius: CGFloat
-    
-    func body(content: Content) -> some View {
-        content
-            .font(.subheadline)
-            .foregroundColor(.white)
-            .padding()
-            .frame(maxWidth: .infinity)
-            .bold()
-            .background(Color.accentColor)
-            .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
-            .padding(EdgeInsets(top: 5, leading: 20, bottom: 0, trailing: 20))
-    }
-}
+
 /*
  ScrollView {
  VStack(alignment:.leading) {
