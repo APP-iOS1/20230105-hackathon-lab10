@@ -33,15 +33,15 @@ struct DiaryListView: View {
                 }
                 
 
-                ScrollView {
-                    ForEach(recordStore.records) { record in
-                        NavigationLink {
-                            DiaryCellView(record: record)
-                        } label: {
-                            DiaryCellView(record: record)
-                        }
-                    }
-                }
+//                ScrollView {
+//                    ForEach(recordStore.records) { record in
+//                        NavigationLink {
+//                            DiaryCellView(record: record)
+//                        } label: {
+//                            DiaryCellView(record: record)
+//                        }
+//                    }
+//                }
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {

@@ -43,9 +43,9 @@ class RecordStore: ObservableObject {
 //                        print("image")
 //                        print(recordTitle)
                         
-                        let fileRef = storageRef.child("images/\(photoID).jpg")
-                        let imageData = try await fileRef.data(maxSize: 5*1024*1024)
-                        photo = UIImage(data: imageData) ?? UIImage()
+//                        let fileRef = storageRef.child("images/\(photoID).jpg")
+//                        let imageData = try await fileRef.data(maxSize: 5*1024*1024)
+//                        photo = UIImage(data: imageData) ?? UIImage()
                     }
                     let record: Record = Record(id: id, recordTitle: recordTitle, recordContent: recordContent, createdAt: createdAt, userID: userID, userNickName: userNickName, photoID: photoID, photo: photo)
                     self.records.append(record)

@@ -11,6 +11,7 @@ struct CustomDatePicker: View {
     
     @Binding var currentDate: Date
     @State var currentMonth: Int = 0
+    @StateObject var recordStore: RecordStore = RecordStore()
     
     var body: some View {
         VStack(spacing: 35) {
@@ -70,7 +71,7 @@ struct CustomDatePicker: View {
             
             LazyVGrid(columns: columns, spacing: 15) {
                 ForEach(extractDate()) { value in
-                  CardView(value: value)
+                    CardView(value: value)
                         .background(
                             Capsule()
                                 .fill(Color.orange)
@@ -82,6 +83,9 @@ struct CustomDatePicker: View {
                         }
                 }
             }
+//            .onChange(of: recordStore.currentDay) { newValue in
+//                recordStore.filterTodayRecords()
+//            }
             
             //MARK: 특정날짜에 작성된 일기리스트, 여기서 DiaryCellView보여주기
             VStack(spacing: 15) {
@@ -90,34 +94,30 @@ struct CustomDatePicker: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.vertical , 20)
                 
-                if let task = tasks.first(where: { task in
-                    return isSameDay(date1: task.taskDate, date2: currentDate)
-                }) {
-                    
-                    ForEach(task.task) { task in
-                        
-                        // For custom timing
-                        VStack(alignment: .leading, spacing: 10) {
-                            Text(task.time.addingTimeInterval(CGFloat.random(in: 0...5000)), style: .time)
-                            
-                            Text(task.title)
-                                .font(.title2.bold())
-                        }
-                        .padding(.vertical, 10)
-                        .padding(.horizontal)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .background(
-                            Color("Purple")
-                                .opacity(0.5)
-                                .cornerRadius(10)
-                                .frame(maxWidth: .infinity)
-
-                        )
-                        
-                    }
-                     
-                } else {
-                    Text("No Task Found")
+//                let dateCreatedAt = Date(timeIntervalSince1970: $0.createdAt)
+                
+//                if let records = recordStore.records.filter {
+//                    return isSameDay(date1: Date(timeIntervalSince1970: $0.createdAt), date2: currentDate)
+//                }) {
+//
+//                    ForEach(tasks.) { task in
+//
+//                        // For custom timing
+//                        VStack(alignment: .leading, spacing: 10) {
+//                            Text(task.time.addingTimeInterval(CGFloat.random(in: 0...5000)), style: .time)
+//
+//                            Text(task.title)
+//                                .font(.title2.bold())
+//                        }
+//                    }
+//
+//                } else {
+//                    Text("No Task Found")
+//                }
+                ForEach(recordStore.records.filter { record in
+                    return isSameDay(date1: Date(timeIntervalSince1970: record.createdAt), date2: currentDate)
+                }) { record in
+                    DiaryCellView(record: record)
                 }
             }
             .padding()
@@ -127,6 +127,11 @@ struct CustomDatePicker: View {
         .onChange(of: currentMonth) { newValue in
             // update month
             currentDate = getCurrentMonth()
+        }
+        .onAppear {
+            Task {
+                await recordStore.fetchRecords()
+            }
         }
     }
     
@@ -151,9 +156,11 @@ struct CustomDatePicker: View {
                     
                     
                     //MARK: 일기가 있는 날짜와, 사용자가 클릭한 날짜가 같으면 일정이 있음을 표시해주는 Circle()색이 바뀐다
+                    //if 해당 날자에 레코트 데이터가 있으면 이걸 보여주고
                     Circle()
                         .fill(isSameDay(date1: task.taskDate, date2: currentDate) ? .white : Color.red )
                         .frame(width: 8, height: 8)
+                    //없으면 보여주지 마라
 
                 } else {
                     //MARK: 사용자가 클릭한 날짜의 색상을 바꿔준다
@@ -230,11 +237,11 @@ struct CustomDatePicker: View {
     
 }
 
-struct CustomDatePicker_Previews: PreviewProvider {
-    static var previews: some View {
-        CustomDatePicker(currentDate: .constant(Date()), currentMonth: 1)
-    }
-}
+//struct CustomDatePicker_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CustomDatePicker(currentDate: .constant(Date()), currentMonth: 1)
+//    }
+//}
 
 extension Date {
     //MARK: 달력(한달)의 모든 날짜들을 반환하는 함수
