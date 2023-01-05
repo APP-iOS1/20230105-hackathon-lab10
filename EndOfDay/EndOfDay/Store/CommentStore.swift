@@ -8,48 +8,60 @@
 import Foundation
 import FirebaseFirestore
 
+@MainActor
 class CommentStore: ObservableObject {
     @Published var comments: [Comment] = []
     
-//    var diaryId: String = ""
+    var diaryID: String = ""
     var recordID: String = ""
     
-    let database = Firestore.firestore().collection("Records")
-    
-    func fetchComments() {
-        database.document(recordID).collection("Comments")
-            .getDocuments { (snapshot, error) in
-                self.comments.removeAll()
-                if let snapshot {
-                    for document in snapshot.documents{
-                        let docData = document.data()
-                        let id: String = document.documentID
-                        let commentContent: String = docData["commentContent"] as? String ?? ""
-                        let createdAt: Double = docData["createdAt"] as? Double ?? 0
-                        let userID: String = docData["userID"] as? String ?? ""
-                        let userNickName: String = docData["userNickName"] as? String ?? ""
-                        
-                        let comment: Comment = Comment(id: id, commentContent: commentContent, createdAt: createdAt, userID: userID, userNickName: userNickName)
-                        
-                        self.comments.append(comment)
-                    }
-                }
-            }
-    }
-    
-    func addComment(_ comment: Comment){
-        database.document(recordID).collection("Comments").document(comment.id)
-            .setData([
-                "commentContent": comment.commentContent,
-                "userID": comment.userID,
-                "createdAt": comment.createdAt,
-                "userNickName": comment.userNickName])
+    let database = Firestore.firestore().collection("Diaries")
+    // MARK: 댓글 불러오기
+    func fetchComments() async {
+        do {
+            let snapshot = try await database.document(diaryID).collection("Records").document(recordID).collection("Comments").getDocuments()
+            self.comments.removeAll()
+            for document in snapshot.documents{
+                let docData = document.data()
+                let id: String = document.documentID
+                let commentContent: String = docData["commentContent"] as? String ?? ""
+                let createdAt: Double = docData["createdAt"] as? Double ?? 0
+                let userID: String = docData["userID"] as? String ?? ""
+                let userNickName: String = docData["userNickName"] as? String ?? ""
                 
-        fetchComments()
+                let comment: Comment = Comment(id: id, commentContent: commentContent, createdAt: createdAt, userID: userID, userNickName: userNickName)
+                
+                self.comments.append(comment)
+            }
+            self.comments = comments.sorted{ $0.createdAt > $1.createdAt }
+        } catch {
+            fatalError()
+        }
     }
     
-    func removeComment(_ comment: Comment){
-        database.document(recordID).collection("Comments").document(comment.id).delete()
-        fetchComments()
+    // MARK: 댓글 추가하기
+    func addComment(_ comment: Comment) async{
+        do{
+            try await database.document(recordID).collection("Comments").document(comment.id)
+                .setData([
+                    "commentContent": comment.commentContent,
+                    "userID": comment.userID,
+                    "createdAt": comment.createdAt,
+                    "userNickName": comment.userNickName])
+            
+            await fetchComments()
+        } catch {
+            fatalError()
+        }
+    }
+    
+    // MARK: 댓글 삭제하기
+    func removeComment(commentID: String) async {
+        do {
+            try await database.document(recordID).collection("Comments").document(commentID).delete()
+            await fetchComments()
+        } catch {
+            fatalError()
+        }
     }
 }

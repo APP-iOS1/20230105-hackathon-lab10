@@ -12,4 +12,5 @@ struct Diary: Identifiable {
     var dairyTitle: String
     var colorIndex: Int
     var createdAt: Double
+    var membersID: [String]
 }
