@@ -1,0 +1,42 @@
+//
+//  AddingCommentView.swift
+//  EndOfDay
+//
+//  Created by 조석진 on 2022/12/14.
+//
+
+import SwiftUI
+
+struct AddingCommentView: View {
+    @StateObject var commentStore : CommentStore
+    @State var commentText: String = ""
+    let record: Record
+    
+    var trimCommet: String {
+        commentText.trimmingCharacters(in: .whitespaces)
+    }
+    var body: some View {
+        HStack {
+            TextField("댓글을 입력해주세요", text: $commentText, axis: .vertical)
+            
+            if trimCommet.count > 0 {
+                Button {
+                    let comment: Comment = Comment(id: UUID().uuidString, commentContent: commentText, createdAt: Date().timeIntervalSince1970, userID: "test123123", userNickName: "Ned")
+                    
+                    commentStore.recordID = record.id
+                    commentStore.addComment(comment)
+                    commentText = ""
+                } label: {
+                    Text("저장")
+                }
+            }
+        }
+        .padding()
+    }
+}
+
+struct AddingCommentView_Previews: PreviewProvider {
+    static var previews: some View {
+        AddingCommentView(commentStore: CommentStore(), record: Record(id: "123123", recordTitle: "프리뷰야 보여라", recordContent: "여기도 회색이 되어버렸네요", createdAt: 1.1, userID: "ted123123", userNickName: "Ned"))
+    }
+}
