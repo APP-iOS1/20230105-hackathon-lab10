@@ -15,7 +15,7 @@ struct ContentView: View {
         NavigationStack {
             // MARK: user 프로퍼티의 상태(로그인 상태)에 따라서 다른 뷰 호출
             if userStore.user != nil {
-                DiaryFeedView()
+                ChangeNickNameView()
             } else {
                 LoginView()
             }

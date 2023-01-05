@@ -38,6 +38,7 @@
 		A89C3D3A29481CAE0050F31F /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89C3D3929481CAE0050F31F /* LoginView.swift */; };
 		A89C3D3C29481D520050F31F /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89C3D3B29481D520050F31F /* SignUpView.swift */; };
 		A89C3D3E29481DC90050F31F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89C3D3D29481DC90050F31F /* HomeView.swift */; };
+		EBD3744B29668AD900C5C4A4 /* ChangeNickNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD3744A29668AD900C5C4A4 /* ChangeNickNameView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +68,7 @@
 		A89C3D3929481CAE0050F31F /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		A89C3D3B29481D520050F31F /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		A89C3D3D29481DC90050F31F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		EBD3744A29668AD900C5C4A4 /* ChangeNickNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeNickNameView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				A89C3D3929481CAE0050F31F /* LoginView.swift */,
+				EBD3744A29668AD900C5C4A4 /* ChangeNickNameView.swift */,
 				A89C3D3B29481D520050F31F /* SignUpView.swift */,
 			);
 			path = Login;
@@ -293,6 +296,7 @@
 				61413F362949CDB00068B4E0 /* ImagePicker.swift in Sources */,
 				23F9C9CC294872AB0058D112 /* CommentStore.swift in Sources */,
 				A89C3D3C29481D520050F31F /* SignUpView.swift in Sources */,
+				EBD3744B29668AD900C5C4A4 /* ChangeNickNameView.swift in Sources */,
 				6189E52F2947FE2C00A7B659 /* Record.swift in Sources */,
 				23F9C9CA29486F8C0058D112 /* RecordStore.swift in Sources */,
 				23F9C9C8294861AF0058D112 /* DiaryStore.swift in Sources */,

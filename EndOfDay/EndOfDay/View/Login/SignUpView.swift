@@ -84,10 +84,10 @@ struct SignUpView: View {
                                     focusField = .nickname
                                 }
                             }
-                        Text("아이디").padding(.top, 10)
+                        Text("이메일").padding(.top, 10)
                     }
                     
-                    TextField("이메일 아이디", text: $emailID)
+                    TextField("이메일", text: $emailID)
                         .padding()
                         .background(RoundedRectangle(cornerRadius: 10).strokeBorder())
                         .textContentType(.emailAddress)

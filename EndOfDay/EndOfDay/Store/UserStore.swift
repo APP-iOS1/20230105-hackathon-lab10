@@ -18,6 +18,30 @@ class UserStore: ObservableObject {
         }
     }
     
+    // 유저의 닉네임 패치
+    var currentUserNickname = Auth.auth().currentUser?.displayName
+    
+    func updateNickname(_ nickname: String) {
+        if let currentUser = Auth.auth().currentUser?.createProfileChangeRequest() {
+            currentUser.displayName = nickname
+            
+            currentUser.commitChanges(completion: {error in
+                if let error = error {
+                    print(error)
+                } else {
+                    print("DisplayName changed")
+                }
+            })
+        }
+        
+        // TODO: await async 로 변경해야함
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
+          // 1초 후 실행될 부분
+            self.currentUserNickname = Auth.auth().currentUser?.displayName
+            print(self.currentUserNickname)
+        }
+    }
+    
     @Published var showError: Bool = false
     @Published var errorMessage: String = ""
     
