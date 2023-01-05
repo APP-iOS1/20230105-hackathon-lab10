@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct createDiaryView: View {
-    //@StateObject var postitStore: PostitStore
     @Binding var showingSheet: Bool
     
     @State private var memo: String = ""
@@ -24,8 +23,6 @@ struct createDiaryView: View {
     var body: some View {
         NavigationStack {
             Form {
-                //Divider()
-                
                 Section(header: Text("일기 표지 꾸미기").bold()) {
                     VStack{
                         RoundedRectangle(cornerRadius: 5)
@@ -37,14 +34,11 @@ struct createDiaryView: View {
                             )
                     }
                     .frame(width: UIScreen.main.bounds.width - 60, alignment: .center)
-                    
                 }
                 .padding(.horizontal, 10)
                 .padding()
                 
-                
                 Spacer()
-                
                 
                 Section(header: Text("표지 색상").bold()) {
                     LazyHGrid(rows: rows, spacing: 35){
@@ -72,7 +66,6 @@ struct createDiaryView: View {
                 .padding(.horizontal, 10)
                 
             }
-            //.navigationBarTitle("일기장 만들기", displayMode: <#T##NavigationBarItem.TitleDisplayMode#>)
             .navigationTitle("일기장 만들기")
             .navigationBarTitleDisplayMode(.large)
             .formStyle(.columns)
@@ -86,9 +79,6 @@ struct createDiaryView: View {
                     }
                 }
                 
-                
-                
-                
                 if trimMemo.count > 0 {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button("생성") {
@@ -100,7 +90,6 @@ struct createDiaryView: View {
                         }
                         .foregroundColor(.black)
                     }
-                    
                 }
             }
         }

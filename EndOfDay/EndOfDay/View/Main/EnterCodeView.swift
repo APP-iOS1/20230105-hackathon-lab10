@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct EnterCodeView: View {
-    
     private enum Field : Int, Hashable{
         case name, location, data, addAttendee
     }
@@ -18,7 +17,6 @@ struct EnterCodeView: View {
     
     @FocusState private var focusField : Field?
     //focusField = .addAttendee
-    
     
     var body: some View {
         NavigationStack{
@@ -43,8 +41,6 @@ struct EnterCodeView: View {
                         print("코드 제출 완료")
                         showingSheet.toggle()
                     }
-                
-                
             }
             .onAppear {
                     DispatchQueue.main.asyncAfter(deadline: .now()) {
@@ -63,14 +59,12 @@ struct EnterCodeView: View {
                             .foregroundColor(.black)
                     }
                 }
-                
                 ToolbarItem(placement: .navigation) {
                     Text("초대 코드 입력")
                         .frame(width: 280, alignment: .center)
                 }
             }
         }
-
     }
 }
 

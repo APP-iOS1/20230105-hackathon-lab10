@@ -12,8 +12,6 @@ struct MainView: View {
 //        case name, location, data, addAttendee
 //    }
 //    @FocusState private var focusField : Field?
-
-    
     
     @State private var showingSheet = false
     
@@ -34,7 +32,6 @@ struct MainView: View {
                         Image(systemName: "square.and.pencil")
                     }
                     .padding(.trailing, 5)
-
                     
                     Button{
                         print("마이 페이지")
@@ -48,7 +45,6 @@ struct MainView: View {
                 .foregroundColor(.black)
                 .padding(.trailing, 5)
                 
-                
                 HStack{
                     Text("메인 뷰 타이틀")
                         .font(.largeTitle)
@@ -57,7 +53,6 @@ struct MainView: View {
             }
             .padding()
             .padding(.horizontal, 15)
-            
             
             NavigationStack{
                 ScrollView(showsIndicators: false) {
@@ -78,18 +73,11 @@ struct MainView: View {
                                                  showingCreatDiaryView.toggle()
                                              }
                                              Button("그룹 참가하기") {
-                                                 showingEnterCodeView.toggle()
-//                                                 if showingEnterCodeView{
-//                                                     DispatchQueue.main.asyncAfter(deadline: .now()) {
-//                                                         focusField = .addAttendee
-//                                                     }
-//                                                 }
+                                                 showingEnterCodeView.toggle()      
                                              }
                                              Button("취소", role: .cancel) {
                                              }
                                         }
-
-                        
                         RoundedRectangle(cornerRadius: 5)
                             .frame(width: 150, height: 170)
                             .foregroundColor(Color("LightGray"))
@@ -100,21 +88,13 @@ struct MainView: View {
                                 print("개인 일기장")
                             }
 
-                        
-                        
                         ForEach((0...33), id: \.self) { selection in
-                            
                             ImageTabViewItems(selection: selection)
                                 .padding(.vertical, 10)
-
-                            
                         }
-                        
                     }
                     .padding(.horizontal, 25)
                 }
-
-                
             }
         }
         .sheet(isPresented: $showingCreatDiaryView) {
