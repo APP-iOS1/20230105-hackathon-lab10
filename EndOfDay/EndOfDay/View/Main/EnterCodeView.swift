@@ -43,12 +43,10 @@ struct EnterCodeView: View {
                     }
             }
             .onAppear {
-                    DispatchQueue.main.asyncAfter(deadline: .now()) {
-                        focusField = .addAttendee
-                    }
-                    //            Task{
-                    //                focusField = await .addAttendee
-                    //            }
+                
+                Task{
+                    await focusField = .addAttendee
+                }
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
