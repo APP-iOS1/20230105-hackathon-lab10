@@ -40,7 +40,7 @@ struct EnterCodeView: View {
                     )
                     .onTapGesture {
                         Task {
-                            await diaryStore.joinDiary(diaryID: codeText, userID: "7XUJpl1zjCcqR2NIaxGdZaNOztj1")
+                            await diaryStore.joinDiary(diaryID: codeText)
                         }
                         print("코드 제출 완료")
                         showingSheet.toggle()

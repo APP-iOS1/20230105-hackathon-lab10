@@ -97,7 +97,7 @@ struct MainView: View {
         }
         .onAppear {
             Task {
-                await diaryStore.fetchDiaries(userID: "7XUJpl1zjCcqR2NIaxGdZaNOztj1")
+                await diaryStore.fetchDiaries()
             }
             print("닉네임: \(userStore.currentUserNickname)")
         }

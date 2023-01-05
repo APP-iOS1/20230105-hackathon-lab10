@@ -79,7 +79,7 @@ struct WriteDetailView: View {//
                     recordTitle: recordTitle,
                     recordContent: recordContent,
                     createdAt: createdAt,
-                    userID: userStore.user?.uid ?? "",
+                    writerID: userStore.user?.uid ?? "",
                     userNickName: userStore.user?.displayName ?? "",
                     photoID: imageId)
                 

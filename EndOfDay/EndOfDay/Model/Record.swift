@@ -13,7 +13,7 @@ struct Record: Identifiable {
     var recordTitle: String
     var recordContent: String
     var createdAt: Double
-    var userID: String
+    var writerID: String
     var userNickName: String
     var photoID: String?
     //TODO: UIImage배열을 구조체에 넘겨주기 
