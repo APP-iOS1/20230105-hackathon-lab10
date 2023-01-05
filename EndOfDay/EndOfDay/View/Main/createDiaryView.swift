@@ -87,7 +87,7 @@ struct createDiaryView: View {
                         Button("생성") {
                             let time = Date().timeIntervalSince1970
                             title = title.trimmingCharacters(in: .whitespaces)
-                            let diary: Diary = Diary(id: UUID().uuidString, dairyTitle: title, colorIndex: colorIndex, createdAt: time, membersID: ["7XUJpl1zjCcqR2NIaxGdZaNOztj1"])
+                            let diary: Diary = Diary(id: UUID().uuidString, dairyTitle: title, colorIndex: colorIndex, createdAt: time, membersID: ["7XUJpl1zjCcqR2NIaxGdZaNOztj1"], membersNickname: [])
                             showingSheet.toggle()
                             Task {
                                 await diaryStore.addDiary(diary: diary, userID: "7XUJpl1zjCcqR2NIaxGdZaNOztj1")
