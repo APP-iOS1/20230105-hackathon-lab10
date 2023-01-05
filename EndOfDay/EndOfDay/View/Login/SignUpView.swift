@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PopupView
 
 // ???: 텍스트 필드에 따라 언어도 강제할 수 있을까?
 
@@ -18,6 +19,7 @@ struct SignUpView: View {
     @State private var nickname: String = ""
     @State private var password: String = ""
     @State private var passwordCheck: String = ""
+    @State private var isShowingPopup: Bool = false
     
     // MARK: 회원가입 정보 유효성 검사
     // 이메일 유효성 확인
@@ -136,7 +138,12 @@ struct SignUpView: View {
             if !emailID.isEmpty && !nickname.isEmpty && !password.isEmpty && !passwordCheck.isEmpty && password == passwordCheck{
                 Button {
                     userStore.signUp(emailAddress: emailID, password: password, nickname: nickname)
-                    dismiss()
+                    isShowingPopup = true
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.5) {
+                      // 1초 후 실행될 부분
+                        dismiss()
+                    }
+                    
                     
                 } label: {
                     Text("회원가입하기")
@@ -160,6 +167,21 @@ struct SignUpView: View {
 
             
         }.navigationTitle("회원가입")
+            .popup(isPresented: $isShowingPopup, type: .floater(useSafeAreaInset: true), position: .top, animation: .default, autohideIn: 2, dragToDismiss: true, closeOnTap: true, closeOnTapOutside: true, view: {
+                HStack {
+                    Image(systemName: "checkmark.circle")
+                        .foregroundColor(.white)
+                    
+                    Text("환영합니다!")
+                        .foregroundColor(.white)
+                        .font(.footnote)
+                        .bold()
+                }
+                
+                .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
+                .background(Color.green)
+                .cornerRadius(100)
+            })
     }
 }
 

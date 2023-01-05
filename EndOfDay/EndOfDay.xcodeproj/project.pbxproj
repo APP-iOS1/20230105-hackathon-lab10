@@ -39,6 +39,7 @@
 		A89C3D3C29481D520050F31F /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89C3D3B29481D520050F31F /* SignUpView.swift */; };
 		A89C3D3E29481DC90050F31F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89C3D3D29481DC90050F31F /* HomeView.swift */; };
 		EBD3744B29668AD900C5C4A4 /* ChangeNickNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD3744A29668AD900C5C4A4 /* ChangeNickNameView.swift */; };
+		EBD374572966C42B00C5C4A4 /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = EBD374562966C42B00C5C4A4 /* PopupView */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,6 +78,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A89C3D3429481A550050F31F /* FirebaseFirestoreSwift in Frameworks */,
+				EBD374572966C42B00C5C4A4 /* PopupView in Frameworks */,
 				A89C3D3029481A550050F31F /* FirebaseDatabaseSwift in Frameworks */,
 				A89C3D3229481A550050F31F /* FirebaseFirestore in Frameworks */,
 				A89C3D2E29481A550050F31F /* FirebaseDatabase in Frameworks */,
@@ -224,6 +226,7 @@
 				A89C3D3129481A550050F31F /* FirebaseFirestore */,
 				A89C3D3329481A550050F31F /* FirebaseFirestoreSwift */,
 				61413F332949C1D70068B4E0 /* FirebaseStorage */,
+				EBD374562966C42B00C5C4A4 /* PopupView */,
 			);
 			productName = EndOfDay;
 			productReference = 6187AEDF29473206004AB9BD /* EndOfDay.app */;
@@ -255,6 +258,7 @@
 			mainGroup = 6187AED629473206004AB9BD;
 			packageReferences = (
 				A89C3D2A29481A550050F31F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				EBD374552966C42B00C5C4A4 /* XCRemoteSwiftPackageReference "PopupView" */,
 			);
 			productRefGroup = 6187AEE029473206004AB9BD /* Products */;
 			projectDirPath = "";
@@ -514,6 +518,14 @@
 				minimumVersion = 9.0.0;
 			};
 		};
+		EBD374552966C42B00C5C4A4 /* XCRemoteSwiftPackageReference "PopupView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/exyte/PopupView";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -546,6 +558,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A89C3D2A29481A550050F31F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestoreSwift;
+		};
+		EBD374562966C42B00C5C4A4 /* PopupView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EBD374552966C42B00C5C4A4 /* XCRemoteSwiftPackageReference "PopupView" */;
+			productName = PopupView;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
