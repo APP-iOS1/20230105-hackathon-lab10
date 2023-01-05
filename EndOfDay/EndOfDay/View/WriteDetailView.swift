@@ -4,15 +4,15 @@ import SwiftUI
 
 struct WriteDetailView: View {//
     @EnvironmentObject private var userStore: UserStore
+    @EnvironmentObject var recordStore: RecordStore
     
     @State private var recordTitle: String = ""
     @State private var recordContent: String = ""
-    
     @State var isPickerShowing: Bool = false
     @State var selectedImage: UIImage?
     @State var retrievedImages = [UIImage]()
+    @State var showingCategory: Bool = false
     
-    var recordeStore: RecordStore
     var imageStore: ImageStore = ImageStore()
     
     var trimTitle: String {
@@ -23,10 +23,26 @@ struct WriteDetailView: View {//
     }
     var body: some View {
         VStack {
-            TextField("일기 제목을 입력해주세요", text: $recordTitle, axis: .vertical)
-            Divider()
-            TextField("오늘은 어떤 하루 였나요? \n 친구들에게 하고 싶은 말을 마음껏 적어주세요", text: $recordContent, axis: .vertical)
-            Spacer()
+            ScrollView {
+                    TextField("일기 제목을 입력해주세요", text: $recordTitle)
+                    .multilineTextAlignment(TextAlignment.center)
+//                        .frame(width: 250)
+//                        .border(.black)
+                Divider()
+                    .padding(.horizontal, 80)
+                if let image = selectedImage {
+                    Image(uiImage: image)
+                        .resizable()
+                        .cornerRadius(5)
+                    //                    .scaledToFit()
+                        .frame(width: UIScreen.main.bounds.width - 120, height: UIScreen.main.bounds.width - 120)
+                        .padding(.vertical, 10)
+                }
+                
+                TextField("오늘은 어떤 하루 였나요? \n 친구들에게 하고 싶은 말을 마음껏 적어주세요", text: $recordContent, axis: .vertical)
+                    .padding(10)
+                Spacer()
+            }
         }.padding()
             .navigationTitle("일기 쓰기")
             .navigationBarTitleDisplayMode(.inline)
@@ -35,29 +51,18 @@ struct WriteDetailView: View {//
                     Button {
                         isPickerShowing = true
                     } label: {
-                        Image(systemName: "plus")
+                        Image(systemName: "photo")
+                            .foregroundColor(.black)
                     }
                 })
                 if trimTitle.count > 0 && trimContent.count > 0 {
                     ToolbarItem(placement: .navigationBarTrailing, content: {
                         Button {
-                            //TODO: userID, userNickName user정보에서 가져오기
-                            let createdAt = Date().timeIntervalSince1970
-                            let imageId = imageStore.uploadPhoto(selectedImage)
-                            let record = Record(
-                                id: UUID().uuidString,
-                                recordTitle: recordTitle,
-                                recordContent: recordContent,
-                                createdAt: createdAt,
-                                userID: userStore.user?.uid ?? "",
-                                userNickName: userStore.user?.displayName ?? "",
-                                photoID: imageId)
-                            Task{
-                                //TODO: 일기 작성후 선택된 일기장들의 id를 [String]으로 입력해줘야함
-//                                await recordeStore.addRecord()
-                            }
+                            showingCategory.toggle()
+                            
                         } label: {
                             Text("완료")
+                                .foregroundColor(.black)
                         }
                     })
                 }
@@ -65,14 +70,30 @@ struct WriteDetailView: View {//
             .sheet(isPresented: $isPickerShowing, onDismiss: nil){
                 ImagePicker(image: $selectedImage)
             }
+            .sheet(isPresented: $showingCategory) {
+                let createdAt = Date().timeIntervalSince1970
+                let imageId = imageStore.uploadPhoto(selectedImage)
+                //TODO: userID, userNickName user정보에서 가져오기
+                let record = Record(
+                    id: UUID().uuidString,
+                    recordTitle: recordTitle,
+                    recordContent: recordContent,
+                    createdAt: createdAt,
+                    userID: userStore.user?.uid ?? "",
+                    userNickName: userStore.user?.displayName ?? "",
+                    photoID: imageId)
+                
+                CategorySelectView(showingSheet: $showingCategory, record: record)
+                    .presentationDetents([.medium])
+            }
     }
 }
 
-struct WriteDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationStack{
-            WriteDetailView(recordeStore: RecordStore())
-        }
-    }
-}
+//struct WriteDetailView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        NavigationStack{
+//            WriteDetailView(recordeStore: RecordStore())
+//        }
+//    }
+//}
 
