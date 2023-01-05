@@ -72,7 +72,7 @@ struct CustomDatePicker: View {
                                         .fill(Color.orange)
                                         .padding(.horizontal, 8)
                                         .opacity(isSameDay(date1: value.date, date2: currentDate) ? 1 : 0)
-                                        .offset(y: -17)
+                                        .offset(y: -18)
                                 )
                                 .onTapGesture {
                                     currentDate = value.date
@@ -97,18 +97,23 @@ struct CustomDatePicker: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal)
                 
-                ForEach(recordStore.records.filter { record in
-                    return isSameDay(date1: Date(timeIntervalSince1970: record.createdAt), date2: currentDate)
-                }) { record in
-                    NavigationLink {
-                        DiaryDetailView()
-                    } label: {
-//                        if record != nil {
+                let filteredRecords = recordStore.records.filter { record in
+                                    return isSameDay(date1: Date(timeIntervalSince1970: record.createdAt), date2: currentDate)
+                                }
+                
+                if !filteredRecords.isEmpty {
+                    ForEach(recordStore.records.filter { record in
+                        return isSameDay(date1: Date(timeIntervalSince1970: record.createdAt), date2: currentDate)
+                    }) { record in
+                        NavigationLink {
+                            DiaryDetailView()
+                        } label: {
                             DiaryCellView(record: record)
-//                        } else {
-//                            Text("작성한 일기가 없습니다.")
-//                        }
+                        }
                     }
+                }
+                else {
+                    Text("작성한 일기가 없습니다.")
                 }
             }.onAppear {
                 Task {
@@ -141,7 +146,7 @@ struct CustomDatePicker: View {
                     Circle()
                         .fill(isSameDay(date1: Date(timeIntervalSince1970: diaries.createdAt), date2: currentDate) ? .white : Color.red )
                         .frame(width: 8, height: 8)
-                        .offset(y: -22)
+                        .offset(y: -20)
                     
                     //없으면 보여주지 마라
                 } else {
