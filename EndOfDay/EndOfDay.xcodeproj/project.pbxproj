@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		23126B85296724BE008D605A /* CategorySelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23126B84296724BE008D605A /* CategorySelectView.swift */; };
 		234F223A296685F90049EB08 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234F2239296685F90049EB08 /* MainView.swift */; };
 		23F9C9C6294861640058D112 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F9C9C5294861640058D112 /* TestView.swift */; };
 		23F9C9C8294861AF0058D112 /* DiaryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F9C9C7294861AF0058D112 /* DiaryStore.swift */; };
@@ -47,9 +48,11 @@
 		EBD3745B2966FFCD00C5C4A4 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD3745A2966FFCD00C5C4A4 /* CommentView.swift */; };
 		EBD3745D296719DF00C5C4A4 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD3745C296719DF00C5C4A4 /* SettingView.swift */; };
 		EBD3745F2967357700C5C4A4 /* CopyTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD3745E2967357700C5C4A4 /* CopyTestView.swift */; };
+
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		23126B84296724BE008D605A /* CategorySelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySelectView.swift; sourceTree = "<group>"; };
 		234F2239296685F90049EB08 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		23F9C9C5294861640058D112 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		23F9C9C7294861AF0058D112 /* DiaryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryStore.swift; sourceTree = "<group>"; };
@@ -189,6 +192,7 @@
 				611BABA729496E9F00ADB6DA /* AddingCommentView.swift */,
 				61413F352949CDB00068B4E0 /* ImagePicker.swift */,
 				A89C3D3D29481DC90050F31F /* HomeView.swift */,
+				23126B84296724BE008D605A /* CategorySelectView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -322,6 +326,7 @@
 				61413F362949CDB00068B4E0 /* ImagePicker.swift in Sources */,
 				23F9C9CC294872AB0058D112 /* CommentStore.swift in Sources */,
 				A89C3D3C29481D520050F31F /* SignUpView.swift in Sources */,
+				23126B85296724BE008D605A /* CategorySelectView.swift in Sources */,
 				EBD3744B29668AD900C5C4A4 /* ChangeNickNameView.swift in Sources */,
 				AD1CF01829669A2B004EAA51 /* EnterCodeView.swift in Sources */,
 				6189E52F2947FE2C00A7B659 /* Record.swift in Sources */,

@@ -12,10 +12,10 @@ struct MyPageView: View {
         case name, location, data, addAttendee
     }
     @FocusState private var focusField : Field?
-
-    
     @State private var isEdit : Bool = false
     @State var nickname : String = ""
+    @EnvironmentObject var userStore: UserStore
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         VStack{
@@ -45,12 +45,11 @@ struct MyPageView: View {
                             
                             VStack(alignment: .leading, spacing: 10){
                                 if isEdit{
-                                    
                                     TextField("이름 입력", text: $nickname)
                                         .focused($focusField, equals: .addAttendee)
 
                                 } else{
-                                    Text("조석진")
+                                    Text(userStore.currentUserNickname ?? "")
                                 }
                                 Text(verbatim: "test@test.test")
                                 
@@ -67,6 +66,11 @@ struct MyPageView: View {
                                         DispatchQueue.main.asyncAfter(deadline: .now()) {
                                             focusField = .addAttendee
                                         }
+                                    } else {
+                                        Task {
+                                            await userStore.updateNickname(nickname)
+                                        }
+                                        print(userStore.currentUserNickname)
                                     }
 
                                 } label: {
@@ -85,6 +89,7 @@ struct MyPageView: View {
                 
                 Spacer()
                 
+
                 RoundedRectangle(cornerRadius: 10)
                     .frame(width: 350, height: 50)
                 //                .foregroundColor(Color("LightGray"))
@@ -95,22 +100,19 @@ struct MyPageView: View {
                             .foregroundColor(.white)
                     )
                     .onTapGesture {
+                        userStore.logOut()
+                        dismiss()
                         print("코드 제출 완료")
                     }
                     .padding(.bottom, 10)
-                
             }
             .padding(.top, 20)
-            
-            
-            
-            
         }
     }
 }
 
-struct MyPageView_Previews: PreviewProvider {
-    static var previews: some View {
-        MyPageView()
-    }
-}
+//struct MyPageView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MyPageView()
+//    }
+//}
