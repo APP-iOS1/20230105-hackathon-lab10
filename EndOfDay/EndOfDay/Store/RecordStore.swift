@@ -19,12 +19,10 @@ class RecordStore: ObservableObject {
     // MARK: Record 불러오기
     func fetchRecords() async {
         do {
-            print("fetch시작")
             self.records.removeAll()
             if !diaryID.isEmpty {
                 let snapshot = try await database.document(diaryID).collection("Records").getDocuments()
                 for document in snapshot.documents {
-                    print("for문 작동")
                     let docData = document.data()
                     let id: String = document.documentID
                     let recordTitle: String = docData["recordTitle"] as? String ?? ""
@@ -35,17 +33,13 @@ class RecordStore: ObservableObject {
                     let photoID: String = docData["photoID"] as? String ?? ""
                     var photo: UIImage = UIImage()
                     let storageRef = Storage.storage().reference()
-                    print(photoID)
                     if !photoID.isEmpty {
                         let fileRef = storageRef.child("images/\(photoID).jpg")
-                        print("image불러오기")
                         let imageData = try await fileRef.data(maxSize: 5*1024*1024)
-                        print("image불러오기 완료")
                         photo = UIImage(data: imageData) ?? UIImage()
                     }
                     let record: Record = Record(id: id, recordTitle: recordTitle, recordContent: recordContent, createdAt: createdAt, userID: userID, userNickName: userNickName, photoID: photoID, photo: photo)
                     self.records.append(record)
-                    print("for문 종료")
                 }
             }
                 self.records = records.sorted{ $0.createdAt > $1.createdAt}
@@ -103,7 +97,7 @@ class RecordStore: ObservableObject {
     }
 
 
-    // MARK: Record 삭제하기
+    // MARK: Record 삭제하기 - 수정필요 사용금지
     func removeRecord(recordID: String) async {
         do{
             let snapshot = try await database.getDocuments()
@@ -112,12 +106,12 @@ class RecordStore: ObservableObject {
                 diariesID.append(document.documentID)
             }
             
-            for diaryID in diariesID {
+            //for diaryID in diariesID {
                 if !diaryID.isEmpty {
                     try await database.document(diaryID).collection("Record").document(recordID).delete()
                     await fetchRecords()
                 }
-            }
+            //}
         } catch{
             fatalError()
         }

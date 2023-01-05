@@ -67,7 +67,7 @@ class DiaryStore: ObservableObject {
             try await database.document(diaryID)
                 .updateData([
                     "membersID" : membersID])
-            await fetchDiaries(userID: "")
+            await fetchDiaries(userID: userID)
         } catch {
             fatalError()
         }
@@ -107,7 +107,7 @@ class DiaryStore: ObservableObject {
                         "membersID" : membersID])
             }
             
-            await fetchDiaries(userID: "")
+            await fetchDiaries(userID: userID)
             
         } catch {
             fatalError()
