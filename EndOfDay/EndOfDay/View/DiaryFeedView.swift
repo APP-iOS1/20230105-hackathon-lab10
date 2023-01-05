@@ -45,10 +45,14 @@ struct DiaryFeedView: View {//
         //            ImagePicker(image: $selectedImage)}
     
         .onAppear {
-            recordStore.fetchRecords()
+            Task{
+                await recordStore.fetchRecords()
+            }
         }
         .refreshable {
-            recordStore.fetchRecords()
+            Task{
+                await recordStore.fetchRecords()
+            }
         }
     }
 }

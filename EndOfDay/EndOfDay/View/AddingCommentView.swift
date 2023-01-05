@@ -16,9 +16,10 @@ struct AddingCommentView: View {//
             if trimCommet.count > 0 {
                 Button {
                     let comment: Comment = Comment(id: UUID().uuidString, commentContent: commentText, createdAt: Date().timeIntervalSince1970, userID: "test123123", userNickName: "Ned")
-                    
                     commentStore.recordID = record.id
-                    commentStore.addComment(comment)
+                    Task{
+                        await commentStore.addComment(comment)
+                    }
                     commentText = ""
                 } label: {
                     Text("저장")

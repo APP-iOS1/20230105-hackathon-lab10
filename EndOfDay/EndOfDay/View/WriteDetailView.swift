@@ -51,8 +51,11 @@ struct WriteDetailView: View {//
                                 createdAt: createdAt,
                                 userID: userStore.user?.uid ?? "",
                                 userNickName: userStore.user?.displayName ?? "",
-                                photos: imageId)
-                            recordeStore.addRecord(record)
+                                photoID: imageId)
+                            Task{
+                                //TODO: 일기 작성후 선택된 일기장들의 id를 [String]으로 입력해줘야함
+//                                await recordeStore.addRecord()
+                            }
                         } label: {
                             Text("완료")
                         }
