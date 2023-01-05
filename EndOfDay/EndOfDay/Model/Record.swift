@@ -20,12 +20,15 @@ struct Record: Identifiable {
 //    var photo: [UIImage]
     
     var createdDate: String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "ko_kr")
-        dateFormatter.timeZone = TimeZone(abbreviation: "KST")
-        dateFormatter.dateFormat = "MM월 dd일"
         
-        let dateCreatedAt = Date(timeIntervalSince1970: createdAt)
-        return dateFormatter.string(from: dateCreatedAt)
-    }
+            let dateFormatter = DateFormatter()
+            dateFormatter.locale = Locale(identifier: "ko-kr")
+            dateFormatter.timeZone = TimeZone(abbreviation: "KST")
+            dateFormatter.dateFormat = "yy년 MM월 dd일"
+
+            let dateCreatedAt = Date(timeIntervalSince1970: createdAt)
+
+            return dateFormatter.string(from: dateCreatedAt)
+        }
+
 }

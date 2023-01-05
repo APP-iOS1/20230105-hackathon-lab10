@@ -40,7 +40,7 @@ struct WriteDetailView: View {
                     Button {
                         isPickerShowing = true
                     } label: {
-                        Image(systemName: "plus")
+                        Image(systemName: "photo")
                     }
                 })
                 if trimTitle.count > 0 && trimContent.count > 0 {

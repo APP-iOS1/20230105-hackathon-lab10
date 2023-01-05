@@ -37,6 +37,6 @@ struct AddingCommentView: View {
 
 struct AddingCommentView_Previews: PreviewProvider {
     static var previews: some View {
-        AddingCommentView(commentStore: CommentStore(), record: Record(id: "123123", recordTitle: "프리뷰야 보여라", recordContent: "여기도 회색이 되어버렸네요", createdAt: 1.1, userID: "ted123123", userNickName: "Ned"))
+        AddingCommentView(commentStore: CommentStore(), record: Record(id: "123123", recordTitle: "프리뷰야 보여라", recordContent: "여기도 회색이 되어버렸네요", createdAt: Date().timeIntervalSince1970, userID: "ted123123", userNickName: "Ned"))
     }
 }
