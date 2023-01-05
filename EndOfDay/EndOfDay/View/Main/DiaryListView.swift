@@ -23,11 +23,6 @@ struct DiaryListView: View {
                     Spacer()
                 }
                 .padding(.horizontal)
-                .onAppear {
-                    Task {
-                       await recordStore.fetchRecords()
-                    }
-                }
                 
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(spacing: 20) {
@@ -38,15 +33,15 @@ struct DiaryListView: View {
                 }
                 
 
-//                ScrollView {
-//                    ForEach(recordStore.records) { record in
-//                        NavigationLink {
-//                            DiaryCellView(record: record)
-//                        } label: {
-//                            DiaryCellView(record: record)
-//                        }
-//                    }
-//                }
+                ScrollView {
+                    ForEach(recordStore.records) { record in
+                        NavigationLink {
+                            DiaryCellView(record: record)
+                        } label: {
+                            DiaryCellView(record: record)
+                        }
+                    }
+                }
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -74,8 +69,8 @@ struct DiaryListView: View {
     }
 }
 
-struct DiaryListView_Previews: PreviewProvider {
-    static var previews: some View {
-        DiaryListView()
-    }
-}
+//struct DiaryListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        DiaryListView()
+//    }
+//}

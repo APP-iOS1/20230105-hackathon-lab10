@@ -21,9 +21,13 @@ class RecordStore: ObservableObject {
     func fetchRecords() async {
         do {
             self.records.removeAll()
-            if !diaryID.isEmpty {
-                let snapshot = try await database.document(diaryID).collection("Records").getDocuments()
+//            if !diaryID.isEmpty {
+                let snapshot = try await database.document("0A16CC1D-FBDC-4509-822F-64B42B999235").collection("Records").getDocuments()
                 for document in snapshot.documents {
+                    
+//                    print("for문 시작")
+//                    print(document)
+                    
                     let docData = document.data()
                     let id: String = document.documentID
                     let recordTitle: String = docData["recordTitle"] as? String ?? ""
@@ -35,6 +39,10 @@ class RecordStore: ObservableObject {
                     var photo: UIImage = UIImage()
                     let storageRef = Storage.storage().reference()
                     if !photoID.isEmpty {
+                        
+//                        print("image")
+//                        print(recordTitle)
+                        
                         let fileRef = storageRef.child("images/\(photoID).jpg")
                         let imageData = try await fileRef.data(maxSize: 5*1024*1024)
                         photo = UIImage(data: imageData) ?? UIImage()
@@ -42,7 +50,7 @@ class RecordStore: ObservableObject {
                     let record: Record = Record(id: id, recordTitle: recordTitle, recordContent: recordContent, createdAt: createdAt, userID: userID, userNickName: userNickName, photoID: photoID, photo: photo)
                     self.records.append(record)
                 }
-            }
+//            }
                 self.records = records.sorted{ $0.createdAt > $1.createdAt}
             } catch{
         }
@@ -117,7 +125,49 @@ class RecordStore: ObservableObject {
             fatalError()
         }
     }
+    
+    //MARK: Current Day
+    @Published var currentDay: Date = Date()
+
+    //MARK: Filtering Today Records
+    @Published var filteredRecord: [Record]?
+    
+    //MARK: Initializing
+    init() {
+        filterTodayRecords()
+    }
+    
+    func filterTodayRecords() {
+        
+//        DispatchQueue.global(qos: .userInteractive).async {
+        Task {
+            
+            let calendar = Calendar.current
+            
+            //            Task {
+            //               await recordStore.fetchRecords()
+            //            }
+            
+            let filtered = self.records.filter {
+                //                Date()
+                //                print($0.date)
+                let dateCreatedAt = Date(timeIntervalSince1970: $0.createdAt)
+                
+                return calendar.isDate(dateCreatedAt, inSameDayAs: self.currentDay)
+            }//taskDate의 타임인터벌 값만 잘 가져오면 비교도 알아서 됨!
+            
+            
+            DispatchQueue.main.async {
+                withAnimation {
+                    self.filteredRecord = filtered
+                }
+            }
+        }
+//        }
+        
+    }
 }
+
 
 struct DateValue: Identifiable {
     var id = UUID().uuidString
