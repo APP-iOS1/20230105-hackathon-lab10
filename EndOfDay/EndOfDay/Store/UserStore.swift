@@ -20,6 +20,7 @@ class UserStore: ObservableObject {
     
     // 유저의 닉네임 패치
     @Published var currentUserNickname = Auth.auth().currentUser?.displayName
+    @Published var page = "Page1"
     
     func updateNickname(_ nickname: String) {
         if let currentUser = Auth.auth().currentUser?.createProfileChangeRequest() {
@@ -62,6 +63,8 @@ class UserStore: ObservableObject {
                 try await Auth.auth().signIn(withEmail: emailAddress, password: password)
                 listenToLoginState()
                 print("로그인 성공")
+                self.page = "Page2"
+                print(page)
             } catch {
                 await handleError(message: "등록되지 않은 사용자 입니다.")
             }
@@ -120,6 +123,7 @@ class UserStore: ObservableObject {
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
         }
+        self.page = "Page1"
     }
     
     // MARK: - error 처리 메서드
