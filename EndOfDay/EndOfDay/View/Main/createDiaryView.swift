@@ -14,6 +14,7 @@ struct createDiaryView: View {
     @State private var title: String = ""
     @State private var colorIndex: Int = 2
     @EnvironmentObject var diaryStore: DiaryStore
+    @EnvironmentObject var userStore: UserStore
     
     var rows: [GridItem] = Array(repeating: .init(.fixed(50)), count: 2)
     
@@ -87,7 +88,7 @@ struct createDiaryView: View {
                         Button("생성") {
                             let time = Date().timeIntervalSince1970
                             title = title.trimmingCharacters(in: .whitespaces)
-                            let diary: Diary = Diary(id: UUID().uuidString, dairyTitle: title, colorIndex: colorIndex, createdAt: time, membersID: [], membersNickname: [])
+                            let diary: Diary = Diary(id: UUID().uuidString, dairyTitle: title, colorIndex: colorIndex, createdAt: time, membersID: [diaryStore.userID], membersNickname: [])
                             showingSheet.toggle()
                             Task {
                                 await diaryStore.addDiary(diary: diary)

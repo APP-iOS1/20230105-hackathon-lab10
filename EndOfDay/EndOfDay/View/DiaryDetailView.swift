@@ -13,6 +13,7 @@ struct DiaryDetailView: View {
     @StateObject var commentStore = CommentStore()
     var diaryId: String
     @StateObject var recordStore = RecordStore()
+    @StateObject var diaryStore = DiaryStore()
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
@@ -90,18 +91,20 @@ struct DiaryDetailView: View {
         }
         .navigationTitle("\(record.userNickName)의 일기")
         .toolbar {
-            Menu {
-                Button {
-                    Task {
-                        await recordStore.removeRecord(recordID: record.id)
-                        dismiss()
+            if record.writerID == diaryStore.userID {
+                Menu {
+                    Button {
+                        Task {
+                            await recordStore.removeRecord(recordID: record.id)
+                            dismiss()
+                        }
+                    } label: {
+                        Label("삭제하기", systemImage: "trash")
                     }
-                } label: {
-                    Label("삭제하기", systemImage: "trash")
-                }
 
-            } label: {
-                Image(systemName: "ellipsis")
+                } label: {
+                    Image(systemName: "ellipsis")
+                }
             }
 
         }

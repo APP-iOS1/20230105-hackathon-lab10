@@ -19,6 +19,7 @@ struct CommentView: View {
     var colors = Color(red: 52 / 255, green: 152 / 255, blue: 255 / 255)
     @State private var comment: String = ""
     var diaryId: String
+    @StateObject var diaryStore = DiaryStore()
     
 //    var commentUser: [CommentUser] = [
 //        CommentUser(nickname: "김태성", comment: "나는 안졸리다 나는 안졸리다 나는 안졸리다 나는 안졸리다", time: "1분 전"),
@@ -58,16 +59,17 @@ struct CommentView: View {
                     .frame(width: UIScreen.main.bounds.width - 40)
                     
                     .contextMenu {
+                        if m.writerID == diaryStore.userID {
                             Button {
                                 
                                 Task {
                                     await commentStore.removeComment(commentID: m.id)
-                                    await commentStore.fetchComments()
                                 }
                             } label: {
                                 Label("삭제하기", systemImage: "trash")
                             }
                         }
+                    }
                 }
                 
             }
