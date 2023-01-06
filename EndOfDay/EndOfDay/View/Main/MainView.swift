@@ -80,6 +80,7 @@ struct MainView: View {
                             }
                         }
                  
+                    // 개인 일기장
                     NavigationLink {
                         DiaryListView(diary: diaryStore.privateDiary)
                     } label: {
@@ -88,6 +89,8 @@ struct MainView: View {
                             .foregroundColor(.white)
                             .bold()
                     }
+                    
+                    
                     ForEach(diaryStore.diaries) { diary in
                         NavigationLink {
                             DiaryListView(diary: diary)
@@ -123,14 +126,14 @@ struct DiaryCell: View {
     var diary: Diary
     let colors: [Color] = [.redColor, .orangeColor, .yellowColor, .greenColor, .blueColor, .purpleColor]
 //    let colors: [Color] = [.red, .orange, .yellow, .green, .mint, .cyan, .blue, .indigo, .purple, .brown]
-    let images: [String] = ["01", "02", "03", "04"]
+    let images: [String] = ["01", "02", "03", "04","05","06","07","08"]
     var body: some View {
         VStack {
             ZStack {
                 Rectangle()
                     .foregroundColor(.brown)
                     .overlay {
-                        Image("\(images[0])")
+                        Image("\(images[diary.colorIndex])")
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                             .offset(x:50)
@@ -153,7 +156,7 @@ struct DiaryCell: View {
                             .background(Color.white)
                             .cornerRadius(10)
                     )
-                    .offset(x: 12, y: -40)
+                    .offset(x: 12, y : -40)
                 
             }
             

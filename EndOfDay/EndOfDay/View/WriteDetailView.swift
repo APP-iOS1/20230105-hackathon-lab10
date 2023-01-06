@@ -55,17 +55,20 @@ struct WriteDetailView: View {//
                             .foregroundColor(.black)
                     }
                 })
-                if trimTitle.count > 0 && trimContent.count > 0 {
-                    ToolbarItem(placement: .navigationBarTrailing, content: {
-                        Button {
-                            showingCategory.toggle()
-                            
-                        } label: {
-                            Text("완료")
-                                .foregroundColor(.black)
-                        }
-                    })
-                }
+                
+                
+                ToolbarItem(placement: .navigationBarTrailing, content: {
+                    Button {
+                        showingCategory.toggle()
+                        
+                    } label: {
+                        Text("완료")
+                    }
+                    .foregroundColor(trimTitle.isEmpty || trimContent.isEmpty ? .gray : .black)
+                    .disabled(trimTitle.isEmpty || trimContent.isEmpty)
+                })
+
+                
             }
             .sheet(isPresented: $isPickerShowing, onDismiss: nil){
                 ImagePicker(image: $selectedImage)
