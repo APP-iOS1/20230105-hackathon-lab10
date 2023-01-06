@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 
 struct MainView: View {
@@ -107,11 +108,15 @@ struct MainView: View {
                 .padding(.horizontal, 20)
                 .padding(.bottom, 80)
             }
+            .onAppear {
+                Task {
+                    diaryStore.userID = Auth.auth().currentUser?.uid ?? ""
+                    diaryStore.userNickname = Auth.auth().currentUser?.displayName ?? ""
+                    print(diaryStore.userNickname)
+                    await diaryStore.fetchDiaries()
+                    print("온어피어 패치")
+                }
         }
-        .onAppear {
-            Task {
-                await diaryStore.fetchDiaries()
-            }
 //            print("닉네임: \(userStore.currentUserNickname)")
         }
         .sheet(isPresented: $showingCreatDiaryView) {

@@ -36,12 +36,12 @@ class RecordStore: ObservableObject {
                     let photoID: String = docData["photoID"] as? String ?? ""
                     var photo: UIImage = UIImage()
                     //MARK: 스토리지 잠시 주석처리
-//                    let storageRef = Storage.storage().reference()
-//                    if !photoID.isEmpty {
-//                    let fileRef = storageRef.child("images/\(photoID).jpg")
-//                    let imageData = try await fileRef.data(maxSize: 5*1024*1024)
-//                        photo = UIImage(data: imageData) ?? UIImage()
-//                    }
+                    let storageRef = Storage.storage().reference()
+                    if !photoID.isEmpty {
+                    let fileRef = storageRef.child("images/\(photoID).jpg")
+                    let imageData = try await fileRef.data(maxSize: 5*1024*1024)
+                        photo = UIImage(data: imageData) ?? UIImage()
+                    }
                     let record: Record = Record(id: id, recordTitle: recordTitle, recordContent: recordContent, createdAt: createdAt, writerID: writerID, userNickName: userNickName, photoID: photoID, photo: photo)
                     self.records.append(record)
                 }
@@ -54,11 +54,13 @@ class RecordStore: ObservableObject {
     
     // MARK: Record 추가하기
     func addRecord(record: Record, diariesID: [String]) async {
-        var diaryIDArr = diariesID
-        diaryIDArr.append(userID ?? "")
         do {
-            for diaryID in diariesID{
+            var diaryIDArr = diariesID
+            diaryIDArr.append(userID ?? "")
+            for diaryID in diaryIDArr{
+                print(diaryID)
                 if !diaryID.isEmpty {
+                    print(diaryID)
                     try await database.document(diaryID).collection("Records").document(record.id)
                         .setData([
                             "recordTitle": record.recordTitle,
@@ -99,7 +101,7 @@ class RecordStore: ObservableObject {
             
             await fetchRecords()
         } catch{
-            fatalError()
+//            fatalError()
         }
     }
 

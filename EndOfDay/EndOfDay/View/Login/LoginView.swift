@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import FirebaseAuth
+
 extension View {
     func hideKeyboard() {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
@@ -13,7 +15,7 @@ extension View {
 }
 struct LoginView: View {
     @EnvironmentObject private var userStore: UserStore
-    
+    @EnvironmentObject private var diaryStore: DiaryStore
     @State private var emailID: String = ""
     @State private var password: String = ""
     
@@ -72,7 +74,13 @@ struct LoginView: View {
                 
                 VStack {
                     Button {
-                        userStore.logIn( emailAddress: emailID, password: password )
+                        Task{
+                            await userStore.logIn( emailAddress: emailID, password: password )
+                            diaryStore.userID = Auth.auth().currentUser?.uid ?? ""
+                            diaryStore.userNickname = Auth.auth().currentUser?.displayName ?? ""
+                            await diaryStore.fetchDiaries()
+                            print("로그인 패치")
+                        }
 //                        userStore.page = "Page2"
                     } label: {
                         Text("로그인")
@@ -84,6 +92,10 @@ struct LoginView: View {
                             .cornerRadius(10)
                     }
                     .disabled(!cautionMessage.isEmpty)
+//                    .onChange(of: userStore.loginState) { _ in
+//                            diaryStore.userID = Auth.auth().currentUser?.uid ?? ""
+//                            diaryStore.userNickname = Auth.auth().currentUser?.displayName ?? ""
+//                    }
                     
                     HStack {
                         Text("아직 회원이 아니신가요?").foregroundColor(.gray)

@@ -10,8 +10,6 @@ import FirebaseCore
 
 @main
 struct EndOfDayApp: App {
-    
-    
     init() {
         FirebaseApp.configure()
     }

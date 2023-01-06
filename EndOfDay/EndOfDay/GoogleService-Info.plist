@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>348684326600-vlo1om1bq1s06c9eo49uf1j7jdpsaet4.apps.googleusercontent.com</string>
+	<string>268381965547-7uf4c4u9nikehdk7t5pknl5prtsstld8.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.348684326600-vlo1om1bq1s06c9eo49uf1j7jdpsaet4</string>
+	<string>com.googleusercontent.apps.268381965547-7uf4c4u9nikehdk7t5pknl5prtsstld8</string>
 	<key>API_KEY</key>
-	<string>AIzaSyCc4WGL3RR01BePmvHQOIDOanjy3omNwnE</string>
+	<string>AIzaSyCNHpd8a5uYeCge_3SIx_6SvZ7TRg9qV44</string>
 	<key>GCM_SENDER_ID</key>
-	<string>348684326600</string>
+	<string>268381965547</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.codelion.EndOfDay</string>
 	<key>PROJECT_ID</key>
-	<string>endofday-90fc5</string>
+	<string>endofday-dd6ea</string>
 	<key>STORAGE_BUCKET</key>
-	<string>endofday-90fc5.appspot.com</string>
+	<string>endofday-dd6ea.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:348684326600:ios:76a27f338586ec186bb7fd</string>
+	<string>1:268381965547:ios:0297ac678579fdaa2f42ae</string>
 </dict>
 </plist>
