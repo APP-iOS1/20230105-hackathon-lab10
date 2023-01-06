@@ -51,7 +51,7 @@ struct MyPageView: View {
                                 } else{
                                     Text(userStore.currentUserNickname ?? "")
                                 }
-                                Text(verbatim: "test@test.test")
+                                Text(verbatim: userStore.user?.email ?? "")
                                 
                             }
                             .foregroundColor(.black)
@@ -67,10 +67,7 @@ struct MyPageView: View {
                                             focusField = .addAttendee
                                         }
                                     } else {
-                                        Task {
-                                            await userStore.updateNickname(nickname)
-                                        }
-                                        print(userStore.currentUserNickname)
+                                        userStore.updateNickname(nickname)
                                     }
 
                                 } label: {
@@ -92,8 +89,7 @@ struct MyPageView: View {
 
                 RoundedRectangle(cornerRadius: 10)
                     .frame(width: 350, height: 50)
-                //                .foregroundColor(Color("LightGray"))
-                    .foregroundColor(Color(UIColor.lightGray))
+                    .foregroundColor(.black)
                     .overlay(
                         Text("로그아웃")
                             .bold()

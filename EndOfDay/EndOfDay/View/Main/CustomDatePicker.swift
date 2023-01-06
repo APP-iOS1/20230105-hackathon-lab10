@@ -101,6 +101,7 @@ struct CustomDatePicker: View {
                                     return isSameDay(date1: Date(timeIntervalSince1970: record.createdAt), date2: currentDate)
                                 }
                 
+
                 if !filteredRecords.isEmpty {
                     ForEach(recordStore.records.filter { record in
                         return isSameDay(date1: Date(timeIntervalSince1970: record.createdAt), date2: currentDate)
