@@ -16,18 +16,21 @@ struct DiaryCellView: View {
     var body: some View {
         VStack{
             Form {
-                HStack {
-                    Spacer()
-                    Rectangle()
-                        .fill(Color.gray)
-                    //                    Image(uiImage: record.photo ?? UIImage())
-                    //                        .resizable()
-                    //                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 300, height: 300)
-                    Spacer()
+                if (record.photo != nil) {
+                    HStack {
+                        Spacer()
+                        Image(uiImage: record.photo ?? UIImage())
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 300, height: 300)
+                        Spacer()
+                    }
+                    .listRowSeparator(.hidden)
+                    .padding(.top)
                 }
-                .listRowSeparator(.hidden)
-                .padding(.top)
+                else {
+                    
+                }
                 
                 VStack(alignment: .leading) {
                     Text("\(record.recordTitle)")

@@ -116,6 +116,7 @@ struct createDiaryView: View {
                     }
                 }
                 
+
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("생성") {
                         let time = Date().timeIntervalSince1970
