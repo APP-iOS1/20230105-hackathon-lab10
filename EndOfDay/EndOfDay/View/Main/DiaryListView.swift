@@ -13,17 +13,20 @@ struct DiaryListView: View {
     @StateObject private var recordStore: RecordStore = RecordStore()
     @State var currentDate: Date = Date()
     var diary: Diary
+    private let duration = 0.5
     @State var isShowingCalendar: Bool = false
     
     var body: some View {
         NavigationStack {
             VStack{
                 HStack {
-                    Text("그룹명")
+                    Text(diary.dairyTitle)
                         .font(.largeTitle)
                     Spacer()
                     Button {
-                        isShowingCalendar.toggle()
+                        withAnimation(.easeIn(duration: duration)) {
+                            isShowingCalendar.toggle()
+                        }
                     } label: {
                         Image(systemName: "calendar")
                         Text("\(currentDate.formatted(.dateTime.day().month()))")
