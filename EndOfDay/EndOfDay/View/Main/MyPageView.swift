@@ -74,7 +74,7 @@ struct MyPageView: View {
                                 } label: {
                                     Text(isEdit ? "완료" : "편집")
                                         .bold()
-                                        .foregroundColor(.black)
+                                        .foregroundColor(.myDeepGreen)
                                 }
                                 .padding()
                                 .padding(.top, 18)
@@ -95,7 +95,7 @@ struct MyPageView: View {
                     Text("로그아웃")
                         .fontWeight(.bold)
                         .frame(width: 350, height: 50)
-                        .background(Color(.black))
+                        .background(Color.myDeepGreen)
                         .foregroundColor(.white)
                         .cornerRadius(10)
                 }

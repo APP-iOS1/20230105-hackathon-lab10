@@ -28,10 +28,11 @@ struct WriteDetailView: View {//
             ScrollView {
                     TextField("일기 제목을 입력해주세요", text: $recordTitle)
                     .multilineTextAlignment(TextAlignment.center)
+                    .font(.title3)
 //                        .frame(width: 250)
 //                        .border(.black)
                 Divider()
-                    .padding(.horizontal, 80)
+                    .padding(.horizontal, 50)
                 if let image = selectedImage {
                     Image(uiImage: image)
                         .resizable()
@@ -41,7 +42,7 @@ struct WriteDetailView: View {//
                         .padding(.vertical, 10)
                 }
                 
-                TextField("오늘은 어떤 하루 였나요? \n 친구들에게 하고 싶은 말을 마음껏 적어주세요", text: $recordContent, axis: .vertical)
+                TextField("오늘은 어떤 하루 였나요? ", text: $recordContent, axis: .vertical)
                     .padding(10)
                 Spacer()
             }
@@ -54,7 +55,7 @@ struct WriteDetailView: View {//
                         isPickerShowing = true
                     } label: {
                         Image(systemName: "photo")
-                            .foregroundColor(.black)
+                            .foregroundColor(.myDeepGreen)
                     }
                 })
                 
@@ -67,7 +68,7 @@ struct WriteDetailView: View {//
                     } label: {
                         Text("완료")
                     }
-                    .foregroundColor(trimTitle.isEmpty || trimContent.isEmpty ? .gray : .black)
+                    .foregroundColor(trimTitle.isEmpty || trimContent.isEmpty ? .myLightGreen : .myDeepGreen)
                     .disabled(trimTitle.isEmpty || trimContent.isEmpty)
                 })
 

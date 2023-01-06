@@ -40,11 +40,11 @@ struct MainView: View {
                     }
                 }
                 .font(.system(size:22))
-                .foregroundColor(.black)
+                .foregroundColor(.myDeepGreen)
             
                 
                 HStack{
-                    Text("\(userStore.currentUserNickname ?? "")님의 하루 끝")
+                    Text("\(userStore.currentUserNickname ?? "")님의 하루 끝🍃")
                         .font(.title)
                         .fontWeight(.medium)
                     Spacer()
@@ -61,13 +61,13 @@ struct MainView: View {
                     } label: {
                         RoundedRectangle(cornerRadius: 5)
                             .strokeBorder(style: StrokeStyle(lineWidth: 2, dash: [10]))
-                            .foregroundColor(.gray)
+                            .foregroundColor(.myLightGreen)
                             .frame(width: 150, height: 200)
                             .overlay(
                                 Image(systemName: "plus")
                                     .resizable()
                                     .frame(width: 25, height: 25)
-                                    .foregroundColor(.gray)
+                                    .foregroundColor(.myLightGreen)
                             )
                             .foregroundColor(.black)
                     }

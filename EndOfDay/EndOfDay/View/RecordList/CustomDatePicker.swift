@@ -69,7 +69,7 @@ struct CustomDatePicker: View {
                             CardView(value: value)
                                 .background(
                                     Capsule()
-                                        .fill(Color.orange)
+                                        .fill(Color.myDeepGreen)
                                         .padding(.horizontal, 8)
                                         .opacity(isSameDay(date1: value.date, date2: currentDate) ? 1 : 0)
                                         .offset(y: -18)
@@ -103,9 +103,7 @@ struct CustomDatePicker: View {
                 
 
                 if !filteredRecords.isEmpty {
-                    ForEach(recordStore.records.filter { record in
-                        return isSameDay(date1: Date(timeIntervalSince1970: record.createdAt), date2: currentDate)
-                    }) { record in
+                    ForEach(filteredRecords) { record in
                         NavigationLink {
                             RecordDetailView(record: record, diaryId: diaryID)
                         } label: {
@@ -115,6 +113,7 @@ struct CustomDatePicker: View {
                 }
                 else {
                     Text("작성한 일기가 없습니다.")
+                        .foregroundColor(.gray)
                 }
             }.onAppear {
                 Task {
@@ -137,7 +136,7 @@ struct CustomDatePicker: View {
                     //MARK: 일기가 있는 날짜와, 사용자가 클릭한 날짜가 같으면 해당 날짜의 텍스트 색깔을 바꿔준다
                     Text("\(value.day)")
                         .font(.title3.bold())
-                        .foregroundColor(isSameDay(date1: Date(timeIntervalSince1970: diaries.createdAt), date2: currentDate) ? .blue : .primary)
+                        .foregroundColor(isSameDay(date1: Date(timeIntervalSince1970: diaries.createdAt), date2: currentDate) ? .white : .primary)
                         .frame(maxWidth: .infinity)
                     
                     Spacer()
@@ -145,7 +144,7 @@ struct CustomDatePicker: View {
                     //MARK: 일기가 있는 날짜와, 사용자가 클릭한 날짜가 같으면 일정이 있음을 표시해주는 Circle()색이 바뀐다
                     //if 해당 날자에 레코트 데이터가 있으면 이걸 보여주고
                     Circle()
-                        .fill(isSameDay(date1: Date(timeIntervalSince1970: diaries.createdAt), date2: currentDate) ? .white : Color.red )
+                        .fill(isSameDay(date1: Date(timeIntervalSince1970: diaries.createdAt), date2: currentDate) ? .white : Color.myYellow )
                         .frame(width: 8, height: 8)
                         .offset(y: -20)
                     

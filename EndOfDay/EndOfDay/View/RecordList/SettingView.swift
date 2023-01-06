@@ -58,6 +58,7 @@ struct SettingView: View {
                 
             } label: {
                 Text("일기장 표지 수정")
+                    .foregroundColor(.black)
             }
             
             Button {
@@ -65,6 +66,7 @@ struct SettingView: View {
             
             } label: {
                 Text("일기장 나가기")
+                    .foregroundColor(.black)
             }
             .alert(isPresented: $showingAlert) {
                 Alert(title: Text("삭제"), message: Text("일기장을 삭제하시겠습니까?"), primaryButton: .destructive(Text("삭제"), action: {
@@ -76,7 +78,7 @@ struct SettingView: View {
             
         }
 //        .listStyle(SidebarListStyle())
-        .navigationBarTitle("일기 설정", displayMode: .inline)
+        .navigationBarTitle("일기장 정보", displayMode: .inline)
         .onAppear {
             invitationCode = diary.id
         }
@@ -119,7 +121,8 @@ struct MaxWidthColoredButtonModifier: ViewModifier {
             .padding()
             .frame(width: UIScreen.main.bounds.width - 70, height: 44)
             .bold()
-            .background(Color.black.opacity(0.6))
+//            .background(Color.black.opacity(0.6))
+            .background(Color.myDeepGreen)
             .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
             .padding(EdgeInsets(top: 5, leading: 20, bottom: 0, trailing: 20))
     }

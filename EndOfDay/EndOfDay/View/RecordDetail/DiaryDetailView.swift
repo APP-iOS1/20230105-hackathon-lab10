@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RecordDetailView: View {
-    var colors = Color(red: 52 / 255, green: 152 / 255, blue: 255 / 255)
+//    var colors = Color(red: 52 / 255, green: 152 / 255, blue: 255 / 255)
     var record: Record
     @StateObject var commentStore = CommentStore()
     var diaryId: String
@@ -18,41 +18,38 @@ struct RecordDetailView: View {
     
     var body: some View {
         VStack {
-            VStack{
-//                Form {
-                    HStack {
-                        Spacer()
-                        Rectangle()
-                            .fill(colors.opacity(0.2))
-                        // TODO: Rectangle -> Image 변경하기
-                        //                    Image(uiImage: record.photo ?? UIImage())
-                        //                        .resizable()
-                        //                        .aspectRatio(contentMode: .fit)
-                            .frame(width: 300, height: 300)
-                        Spacer()
-                    }
-                    .listRowSeparator(.hidden)
-                    .padding(.top)
-                    
+            VStack {
+                Form {
+                    if record.photoID != "" {
+                        HStack {
+                            Spacer()
+                            Image(uiImage: record.photo!)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 300, height: 300)
+                            Spacer()
+                        }
+                        .listRowSeparator(.hidden)
+                        .padding(.top)
+                        }
+
                     VStack(alignment: .leading) {
                         Text("\(record.recordTitle)")
                             .font(.title2)
                             .bold()
                             .lineLimit(1)
                         HStack {
-                            
-                            Spacer()
                             Text("\(record.createdDate)")
                                 .foregroundColor(.gray)
-                                .font(.footnote)
-//                            Text("\(record.userNickName)")
+                            Spacer()
+                            Text("\(record.userNickName)")
                         }
                     }
-                    .padding(.horizontal, 30)
+
+                    .padding(.horizontal, 10)
                     
-//                }
-//                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 1.8)
-                
+                }
+                .frame(width: UIScreen.main.bounds.width, height: record.photoID != "" ? UIScreen.main.bounds.height / 1.8 : UIScreen.main.bounds.height / 6.0)
             }
             
             VStack(alignment: .leading) {
@@ -65,7 +62,7 @@ struct RecordDetailView: View {
                 .overlay(
                     Rectangle()
                         .cornerRadius(15)
-                        .foregroundColor(colors)
+                        .foregroundColor(.gray)
                         .opacity(0.1)
                 )
             }.frame(width: UIScreen.main.bounds.width - 40)
@@ -87,12 +84,18 @@ struct RecordDetailView: View {
                 Spacer()
             }
             .padding()
-            .background(colors.opacity(0.07))
+            .background(Color.myLightGreen)
         }
         .navigationTitle("\(record.userNickName)의 일기")
         .toolbar {
             if record.writerID == diaryStore.userID {
                 Menu {
+                    NavigationLink {
+                        RecordModifyView(record: record)
+                    } label: {
+                        Label("수정하기", systemImage: "square.and.pencil")
+                    }
+                    
                     Button {
                         Task {
                             await recordStore.removeRecord(recordID: record.id)
@@ -101,7 +104,6 @@ struct RecordDetailView: View {
                     } label: {
                         Label("삭제하기", systemImage: "trash")
                     }
-
                 } label: {
                     Image(systemName: "ellipsis")
                 }

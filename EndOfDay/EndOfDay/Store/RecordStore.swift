@@ -85,7 +85,8 @@ class RecordStore: ObservableObject {
             for document in snapshot.documents {
                 diariesID.append(document.documentID)
             }
-            
+            print("++++++++++++++++ diariesID: \(diariesID)+++++++++\(diariesID.count)++++++++++++")
+            print("++++++++++++++++ diariesID: \(record)+++++++++++++++++++++")
             for diaryID in diariesID {
                 if !diaryID.isEmpty {
                     try await database.document(diaryID).collection("Records").document(record.id)

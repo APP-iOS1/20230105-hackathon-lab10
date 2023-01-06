@@ -31,7 +31,7 @@ struct createDiaryView: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section(header: Text("일기 표지 꾸미기").bold()) {
+                Section(header: Text("일기 표지 꾸미기").bold().font(.title3)) {
                     VStack {
                         ZStack {
                             Rectangle()
@@ -54,7 +54,7 @@ struct createDiaryView: View {
                             
 
                                 .overlay(
-                                    TextField("제목을 입력하세요", text: $title, axis: .vertical)
+                                    TextField(" 제목을 입력하세요", text: $title, axis: .vertical)
                                         .foregroundColor(.black)
                                         .frame(width: 140, height: 30)
                                         .background(Color.white)
@@ -69,8 +69,7 @@ struct createDiaryView: View {
                 //.padding(.horizontal, 10)
                 .padding()
                 
-                
-                Section(header: Text("표지 색상").bold()) {
+                Section(header: Text("표지 색상").bold().font(.title3)) {
                     LazyHGrid(rows: rows, spacing: 30){
                         ForEach(Array(images.enumerated()), id: \.offset) { (index, color) in // 왜 Array
                             Button {
@@ -102,6 +101,7 @@ struct createDiaryView: View {
             }
             .padding()
             .padding(.horizontal, 10)
+            .padding(.top, -50)
             
             .navigationTitle("일기장 만들기")
             .navigationBarTitleDisplayMode(.large)
