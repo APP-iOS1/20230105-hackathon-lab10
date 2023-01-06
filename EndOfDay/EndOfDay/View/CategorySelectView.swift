@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CategorySelectView: View {
-//    @State private var diariesID: [Int] = []
+    //    @State private var diariesID: [Int] = []
     @State private var diariesID: [String] = []
     @Binding var showingSheet : Bool
     @EnvironmentObject var userStore: UserStore
@@ -17,7 +17,8 @@ struct CategorySelectView: View {
     @EnvironmentObject var recordStore: RecordStore
     @Environment(\.dismiss) private var dismiss
     
-    @Binding var isGroupSelection: Bool
+    @Binding var test: String
+    
     var record: Record
     var body: some View {
         NavigationStack {
@@ -44,9 +45,11 @@ struct CategorySelectView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button() {
-                        isGroupSelection.toggle()
-                        showingSheet.toggle()
-                        dismiss()
+                        test = "모달 닫기"
+//                        showingSheet.toggle()
+//                        dismiss()
+                        print("모달 dismiss")
+//                        dismiss()
                         Task{
                             await recordStore.addRecord(record:record, diariesID: diariesID)
                         }

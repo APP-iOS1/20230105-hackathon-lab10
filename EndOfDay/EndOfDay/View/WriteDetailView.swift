@@ -5,16 +5,18 @@ import SwiftUI
 struct WriteDetailView: View {//
     @EnvironmentObject private var userStore: UserStore
     
+    @Environment(\.dismiss) private var dismiss
+    
     @State private var recordTitle: String = ""
     @State private var recordContent: String = ""
     @State var isPickerShowing: Bool = false
     @State var selectedImage: UIImage?
     @State var retrievedImages = [UIImage]()
     @State var showingCategory: Bool = false
+
     
-    @Binding var isGroupSelection: Bool
-    
-    
+    @State private var test: String = ""
+
     var imageStore: ImageStore = ImageStore()
     
     var trimTitle: String {
@@ -57,10 +59,11 @@ struct WriteDetailView: View {//
                             .foregroundColor(.black)
                     }
                 })
+                
                 ToolbarItem(placement: .navigationBarTrailing, content: {
+                    
                     Button {
                         showingCategory.toggle()
-                        
                     } label: {
                         Text("완료")
                             .foregroundColor(.black)
@@ -87,8 +90,11 @@ struct WriteDetailView: View {//
                     userNickName: userStore.user?.displayName ?? "",
                     photoID: imageId)
                 
-                CategorySelectView(showingSheet: $showingCategory, isGroupSelection: $isGroupSelection, record: record)
+                CategorySelectView(showingSheet: $showingCategory, test: $test, record: record)
                     .presentationDetents([.medium])
+            }
+            .onChange(of: test) { _ in
+                dismiss()
             }
     }
 }

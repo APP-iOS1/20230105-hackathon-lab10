@@ -14,9 +14,6 @@ struct DiaryListView: View {
     @State var currentDate: Date = Date()
     var diary: Diary
     
-    
-    @Binding var isGroupSelection: Bool
-    
     var body: some View {
         NavigationStack {
             VStack{
@@ -49,7 +46,7 @@ struct DiaryListView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink {
-                        WriteDetailView(isGroupSelection: $isGroupSelection)
+                        WriteDetailView()
                     } label: {
                         Image(systemName: "square.and.pencil")
                         
