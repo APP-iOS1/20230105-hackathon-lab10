@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DiaryDetailView: View {
+struct RecordDetailView: View {
     var colors = Color(red: 52 / 255, green: 152 / 255, blue: 255 / 255)
     var record: Record
     @StateObject var commentStore = CommentStore()
