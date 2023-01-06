@@ -67,7 +67,7 @@ struct SettingView: View {
                 Text("일기장 나가기")
             }
         }
-        .listStyle(SidebarListStyle())
+//        .listStyle(SidebarListStyle())
         .navigationBarTitle("일기 설정", displayMode: .inline)
         .onAppear {
             invitationCode = diary.id

@@ -9,7 +9,11 @@ import SwiftUI
 import PopupView
 
 // ???: 텍스트 필드에 따라 언어도 강제할 수 있을까?
-
+extension View {
+    func hideKeyboardSign() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+}
 struct SignUpView: View {
     
     @EnvironmentObject private var userStore: UserStore
@@ -112,7 +116,7 @@ struct SignUpView: View {
                     .textContentType(.password)
                     .keyboardType(.default)
                     .focused($focusField, equals: .password)
-        
+                
                 // MARK: 비밀번호 확인
                 HStack{
                     Text("비밀번호 확인")
@@ -134,6 +138,9 @@ struct SignUpView: View {
                     .keyboardType(.default)
                 
             }.padding(20)
+                .onTapGesture {
+                    hideKeyboardSign()
+                }
             
             
             if !emailID.isEmpty && !nickname.isEmpty && !password.isEmpty && !passwordCheck.isEmpty && password == passwordCheck{
@@ -143,7 +150,7 @@ struct SignUpView: View {
                     }
                     isShowingPopup = true
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.5) {
-                      // 1초 후 실행될 부분
+                        // 1초 후 실행될 부분
                         dismiss()
                     }
                     
@@ -174,7 +181,7 @@ struct SignUpView: View {
                         .padding(EdgeInsets(top: 5, leading: 20, bottom: 0, trailing: 20))
                 }
             }
-
+            
             
         }.navigationTitle("회원가입")
 //            .popup(isPresented: $isShowingPopup, type: .floater(useSafeAreaInset: true), position: .top, animation: .default, autohideIn: 2, dragToDismiss: true, closeOnTap: true, closeOnTapOutside: true, view: {
