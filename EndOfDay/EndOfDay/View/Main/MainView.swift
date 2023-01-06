@@ -7,12 +7,14 @@
 
 import SwiftUI
 
+
 struct MainView: View {
     @State private var showingSheet = false
     @State private var showingCreatDiaryView = false
     @State private var showingEnterCodeView = false
     @EnvironmentObject var diaryStore: DiaryStore
     @EnvironmentObject var userStore: UserStore
+    
     
     var columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
     

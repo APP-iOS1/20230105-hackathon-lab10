@@ -117,11 +117,3 @@ struct DiaryDetailView: View {
         }
     }
 }
-
-//struct DiaryDetailView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        NavigationStack {
-//            DiaryDetailView()
-//        }
-//    }
-//}

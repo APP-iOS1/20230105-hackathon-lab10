@@ -61,6 +61,7 @@ struct LoginView: View {
                         .keyboardType(.default)
                 }
                 .padding([.top, .horizontal])
+                .padding(.top, 10)
                 
                 VStack {
                     if !cautionMessage.isEmpty {
@@ -75,6 +76,7 @@ struct LoginView: View {
                 VStack {
                     Button {
                         userStore.logIn( emailAddress: emailID, password: password )
+//                        userStore.page = "Page2"
                     } label: {
                         Text("로그인")
                             .bold()
@@ -96,6 +98,7 @@ struct LoginView: View {
                     .padding()
                 }
                 .padding(.horizontal)
+                .navigationTitle(Text("LogIn"))
             }
             .onTapGesture {
                 hideKeyboard()

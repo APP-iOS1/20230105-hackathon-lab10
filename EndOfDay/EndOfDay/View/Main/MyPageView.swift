@@ -16,6 +16,7 @@ struct MyPageView: View {
     @State var nickname : String = ""
     @EnvironmentObject var userStore: UserStore
     @Environment(\.dismiss) private var dismiss
+    @State var showingLogOutAlert = false
     
     var body: some View {
         VStack{
@@ -86,21 +87,45 @@ struct MyPageView: View {
                 
                 Spacer()
                 
-
-                RoundedRectangle(cornerRadius: 10)
-                    .frame(width: 350, height: 50)
-                    .foregroundColor(.black)
-                    .overlay(
-                        Text("로그아웃")
-                            .bold()
-                            .foregroundColor(.white)
-                    )
-                    .onTapGesture {
+                Button {
+                    showingLogOutAlert.toggle()
+                    print("logout")
+//                    dismiss()
+                } label: {
+                    Text("로그아웃")
+                        .fontWeight(.bold)
+                        .frame(width: 350, height: 50)
+                        .background(Color(.black))
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                .padding(.bottom, 10)
+                .alert("로그아웃", isPresented: $showingLogOutAlert) {
+                    Button("취소", role: .cancel) {}
+                    Button("확인", role: .destructive) {
+                        print(userStore.page)
                         userStore.logOut()
-                        dismiss()
-                        print("코드 제출 완료")
+                        print(userStore.page)
                     }
-                    .padding(.bottom, 10)
+                } message: {
+                    Text("로그아웃 하시겠습니까?")
+                }
+
+//                RoundedRectangle(cornerRadius: 10)
+//                    .frame(width: 350, height: 50)
+//                //                .foregroundColor(Color("LightGray"))
+//                    .foregroundColor(Color(UIColor.lightGray))
+//                    .overlay(
+//                        Text("로그아웃")
+//                            .bold()
+//                            .foregroundColor(.white)
+//                    )
+//                    .onTapGesture {
+//                        userStore.logOut()
+//                        dismiss()
+//                        print("코드 제출 완료")
+//                    }
+//                    .padding(.bottom, 10)
             }
             .padding(.top, 20)
         }

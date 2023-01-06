@@ -8,6 +8,7 @@ struct DiaryFeedView: View {//
     @StateObject private var recordStore: RecordStore = RecordStore()
     @EnvironmentObject private var userStore: UserStore
     
+    
     var body: some View {
         NavigationStack {
             List {
@@ -86,9 +87,9 @@ struct ListCell: View {
         .padding(.vertical, 5)
     }
 }
-struct DiaryFeedView_Previews: PreviewProvider {
-    static var previews: some View {
-        DiaryFeedView()
-    }
-}
-
+//struct DiaryFeedView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        DiaryFeedView()
+//    }
+//}
+//

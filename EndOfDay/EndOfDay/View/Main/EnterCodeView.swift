@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+//import UniformTypeIdentifiers
 
 struct EnterCodeView: View {
     private enum Field : Int, Hashable{
@@ -17,7 +18,14 @@ struct EnterCodeView: View {
     
     @EnvironmentObject var diaryStore: DiaryStore
     @FocusState private var focusField : Field?
+    
+//    @State private var pasteboard: String = ""
     //focusField = .addAttendee
+    
+    
+    var trimContent: String {
+        codeText.trimmingCharacters(in: .whitespaces)
+    }
     
     var body: some View {
         NavigationStack{
@@ -33,16 +41,20 @@ struct EnterCodeView: View {
                     )
                 
                 Button {
-                    // 복사한 거 붙여넣기
+                    Task {
+                        await diaryStore.joinDiary(diaryID: codeText)
+                    }
+                    print("코드 제출 완료")
+                    showingSheet.toggle()
                 } label: {
-                    RoundedRectangle(cornerRadius: 10)
+                    Text("완료")
                         .frame(width: 340, height: 50)
-                        .foregroundColor(Color("LightGray"))
-                        .overlay(
-                            Text("붙여넣기")
-                                .foregroundColor(.black)
-                        )
+                        .background(Color("LightGray"))
+                        .cornerRadius(10)
+                    
                 }
+                .disabled(trimContent.count > 0 ? false : true)
+
             }
             .onAppear {
 //                focusField = .addAttendee
@@ -62,6 +74,13 @@ struct EnterCodeView: View {
                         .frame(width: 280, alignment: .center)
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
+                    Text("붙여넣기")
+                        .onTapGesture {
+                            if let str = UIPasteboard.general.string {
+                                codeText = str
+                            }
+                        }
+
                     Button() {
                         Task {
                             await diaryStore.joinDiary(diaryID: codeText)
