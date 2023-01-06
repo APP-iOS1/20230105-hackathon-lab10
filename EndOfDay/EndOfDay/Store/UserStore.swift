@@ -9,12 +9,14 @@ import SwiftUI
 import FirebaseAuth
 
 // FIXME: do~catch로 메서드 변환 필요
+@MainActor
 
 class UserStore: ObservableObject {
     // MARK: - 로그인한 사용자의 정보를 담고 있는 프로퍼티
     var user: User? {
         didSet { // 저장된 user 정보가 바뀌면 호출되어서 값을 업데이트
             objectWillChange.send()
+            currentUserNickname = Auth.auth().currentUser?.displayName
         }
     }
     
@@ -36,7 +38,7 @@ class UserStore: ObservableObject {
         }
         
         // TODO: await async로 변경해야함
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.5) {
           // 1초 후 실행될 부분
             self.currentUserNickname = Auth.auth().currentUser?.displayName
         }
@@ -66,7 +68,7 @@ class UserStore: ObservableObject {
                 self.page = "Page2"
                 print(page)
             } catch {
-                await handleError(message: "등록되지 않은 사용자 입니다.")
+                await handleError(message: "아이디 또는 비밀번호가 잘못되었습니다")
             }
         }
     }
@@ -92,27 +94,22 @@ class UserStore: ObservableObject {
     
     // MARK: - 회원가입 메서드
     // FIXME: 에러처리 필요함
-    func signUp(emailAddress: String, password: String, nickname: String) {
-        Auth.auth().createUser(withEmail: emailAddress, password: password) { result, error in
-            if let error = error {
-                print("an error occured: \(error.localizedDescription)")
-                return
-            } else {
-                // MARK: 받아온 닉네임 정보로 사용자의 displayName 설정
-                if let currentUser = Auth.auth().currentUser?.createProfileChangeRequest() {
-                    currentUser.displayName = nickname
-                    currentUser.photoURL = URL(string: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/2048px-Circle-icons-profile.svg.png")
-                    currentUser.commitChanges(completion: {error in
-                        if let error = error {
-                            print(error)
-                            return
-                        } else {
-                            print("DisplayName changed")
-                        }
-                    })
-                }
-                self.logIn(emailAddress: emailAddress, password: password)
+    func signUp(emailAddress: String, password: String, nickname: String) async {
+        do {
+            _ = try await Auth.auth().createUser(withEmail: emailAddress, password: password)
+            
+            
+            // MARK: 받아온 닉네임 정보로 사용자의 displayName 설정
+            if let currentUser = Auth.auth().currentUser?.createProfileChangeRequest() {
+                currentUser.displayName = nickname
+                
+               try await currentUser.commitChanges()
+                self.currentUserNickname = Auth.auth().currentUser?.displayName
             }
+            self.logIn(emailAddress: emailAddress, password: password)
+        }
+        catch {
+            fatalError()
         }
     }
     
@@ -120,6 +117,7 @@ class UserStore: ObservableObject {
     func logOut() {
         do {
             try Auth.auth().signOut()
+            user = nil
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
         }

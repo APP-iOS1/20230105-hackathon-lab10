@@ -37,13 +37,15 @@ class DiaryStore: ObservableObject {
                     let membersNickname: [String] = docData["membersNickname"] as? [String] ?? []
                     let diary: Diary = Diary(id: id,dairyTitle: diaryTitle, colorIndex: colorIndex, createdAt: createdAt, membersID: membersID, membersNickname: membersNickname)
                     if id == userID{
-                        
+                     privateDiary = diary
                     } else {
                         self.diaries.append(diary)
                     }
                 }
             }
             self.diaries = diaries.sorted{ $0.createdAt > $1.createdAt}
+            print(privateDiary)
+            print(diaries)
             
         } catch{
             fatalError()
@@ -57,7 +59,7 @@ class DiaryStore: ObservableObject {
             try await database.document(userID)
                 .setData([
                     "diaryTitle": "\(nickName)님의 일기장",
-                    "colorIndex": 0,
+                    "colorIndex": 2,
                     "createdAt": time,
                     "membersID" : [userID],
                     "membersNickname" : [nickName]])

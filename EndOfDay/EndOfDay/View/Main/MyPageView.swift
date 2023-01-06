@@ -52,7 +52,7 @@ struct MyPageView: View {
                                 } else{
                                     Text(userStore.currentUserNickname ?? "")
                                 }
-                                Text(verbatim: "test@test.test")
+                                Text(verbatim: userStore.user?.email ?? "")
                                 
                             }
                             .foregroundColor(.black)
@@ -68,10 +68,7 @@ struct MyPageView: View {
                                             focusField = .addAttendee
                                         }
                                     } else {
-                                        Task {
-                                            await userStore.updateNickname(nickname)
-                                        }
-                                        print(userStore.currentUserNickname)
+                                        userStore.updateNickname(nickname)
                                     }
 
                                 } label: {

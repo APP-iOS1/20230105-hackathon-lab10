@@ -9,7 +9,11 @@ import SwiftUI
 import PopupView
 
 // ???: 텍스트 필드에 따라 언어도 강제할 수 있을까?
-
+extension View {
+    func hideKeyboardSign() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+}
 struct SignUpView: View {
     
     @EnvironmentObject private var userStore: UserStore
@@ -55,8 +59,9 @@ struct SignUpView: View {
                         Text("이메일 형식이 맞지 않습니다")
                             .foregroundColor(.red)
                     } else if !emailID.isEmpty && isCheckValidEmail {
-                        Text("사용가능한 이메일입니다")
-                            .foregroundColor(.blue)
+//                        Text("사용가능한 이메일입니다")
+                        Image(systemName: "checkmark.circle")
+                            .foregroundColor(.green)
                     }else if emailID.isEmpty{
                         Text(" ")
                     }
@@ -78,8 +83,8 @@ struct SignUpView: View {
                         Text("닉네임 형식이 맞지 않습니다")
                             .foregroundColor(.red)
                     }else if !nickname.isEmpty && (nickname.count > 1 && nickname.count < 9){
-                        Text("사용가능한 닉네임입니다")
-                            .foregroundColor(.blue)
+                        Image(systemName: "checkmark.circle")
+                            .foregroundColor(.green)
                     }else if nickname.isEmpty{
                         Text(" ")
                     }
@@ -99,8 +104,8 @@ struct SignUpView: View {
                         Text("비밀번호 형식이 맞지 않습니다")
                             .foregroundColor(.red)
                     } else if !password.isEmpty && (password.count > 7) {
-                        Text("사용가능한 비밀번호입니다")
-                            .foregroundColor(.blue)
+                        Image(systemName: "checkmark.circle")
+                            .foregroundColor(.green)
                     } else if password.isEmpty{
                         Text(" ")
                     }
@@ -111,7 +116,7 @@ struct SignUpView: View {
                     .textContentType(.password)
                     .keyboardType(.default)
                     .focused($focusField, equals: .password)
-        
+                
                 // MARK: 비밀번호 확인
                 HStack{
                     Text("비밀번호 확인")
@@ -120,8 +125,8 @@ struct SignUpView: View {
                         Text("비밀번호가 일치하지 않습니다")
                             .foregroundColor(.red)
                     } else if !passwordCheck.isEmpty && password == passwordCheck {
-                        Text("비밀번호가 일치합니다")
-                            .foregroundColor(.blue)
+                        Image(systemName: "checkmark.circle")
+                            .foregroundColor(.green)
                     }else if passwordCheck.isEmpty{
                         Text(" ")
                     }
@@ -133,21 +138,33 @@ struct SignUpView: View {
                     .keyboardType(.default)
                 
             }.padding(20)
+                .onTapGesture {
+                    hideKeyboardSign()
+                }
             
             
             if !emailID.isEmpty && !nickname.isEmpty && !password.isEmpty && !passwordCheck.isEmpty && password == passwordCheck{
                 Button {
-                    userStore.signUp(emailAddress: emailID, password: password, nickname: nickname)
+                    Task {
+                       await userStore.signUp(emailAddress: emailID, password: password, nickname: nickname)
+                    }
                     isShowingPopup = true
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.5) {
-                      // 1초 후 실행될 부분
+                        // 1초 후 실행될 부분
                         dismiss()
                     }
                     
                     
                 } label: {
                     Text("회원가입하기")
-                        .modifier(MaxWidthColoredButtonModifier(cornerRadius: 15))
+                        .font(.subheadline)
+                        .foregroundColor(.white)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .bold()
+                        .background(Color.black)
+                        .clipShape(RoundedRectangle(cornerRadius: 15))
+                        .padding(EdgeInsets(top: 5, leading: 20, bottom: 0, trailing: 20))
                 }
             }else{
                 Button{
@@ -164,24 +181,24 @@ struct SignUpView: View {
                         .padding(EdgeInsets(top: 5, leading: 20, bottom: 0, trailing: 20))
                 }
             }
-
+            
             
         }.navigationTitle("회원가입")
-            .popup(isPresented: $isShowingPopup, type: .floater(useSafeAreaInset: true), position: .top, animation: .default, autohideIn: 2, dragToDismiss: true, closeOnTap: true, closeOnTapOutside: true, view: {
-                HStack {
-                    Image(systemName: "checkmark.circle")
-                        .foregroundColor(.white)
-                    
-                    Text("환영합니다!")
-                        .foregroundColor(.white)
-                        .font(.footnote)
-                        .bold()
-                }
-                
-                .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
-                .background(Color.green)
-                .cornerRadius(100)
-            })
+//            .popup(isPresented: $isShowingPopup, type: .floater(useSafeAreaInset: true), position: .top, animation: .default, autohideIn: 2, dragToDismiss: true, closeOnTap: true, closeOnTapOutside: true, view: {
+//                HStack {
+//                    Image(systemName: "checkmark.circle")
+//                        .foregroundColor(.white)
+//                    
+//                    Text("환영합니다!")
+//                        .foregroundColor(.white)
+//                        .font(.footnote)
+//                        .bold()
+//                }
+//                
+//                .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
+//                .background(Color.green)
+//                .cornerRadius(100)
+//            })
     }
 }
 

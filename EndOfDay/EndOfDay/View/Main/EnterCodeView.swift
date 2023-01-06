@@ -54,23 +54,10 @@ struct EnterCodeView: View {
                     
                 }
                 .disabled(trimContent.count > 0 ? false : true)
-                
-                //                RoundedRectangle(cornerRadius: 10)
-                //                    .frame(width: 340, height: 50)
-                //                    .foregroundColor(Color("LightGray"))
-                //                    .overlay(
-                //                        Text("완료")
-                //                    )
-                //                    .onTapGesture {
-                //                        Task {
-                //                            await diaryStore.joinDiary(diaryID: codeText)
-                //                        }
-                //                        print("코드 제출 완료")
-                //                        showingSheet.toggle()
-                //                    }
+
             }
             .onAppear {
-                focusField = .addAttendee
+//                focusField = .addAttendee
                 
             }
             .toolbar {
@@ -93,6 +80,17 @@ struct EnterCodeView: View {
                                 codeText = str
                             }
                         }
+
+                    Button() {
+                        Task {
+                            await diaryStore.joinDiary(diaryID: codeText)
+                        }
+                        print("코드 제출 완료")
+                        showingSheet.toggle()
+                    } label: {
+                        Text("완료")
+                            .foregroundColor(.black)
+                    }
                 }
             }
         }
