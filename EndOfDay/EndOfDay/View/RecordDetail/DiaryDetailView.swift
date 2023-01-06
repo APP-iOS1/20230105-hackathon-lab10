@@ -18,22 +18,21 @@ struct RecordDetailView: View {
     
     var body: some View {
         VStack {
-            VStack{
-//                Form {
-                    HStack {
-                        Spacer()
-                        Rectangle()
-//                            .fill(colors.opacity(0.2))
-                        // TODO: Rectangle -> Image 변경하기
-                        //                    Image(uiImage: record.photo ?? UIImage())
-                        //                        .resizable()
-                        //                        .aspectRatio(contentMode: .fit)
-                            .frame(width: 300, height: 300)
-                        Spacer()
-                    }
-                    .listRowSeparator(.hidden)
-                    .padding(.top)
-                    
+            VStack {
+                Form {
+                    if record.photoID != "" {
+                        HStack {
+                            Spacer()
+                            Image(uiImage: record.photo!)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 300, height: 300)
+                            Spacer()
+                        }
+                        .listRowSeparator(.hidden)
+                        .padding(.top)
+                        }
+
                     VStack(alignment: .leading) {
                         Text("\(record.recordTitle)")
                             .font(.title2)
@@ -46,12 +45,11 @@ struct RecordDetailView: View {
                             Text("\(record.userNickName)")
                         }
                     }
-                    .padding(.horizontal, 30)
-                
+
+                    .padding(.horizontal, 10)
                     
-//                }
-//                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 1.8)
-                
+                }
+                .frame(width: UIScreen.main.bounds.width, height: record.photoID != "" ? UIScreen.main.bounds.height / 1.8 : UIScreen.main.bounds.height / 6.0)
             }
             
             VStack(alignment: .leading) {
@@ -92,6 +90,12 @@ struct RecordDetailView: View {
         .toolbar {
             if record.writerID == diaryStore.userID {
                 Menu {
+                    NavigationLink {
+                        RecordModifyView(record: record)
+                    } label: {
+                        Label("수정하기", systemImage: "square.and.pencil")
+                    }
+                    
                     Button {
                         Task {
                             await recordStore.removeRecord(recordID: record.id)
@@ -100,7 +104,6 @@ struct RecordDetailView: View {
                     } label: {
                         Label("삭제하기", systemImage: "trash")
                     }
-
                 } label: {
                     Image(systemName: "ellipsis")
                 }

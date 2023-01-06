@@ -103,9 +103,7 @@ struct CustomDatePicker: View {
                 
 
                 if !filteredRecords.isEmpty {
-                    ForEach(recordStore.records.filter { record in
-                        return isSameDay(date1: Date(timeIntervalSince1970: record.createdAt), date2: currentDate)
-                    }) { record in
+                    ForEach(filteredRecords) { record in
                         NavigationLink {
                             RecordDetailView(record: record, diaryId: diaryID)
                         } label: {

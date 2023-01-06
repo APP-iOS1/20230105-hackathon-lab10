@@ -12,12 +12,12 @@ struct RecordCellView: View {
     var record: Record
     
     var body: some View {
-        VStack{
+        VStack {
             Form {
-                if (record.photo != nil) {
+                if record.photoID != "" {
                     HStack {
                         Spacer()
-                        Image(uiImage: record.photo ?? UIImage())
+                        Image(uiImage: record.photo!)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 300, height: 300)
@@ -26,10 +26,7 @@ struct RecordCellView: View {
                     .listRowSeparator(.hidden)
                     .padding(.top)
                 }
-                else {
-                    
-                }
-                
+
                 VStack(alignment: .leading) {
                     Text("\(record.recordTitle)")
                         .font(.title2)
@@ -45,9 +42,10 @@ struct RecordCellView: View {
                 .padding(.horizontal, 10)
                 
             }
-            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 1.8)
-            
+            .frame(width: UIScreen.main.bounds.width - 20, height: record.photoID != "" ? UIScreen.main.bounds.height / 1.8 : UIScreen.main.bounds.height / 6.0)
+            .border(Color.blue.opacity(0.1), width: 2)
         }
+        .padding(.bottom, 30)
     }
 }
 
