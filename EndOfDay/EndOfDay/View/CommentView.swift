@@ -56,6 +56,18 @@ struct CommentView: View {
                         )
                     }
                     .frame(width: UIScreen.main.bounds.width - 40)
+                    
+                    .contextMenu {
+                            Button {
+                                
+                                Task {
+                                    await commentStore.removeComment(commentID: m.id)
+                                    await commentStore.fetchComments()
+                                }
+                            } label: {
+                                Label("삭제하기", systemImage: "trash")
+                            }
+                        }
                 }
                 
             }
