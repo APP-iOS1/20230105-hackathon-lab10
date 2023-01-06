@@ -30,7 +30,13 @@ struct RecordListView: View {
                     } label: {
                         Image(systemName: "calendar")
                         Text("\(currentDate.formatted(.dateTime.day().month()))")
+                
                     }
+                    .padding(.horizontal, 3)
+                    .foregroundColor(.white)
+                    .frame(width: 110, height: 35)
+                    .background(Color.myLightGreen)
+                    .cornerRadius(10)
 
                 }
                 .padding(.horizontal)

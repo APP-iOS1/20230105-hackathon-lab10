@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RecordDetailView: View {
-    var colors = Color(red: 52 / 255, green: 152 / 255, blue: 255 / 255)
+//    var colors = Color(red: 52 / 255, green: 152 / 255, blue: 255 / 255)
     var record: Record
     @StateObject var commentStore = CommentStore()
     var diaryId: String
@@ -31,7 +31,7 @@ struct RecordDetailView: View {
                         }
                         .listRowSeparator(.hidden)
                         .padding(.top)
-                    }
+                        }
 
                     VStack(alignment: .leading) {
                         Text("\(record.recordTitle)")
@@ -45,6 +45,7 @@ struct RecordDetailView: View {
                             Text("\(record.userNickName)")
                         }
                     }
+
                     .padding(.horizontal, 10)
                     
                 }
@@ -61,7 +62,7 @@ struct RecordDetailView: View {
                 .overlay(
                     Rectangle()
                         .cornerRadius(15)
-                        .foregroundColor(colors)
+                        .foregroundColor(.gray)
                         .opacity(0.1)
                 )
             }.frame(width: UIScreen.main.bounds.width - 40)
@@ -83,7 +84,7 @@ struct RecordDetailView: View {
                 Spacer()
             }
             .padding()
-            .background(colors.opacity(0.07))
+            .background(Color.myLightGreen)
         }
         .navigationTitle("\(record.userNickName)의 일기")
         .toolbar {
