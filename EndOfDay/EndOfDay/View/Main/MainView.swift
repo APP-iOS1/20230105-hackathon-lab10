@@ -14,6 +14,7 @@ struct MainView: View {
     @EnvironmentObject var diaryStore: DiaryStore
     @EnvironmentObject var userStore: UserStore
     
+    @State private var isGroupSelection: Bool = false
     var columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
     
     var body: some View {
@@ -21,12 +22,14 @@ struct MainView: View {
             VStack{
                 HStack{
                     Spacer()
-                    NavigationLink {
-                        WriteDetailView()
+                    Button {
+                        isGroupSelection.toggle()
+//                        WriteDetailView()
                     } label: {
                         Image(systemName: "square.and.pencil")
                             .padding(.trailing, 5)
                     }
+                    
                     
                     NavigationLink {
                         MyPageView()
@@ -84,7 +87,7 @@ struct MainView: View {
                     
                     ForEach(diaryStore.diaries) { diary in
                         NavigationLink {
-                            DiaryListView(diary: diary)
+                            DiaryListView(diary: diary, isGroupSelection: $isGroupSelection)
                         } label: {
                             DiaryCell(diary: diary)
                                 .padding(.vertical, 10)
@@ -93,6 +96,9 @@ struct MainView: View {
                     }
                 }
                 .padding(.horizontal, 20)
+            }
+            .navigationDestination(isPresented: $isGroupSelection) {
+                WriteDetailView(isGroupSelection: $isGroupSelection)
             }
         }
         .onAppear {

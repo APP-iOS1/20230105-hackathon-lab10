@@ -12,6 +12,9 @@ struct WriteDetailView: View {//
     @State var retrievedImages = [UIImage]()
     @State var showingCategory: Bool = false
     
+    @Binding var isGroupSelection: Bool
+    
+    
     var imageStore: ImageStore = ImageStore()
     
     var trimTitle: String {
@@ -84,7 +87,7 @@ struct WriteDetailView: View {//
                     userNickName: userStore.user?.displayName ?? "",
                     photoID: imageId)
                 
-                CategorySelectView(showingSheet: $showingCategory, record: record)
+                CategorySelectView(showingSheet: $showingCategory, isGroupSelection: $isGroupSelection, record: record)
                     .presentationDetents([.medium])
             }
     }

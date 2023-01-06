@@ -16,6 +16,8 @@ struct CategorySelectView: View {
     @EnvironmentObject var diaryStore: DiaryStore
     @EnvironmentObject var recordStore: RecordStore
     @Environment(\.dismiss) private var dismiss
+    
+    @Binding var isGroupSelection: Bool
     var record: Record
     var body: some View {
         NavigationStack {
@@ -42,6 +44,7 @@ struct CategorySelectView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button() {
+                        isGroupSelection.toggle()
                         showingSheet.toggle()
                         dismiss()
                         Task{

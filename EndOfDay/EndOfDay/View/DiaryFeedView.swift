@@ -8,6 +8,8 @@ struct DiaryFeedView: View {//
     @StateObject private var recordStore: RecordStore = RecordStore()
     @EnvironmentObject private var userStore: UserStore
     
+    @Binding var isGroupSelection: Bool
+    
     var body: some View {
         NavigationStack {
             List {
@@ -24,7 +26,7 @@ struct DiaryFeedView: View {//
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink {
-                        WriteDetailView()
+                        WriteDetailView(isGroupSelection: $isGroupSelection)
                     } label: {
                         Image(systemName: "plus")
                             .foregroundColor(.black)
@@ -86,9 +88,9 @@ struct ListCell: View {
         .padding(.vertical, 5)
     }
 }
-struct DiaryFeedView_Previews: PreviewProvider {
-    static var previews: some View {
-        DiaryFeedView()
-    }
-}
-
+//struct DiaryFeedView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        DiaryFeedView()
+//    }
+//}
+//
