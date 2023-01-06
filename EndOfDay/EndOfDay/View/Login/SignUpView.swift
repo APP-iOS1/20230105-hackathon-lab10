@@ -175,21 +175,21 @@ struct SignUpView: View {
 
             
         }.navigationTitle("회원가입")
-            .popup(isPresented: $isShowingPopup, type: .floater(useSafeAreaInset: true), position: .top, animation: .default, autohideIn: 2, dragToDismiss: true, closeOnTap: true, closeOnTapOutside: true, view: {
-                HStack {
-                    Image(systemName: "checkmark.circle")
-                        .foregroundColor(.white)
-                    
-                    Text("환영합니다!")
-                        .foregroundColor(.white)
-                        .font(.footnote)
-                        .bold()
-                }
-                
-                .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
-                .background(Color.green)
-                .cornerRadius(100)
-            })
+//            .popup(isPresented: $isShowingPopup, type: .floater(useSafeAreaInset: true), position: .top, animation: .default, autohideIn: 2, dragToDismiss: true, closeOnTap: true, closeOnTapOutside: true, view: {
+//                HStack {
+//                    Image(systemName: "checkmark.circle")
+//                        .foregroundColor(.white)
+//                    
+//                    Text("환영합니다!")
+//                        .foregroundColor(.white)
+//                        .font(.footnote)
+//                        .bold()
+//                }
+//                
+//                .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
+//                .background(Color.green)
+//                .cornerRadius(100)
+//            })
     }
 }
 
