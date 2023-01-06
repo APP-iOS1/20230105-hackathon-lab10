@@ -63,7 +63,7 @@ class UserStore: ObservableObject {
                 listenToLoginState()
                 print("로그인 성공")
             } catch {
-                await handleError(message: "등록되지 않은 사용자 입니다.")
+                await handleError(message: "아이디 또는 비밀번호가 잘못되었습니다")
             }
         }
     }

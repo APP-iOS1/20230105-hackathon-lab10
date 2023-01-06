@@ -6,10 +6,14 @@
 //
 
 import SwiftUI
-
+extension View {
+    func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+}
 struct LoginView: View {
     @EnvironmentObject private var userStore: UserStore
-   
+    
     @State private var emailID: String = ""
     @State private var password: String = ""
     
@@ -28,11 +32,14 @@ struct LoginView: View {
             return "잘못된 이메일 형식입니다."
         } else if !isPasswordCount {
             return "비밀번호는 8자리 이상이어야 합니다."
-        } else {
+        }else if emailID.isEmpty && password.isEmpty{
+            return "이메일 또는 비밀번호가 잘못되었습니다"
+        }
+        else {
             return ""
         }
     }
-
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -89,6 +96,9 @@ struct LoginView: View {
                     .padding()
                 }
                 .padding(.horizontal)
+            }
+            .onTapGesture {
+                hideKeyboard()
             }
             Spacer()
         }
