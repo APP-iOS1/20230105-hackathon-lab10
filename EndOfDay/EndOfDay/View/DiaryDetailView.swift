@@ -12,6 +12,8 @@ struct DiaryDetailView: View {
     var record: Record
     @StateObject var commentStore = CommentStore()
     var diaryId: String
+    @StateObject var recordStore = RecordStore()
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         VStack {
@@ -86,13 +88,22 @@ struct DiaryDetailView: View {
             .padding()
             .background(colors.opacity(0.07))
         }
-        .navigationTitle("일기 디테일")
+        .navigationTitle("\(record.userNickName)의 일기")
         .toolbar {
-            Button {
-                
+            Menu {
+                Button {
+                    Task {
+                        await recordStore.removeRecord(recordID: record.id)
+                        dismiss()
+                    }
+                } label: {
+                    Label("삭제하기", systemImage: "trash")
+                }
+
             } label: {
-                Text("편집")
+                Image(systemName: "ellipsis")
             }
+
         }
         .onAppear {
             commentStore.diaryID = diaryId
