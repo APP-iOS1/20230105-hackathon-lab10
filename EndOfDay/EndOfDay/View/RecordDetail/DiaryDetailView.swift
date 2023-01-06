@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RecordDetailView: View {
-    var colors = Color(red: 52 / 255, green: 152 / 255, blue: 255 / 255)
+//    var colors = Color(red: 52 / 255, green: 152 / 255, blue: 255 / 255)
     var record: Record
     @StateObject var commentStore = CommentStore()
     var diaryId: String
@@ -23,7 +23,7 @@ struct RecordDetailView: View {
                     HStack {
                         Spacer()
                         Rectangle()
-                            .fill(colors.opacity(0.2))
+//                            .fill(colors.opacity(0.2))
                         // TODO: Rectangle -> Image 변경하기
                         //                    Image(uiImage: record.photo ?? UIImage())
                         //                        .resizable()
@@ -40,15 +40,14 @@ struct RecordDetailView: View {
                             .bold()
                             .lineLimit(1)
                         HStack {
-                            
-                            Spacer()
                             Text("\(record.createdDate)")
                                 .foregroundColor(.gray)
-                                .font(.footnote)
-//                            Text("\(record.userNickName)")
+                            Spacer()
+                            Text("\(record.userNickName)")
                         }
                     }
                     .padding(.horizontal, 30)
+                
                     
 //                }
 //                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 1.8)
@@ -65,7 +64,7 @@ struct RecordDetailView: View {
                 .overlay(
                     Rectangle()
                         .cornerRadius(15)
-                        .foregroundColor(colors)
+                        .foregroundColor(.gray)
                         .opacity(0.1)
                 )
             }.frame(width: UIScreen.main.bounds.width - 40)
@@ -87,7 +86,7 @@ struct RecordDetailView: View {
                 Spacer()
             }
             .padding()
-            .background(colors.opacity(0.07))
+            .background(Color.myLightGreen)
         }
         .navigationTitle("\(record.userNickName)의 일기")
         .toolbar {
