@@ -93,6 +93,12 @@ struct RecordDetailView: View {
         .toolbar {
             if record.writerID == diaryStore.userID {
                 Menu {
+                    NavigationLink {
+                        RecordModifyView(record: record)
+                    } label: {
+                        Label("수정하기", systemImage: "square.and.pencil")
+                    }
+                    
                     Button {
                         Task {
                             await recordStore.removeRecord(recordID: record.id)
@@ -101,7 +107,6 @@ struct RecordDetailView: View {
                     } label: {
                         Label("삭제하기", systemImage: "trash")
                     }
-
                 } label: {
                     Image(systemName: "ellipsis")
                 }
