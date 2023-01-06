@@ -137,7 +137,9 @@ struct SignUpView: View {
             
             if !emailID.isEmpty && !nickname.isEmpty && !password.isEmpty && !passwordCheck.isEmpty && password == passwordCheck{
                 Button {
-                    userStore.signUp(emailAddress: emailID, password: password, nickname: nickname)
+                    Task {
+                       await userStore.signUp(emailAddress: emailID, password: password, nickname: nickname)
+                    }
                     isShowingPopup = true
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.5) {
                       // 1초 후 실행될 부분

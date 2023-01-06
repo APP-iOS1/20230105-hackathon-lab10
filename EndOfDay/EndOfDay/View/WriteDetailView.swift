@@ -4,13 +4,14 @@ import SwiftUI
 
 struct WriteDetailView: View {//
     @EnvironmentObject private var userStore: UserStore
-    
+    @Environment(\.dismiss) private var dismiss
     @State private var recordTitle: String = ""
     @State private var recordContent: String = ""
     @State var isPickerShowing: Bool = false
     @State var selectedImage: UIImage?
     @State var retrievedImages = [UIImage]()
     @State var showingCategory: Bool = false
+    
     
     var imageStore: ImageStore = ImageStore()
     

@@ -32,22 +32,20 @@ struct EnterCodeView: View {
                             .focused($focusField, equals: .addAttendee)
                     )
                 
-                RoundedRectangle(cornerRadius: 10)
-                    .frame(width: 340, height: 50)
-                    .foregroundColor(Color("LightGray"))
-                    .overlay(
-                        Text("완료")
-                    )
-                    .onTapGesture {
-                        Task {
-                            await diaryStore.joinDiary(diaryID: codeText)
-                        }
-                        print("코드 제출 완료")
-                        showingSheet.toggle()
-                    }
+                Button {
+                    // 복사한 거 붙여넣기
+                } label: {
+                    RoundedRectangle(cornerRadius: 10)
+                        .frame(width: 340, height: 50)
+                        .foregroundColor(Color("LightGray"))
+                        .overlay(
+                            Text("붙여넣기")
+                                .foregroundColor(.black)
+                        )
+                }
             }
             .onAppear {
-                focusField = .addAttendee
+//                focusField = .addAttendee
                 
             }
             .toolbar {
@@ -62,6 +60,18 @@ struct EnterCodeView: View {
                 ToolbarItem(placement: .navigation) {
                     Text("초대 코드 입력")
                         .frame(width: 280, alignment: .center)
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button() {
+                        Task {
+                            await diaryStore.joinDiary(diaryID: codeText)
+                        }
+                        print("코드 제출 완료")
+                        showingSheet.toggle()
+                    } label: {
+                        Text("완료")
+                            .foregroundColor(.black)
+                    }
                 }
             }
         }

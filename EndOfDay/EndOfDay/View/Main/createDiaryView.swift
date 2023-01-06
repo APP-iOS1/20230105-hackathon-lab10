@@ -14,11 +14,13 @@ struct createDiaryView: View {
     @State private var title: String = ""
     @State private var colorIndex: Int = 2
     @EnvironmentObject var diaryStore: DiaryStore
+    @EnvironmentObject var userStore: UserStore
     
     var rows: [GridItem] = Array(repeating: .init(.fixed(50)), count: 2)
     
     // TODO: color 수정
-    let colors: [Color] = [.red, .orange, .yellow, .green, .mint, .cyan, .blue, .indigo, .purple, .brown]
+    let colors: [Color] = [.redColor, .orangeColor, .yellowColor, .greenColor, .blueColor, .purpleColor]
+    let images: [String] = ["01", "02", "03", "04"]
     var trimMemo: String {
         title.trimmingCharacters(in: .whitespaces)
     }
@@ -30,7 +32,8 @@ struct createDiaryView: View {
                     VStack{
                         RoundedRectangle(cornerRadius: 5)
                             .frame(width: 200, height: 330)
-                            .foregroundColor(colors[colorIndex])
+//                            .foregroundColor(colors[colorIndex])
+                            
                             .overlay(
                                 TextField("제목을 입력하세요", text: $title, axis: .vertical) // axis: TextField 줄바꿈용
                                     .padding()
@@ -45,13 +48,12 @@ struct createDiaryView: View {
                 
                 Section(header: Text("표지 색상").bold()) {
                     LazyHGrid(rows: rows, spacing: 35){
-                        ForEach(Array(colors.enumerated()), id: \.offset) { (index, color) in // 왜 Array
+                        ForEach(Array(images.enumerated()), id: \.offset) { (index, color) in // 왜 Array
                             Button {
                                 colorIndex = index
                             } label: {
                                 ZStack {
-                                    Circle()
-                                        .foregroundColor(color)
+                                    Image("\(images[colorIndex])")
                                         .frame(width: 40, height: 40)
                                     
                                     if colorIndex == index {
@@ -67,6 +69,11 @@ struct createDiaryView: View {
                 }
                 .padding()
                 .padding(.horizontal, 10)
+                Section("표지 이미지") {
+                    HStack {
+                        
+                    }
+                }
                 
             }
             .navigationTitle("일기장 만들기")
@@ -87,7 +94,7 @@ struct createDiaryView: View {
                         Button("생성") {
                             let time = Date().timeIntervalSince1970
                             title = title.trimmingCharacters(in: .whitespaces)
-                            let diary: Diary = Diary(id: UUID().uuidString, dairyTitle: title, colorIndex: colorIndex, createdAt: time, membersID: [], membersNickname: [])
+                            let diary: Diary = Diary(id: UUID().uuidString, dairyTitle: title, colorIndex: colorIndex, createdAt: time, membersID: [diaryStore.userID], membersNickname: [userStore.user?.displayName ?? ""])
                             showingSheet.toggle()
                             Task {
                                 await diaryStore.addDiary(diary: diary)

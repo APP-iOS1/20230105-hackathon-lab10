@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		23126B85296724BE008D605A /* CategorySelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23126B84296724BE008D605A /* CategorySelectView.swift */; };
 		234F223A296685F90049EB08 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234F2239296685F90049EB08 /* MainView.swift */; };
+		23C8E7F629677D0800DA211B /* EX+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C8E7F529677D0800DA211B /* EX+Color.swift */; };
 		23F9C9C6294861640058D112 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F9C9C5294861640058D112 /* TestView.swift */; };
 		23F9C9C8294861AF0058D112 /* DiaryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F9C9C7294861AF0058D112 /* DiaryStore.swift */; };
 		23F9C9CA29486F8C0058D112 /* RecordStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F9C9C929486F8C0058D112 /* RecordStore.swift */; };
@@ -56,6 +57,7 @@
 /* Begin PBXFileReference section */
 		23126B84296724BE008D605A /* CategorySelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySelectView.swift; sourceTree = "<group>"; };
 		234F2239296685F90049EB08 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		23C8E7F529677D0800DA211B /* EX+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EX+Color.swift"; sourceTree = "<group>"; };
 		23F9C9C5294861640058D112 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		23F9C9C7294861AF0058D112 /* DiaryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryStore.swift; sourceTree = "<group>"; };
 		23F9C9C929486F8C0058D112 /* RecordStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordStore.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				3FEB557F2966F70B00F6F604 /* DiaryListView.swift */,
 				3FEB55812966F73B00F6F604 /* CustomDatePicker.swift */,
 				3FEB55832966F77700F6F604 /* DiaryCellView.swift */,
+				23C8E7F529677D0800DA211B /* EX+Color.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -336,6 +339,7 @@
 				61413F362949CDB00068B4E0 /* ImagePicker.swift in Sources */,
 				23F9C9CC294872AB0058D112 /* CommentStore.swift in Sources */,
 				A89C3D3C29481D520050F31F /* SignUpView.swift in Sources */,
+				23C8E7F629677D0800DA211B /* EX+Color.swift in Sources */,
 				23126B85296724BE008D605A /* CategorySelectView.swift in Sources */,
 				EBD3744B29668AD900C5C4A4 /* ChangeNickNameView.swift in Sources */,
 				AD1CF01829669A2B004EAA51 /* EnterCodeView.swift in Sources */,
