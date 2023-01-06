@@ -23,6 +23,13 @@ class UserStore: ObservableObject {
     // 유저의 닉네임 패치
     @Published var currentUserNickname = Auth.auth().currentUser?.displayName
     @Published var page = "Page1"
+    var loginState: LoginState = .none
+    
+    enum LoginState {
+        case success
+        case fail
+        case none
+    }
     
     func updateNickname(_ nickname: String) {
         if let currentUser = Auth.auth().currentUser?.createProfileChangeRequest() {
@@ -59,18 +66,18 @@ class UserStore: ObservableObject {
     }
     
     // MARK: - 로그인 메서드
-    func logIn(emailAddress: String, password: String) {
-        Task {
-            do {
-                try await Auth.auth().signIn(withEmail: emailAddress, password: password)
-                listenToLoginState()
-                print("로그인 성공")
-                self.page = "Page2"
-                print(page)
-            } catch {
-                await handleError(message: "아이디 또는 비밀번호가 잘못되었습니다")
-            }
+    func logIn(emailAddress: String, password: String) async {
+        do {
+            try await Auth.auth().signIn(withEmail: emailAddress, password: password)
+            listenToLoginState()
+            print("로그인 성공")
+            self.page = "Page2"
+            print(page)
+            self.loginState = .success
+        } catch {
+            await handleError(message: "아이디 또는 비밀번호가 잘못되었습니다")
         }
+        
     }
     // !!!: 작동하지 않는 이메일 중복 확인
     // TODO: 이메일 중복확인 메서드 구현
@@ -106,7 +113,7 @@ class UserStore: ObservableObject {
                try await currentUser.commitChanges()
                 self.currentUserNickname = Auth.auth().currentUser?.displayName
             }
-            self.logIn(emailAddress: emailAddress, password: password)
+            await logIn(emailAddress: emailAddress, password: password)
         }
         catch {
             fatalError()
@@ -117,7 +124,6 @@ class UserStore: ObservableObject {
     func logOut() {
         do {
             try Auth.auth().signOut()
-            user = nil
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
         }

@@ -17,6 +17,7 @@ extension View {
 struct SignUpView: View {
     
     @EnvironmentObject private var userStore: UserStore
+    @EnvironmentObject private var diaryStore: DiaryStore
     @Environment(\.dismiss) private var dismiss
     
     @State private var emailID: String = ""
@@ -48,6 +49,10 @@ struct SignUpView: View {
         case password
     }
     
+    var checkSignUp: Bool{
+        !emailID.isEmpty && !nickname.isEmpty && !password.isEmpty && !passwordCheck.isEmpty && password == passwordCheck
+    }
+    
     var body: some View {
         NavigationStack {
             VStack(alignment:.leading) {
@@ -59,7 +64,7 @@ struct SignUpView: View {
                         Text("이메일 형식이 맞지 않습니다")
                             .foregroundColor(.red)
                     } else if !emailID.isEmpty && isCheckValidEmail {
-//                        Text("사용가능한 이메일입니다")
+                        //                        Text("사용가능한 이메일입니다")
                         Image(systemName: "checkmark.circle")
                             .foregroundColor(.green)
                     }else if emailID.isEmpty{
@@ -74,7 +79,7 @@ struct SignUpView: View {
                     .disableAutocorrection(true)
                     .keyboardType(.emailAddress)
                     .focused($focusField, equals: .emailID)
-                
+
                 // MARK: 닉네임
                 HStack{
                     Text("닉네임")
@@ -137,24 +142,18 @@ struct SignUpView: View {
                     .textContentType(.password)
                     .keyboardType(.default)
                 
-            }.padding(20)
-                .onTapGesture {
-                    hideKeyboardSign()
-                }
-            
-            
-            if !emailID.isEmpty && !nickname.isEmpty && !password.isEmpty && !passwordCheck.isEmpty && password == passwordCheck{
+                
+                
                 Button {
                     Task {
-                       await userStore.signUp(emailAddress: emailID, password: password, nickname: nickname)
+                        await userStore.signUp(emailAddress: emailID, password: password, nickname: nickname)
+                        await diaryStore.addPrivateDiary(userID: userStore.user?.uid ?? "", nickName: userStore.user?.displayName ?? "")
                     }
                     isShowingPopup = true
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.5) {
                         // 1초 후 실행될 부분
                         dismiss()
                     }
-                    
-                    
                 } label: {
                     Text("회원가입하기")
                         .font(.subheadline)
@@ -162,43 +161,17 @@ struct SignUpView: View {
                         .padding()
                         .frame(maxWidth: .infinity)
                         .bold()
-                        .background(Color.black)
+                        .background(checkSignUp ? Color.black : Color.gray)
                         .clipShape(RoundedRectangle(cornerRadius: 15))
                         .padding(EdgeInsets(top: 5, leading: 20, bottom: 0, trailing: 20))
                 }
-            }else{
-                Button{
-                    
-                } label: {
-                    Text("회원가입하기")
-                        .font(.subheadline)
-                        .foregroundColor(.white)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .bold()
-                        .background(Color.gray)
-                        .clipShape(RoundedRectangle(cornerRadius: 15))
-                        .padding(EdgeInsets(top: 5, leading: 20, bottom: 0, trailing: 20))
+                .disabled(!checkSignUp)
+                Spacer()
+            }.padding(20)
+                .onTapGesture {
+                    hideKeyboardSign()
                 }
-            }
-            
-            
         }.navigationTitle("회원가입")
-//            .popup(isPresented: $isShowingPopup, type: .floater(useSafeAreaInset: true), position: .top, animation: .default, autohideIn: 2, dragToDismiss: true, closeOnTap: true, closeOnTapOutside: true, view: {
-//                HStack {
-//                    Image(systemName: "checkmark.circle")
-//                        .foregroundColor(.white)
-//                    
-//                    Text("환영합니다!")
-//                        .foregroundColor(.white)
-//                        .font(.footnote)
-//                        .bold()
-//                }
-//                
-//                .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
-//                .background(Color.green)
-//                .cornerRadius(100)
-//            })
     }
 }
 
