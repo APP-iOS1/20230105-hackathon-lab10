@@ -18,41 +18,37 @@ struct RecordDetailView: View {
     
     var body: some View {
         VStack {
-            VStack{
-//                Form {
-                    HStack {
-                        Spacer()
-                        Rectangle()
-                            .fill(colors.opacity(0.2))
-                        // TODO: Rectangle -> Image 변경하기
-                        //                    Image(uiImage: record.photo ?? UIImage())
-                        //                        .resizable()
-                        //                        .aspectRatio(contentMode: .fit)
-                            .frame(width: 300, height: 300)
-                        Spacer()
+            VStack {
+                Form {
+                    if record.photoID != "" {
+                        HStack {
+                            Spacer()
+                            Image(uiImage: record.photo!)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 300, height: 300)
+                            Spacer()
+                        }
+                        .listRowSeparator(.hidden)
+                        .padding(.top)
                     }
-                    .listRowSeparator(.hidden)
-                    .padding(.top)
-                    
+
                     VStack(alignment: .leading) {
                         Text("\(record.recordTitle)")
                             .font(.title2)
                             .bold()
                             .lineLimit(1)
                         HStack {
-                            
-                            Spacer()
                             Text("\(record.createdDate)")
                                 .foregroundColor(.gray)
-                                .font(.footnote)
-//                            Text("\(record.userNickName)")
+                            Spacer()
+                            Text("\(record.userNickName)")
                         }
                     }
-                    .padding(.horizontal, 30)
+                    .padding(.horizontal, 10)
                     
-//                }
-//                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 1.8)
-                
+                }
+                .frame(width: UIScreen.main.bounds.width, height: record.photoID != "" ? UIScreen.main.bounds.height / 1.8 : UIScreen.main.bounds.height / 6.0)
             }
             
             VStack(alignment: .leading) {
