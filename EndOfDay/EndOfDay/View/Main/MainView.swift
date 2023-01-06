@@ -84,7 +84,7 @@ struct MainView: View {
                  
                     // 개인 일기장
                     NavigationLink {
-                        DiaryListView(diary: diaryStore.privateDiary)
+                        RecordListView(diary: diaryStore.privateDiary)
                     } label: {
                         DiaryCell(diary: diaryStore.privateDiary)
                             .padding(.vertical, 10)
@@ -95,7 +95,7 @@ struct MainView: View {
                     
                     ForEach(diaryStore.diaries) { diary in
                         NavigationLink {
-                            DiaryListView(diary: diary)
+                            RecordListView(diary: diary)
                         } label: {
                             DiaryCell(diary: diary)
                                 .padding(.vertical, 10)

@@ -9,7 +9,7 @@ import SwiftUI
 import FirebaseStorage
 import FirebaseFirestore
 
-struct DiaryListView: View {
+struct RecordListView: View {
     @StateObject private var recordStore: RecordStore = RecordStore()
     @State var currentDate: Date = Date()
     var diary: Diary
@@ -83,8 +83,8 @@ struct DiaryListView: View {
     }
 }
 
-struct DiaryListView_Previews: PreviewProvider {
+struct RecordListView_Previews: PreviewProvider {
     static var previews: some View {
-        DiaryListView(diary: Diary(id: "dd", dairyTitle: "타이틀", colorIndex: 1, createdAt: 1, membersID: [], membersNickname: []))
+        RecordListView(diary: Diary(id: "dd", dairyTitle: "타이틀", colorIndex: 1, createdAt: 1, membersID: [], membersNickname: []))
     }
 }

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DiaryDetailView: View {
+struct RecordDetailView: View {
     var colors = Color(red: 52 / 255, green: 152 / 255, blue: 255 / 255)
     var record: Record
     @StateObject var commentStore = CommentStore()
@@ -89,6 +89,12 @@ struct DiaryDetailView: View {
         .toolbar {
             if record.writerID == diaryStore.userID {
                 Menu {
+                    NavigationLink {
+                        RecordModifyView(record: record)
+                    } label: {
+                        Label("수정하기", systemImage: "square.and.pencil")
+                    }
+                    
                     Button {
                         Task {
                             await recordStore.removeRecord(recordID: record.id)
@@ -97,7 +103,6 @@ struct DiaryDetailView: View {
                     } label: {
                         Label("삭제하기", systemImage: "trash")
                     }
-
                 } label: {
                     Image(systemName: "ellipsis")
                 }

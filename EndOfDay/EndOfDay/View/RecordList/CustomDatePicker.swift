@@ -105,9 +105,9 @@ struct CustomDatePicker: View {
                 if !filteredRecords.isEmpty {
                     ForEach(filteredRecords) { record in
                         NavigationLink {
-                            DiaryDetailView(record: record, diaryId: diaryID)
+                            RecordDetailView(record: record, diaryId: diaryID)
                         } label: {
-                            DiaryCellView(record: record)
+                            RecordCellView(record: record)
                         }
                     }
                 }
