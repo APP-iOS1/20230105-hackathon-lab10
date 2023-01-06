@@ -119,7 +119,7 @@ struct CustomDatePicker: View {
                     return isSameDay(date1: Date(timeIntervalSince1970: record.createdAt), date2: currentDate)
                 }) { record in
                     NavigationLink {
-                        DiaryDetailView()
+                        DiaryDetailView(record: record, diaryId: diaryID)
                     } label: {
                         DiaryCellView(record: record)
                     }
