@@ -32,10 +32,7 @@ struct LoginView: View {
             return "잘못된 이메일 형식입니다."
         } else if !isPasswordCount {
             return "비밀번호는 8자리 이상이어야 합니다."
-        }else if emailID.isEmpty && password.isEmpty{
-            return "이메일 또는 비밀번호가 잘못되었습니다"
-        }
-        else {
+        } else {
             return ""
         }
     }
@@ -98,7 +95,7 @@ struct LoginView: View {
                     .padding()
                 }
                 .padding(.horizontal)
-                .navigationTitle(Text("LogIn"))
+                .navigationTitle(Text("로그인"))
             }
             .onTapGesture {
                 hideKeyboard()
@@ -106,7 +103,6 @@ struct LoginView: View {
             Spacer()
         }
         .padding()
-        .navigationTitle("로그인")
         // MARK: 회원 정보가 없을 시 경고창 띄움
         .alert(userStore.errorMessage, isPresented: $userStore.showError) {}
     }

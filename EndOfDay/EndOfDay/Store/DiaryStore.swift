@@ -22,7 +22,6 @@ class DiaryStore: ObservableObject {
     // MARK: Diary 불러오기
     func fetchDiaries() async {
         do {
-            print("fetch")
             diaries.removeAll()
             if userID != "" {
                 let snapshot = try await database.whereField("membersID", arrayContains: userID).getDocuments()
