@@ -4,13 +4,14 @@ import SwiftUI
 
 struct WriteDetailView: View {//
     @EnvironmentObject private var userStore: UserStore
-    
+    @Environment(\.dismiss) private var dismiss
     @State private var recordTitle: String = ""
     @State private var recordContent: String = ""
     @State var isPickerShowing: Bool = false
     @State var selectedImage: UIImage?
     @State var retrievedImages = [UIImage]()
     @State var showingCategory: Bool = false
+    
     
     var imageStore: ImageStore = ImageStore()
     
@@ -54,17 +55,20 @@ struct WriteDetailView: View {//
                             .foregroundColor(.black)
                     }
                 })
-                if trimTitle.count > 0 && trimContent.count > 0 {
-                    ToolbarItem(placement: .navigationBarTrailing, content: {
-                        Button {
-                            showingCategory.toggle()
-                            
-                        } label: {
-                            Text("완료")
-                                .foregroundColor(.black)
-                        }
-                    })
-                }
+                
+                
+                ToolbarItem(placement: .navigationBarTrailing, content: {
+                    Button {
+                        showingCategory.toggle()
+                        
+                    } label: {
+                        Text("완료")
+                    }
+                    .foregroundColor(trimTitle.isEmpty || trimContent.isEmpty ? .gray : .black)
+                    .disabled(trimTitle.isEmpty || trimContent.isEmpty)
+                })
+
+                
             }
             .sheet(isPresented: $isPickerShowing, onDismiss: nil){
                 ImagePicker(image: $selectedImage)

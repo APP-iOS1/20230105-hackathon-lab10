@@ -52,6 +52,19 @@ struct CategorySelectView: View {
                             .foregroundColor(.black)
                     }
                 }
+                ToolbarItem(placement: .navigation) {
+                    Text("그룹 선택")
+                        .frame(width: 280, alignment: .center)
+                }
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button() {
+                        showingSheet.toggle()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .foregroundColor(.black)
+                    }
+                }
+                
             }
         }
         
