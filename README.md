@@ -15,7 +15,7 @@
 ## 참여자
 | <img src="https://avatars.githubusercontent.com/u/114036537?v=4" width=225> | <img src="https://avatars.githubusercontent.com/u/75517368?v=4" width=225> | <img src="https://avatars.githubusercontent.com/u/79833715?v=4" width=225> | <img src="https://avatars.githubusercontent.com/u/114223605?v=4" width=225> | 
 | :----------------------------------------------------------: | :---------------------------------------------: | :-------------------------------------------------: | :-------------------------------------------------: |
-| 미주<br/>[@mumjee03](https://github.com/mumjee03)<br/> | 태성<br/>[@KTS224](https://github.com/KTS224)<br/> | 태욱<br/> [@KiTaeUk](https://github.com/yahoth)<br/> | 영우<br/>[@Lee-Youngwoo](https://github.com/Lee-Youngwoo)<br/> |
+| 미주<br/>[@mumjee03](https://github.com/mumjee03)<br/> | 태성<br/>[@KTS224](https://github.com/KTS224)<br/> | 태욱<br/> [@KiTaeUk](https://github.com/KiTaeUk)<br/> | 영우<br/>[@Lee-Youngwoo](https://github.com/Lee-Youngwoo)<br/> |
 
 <br/>
 
