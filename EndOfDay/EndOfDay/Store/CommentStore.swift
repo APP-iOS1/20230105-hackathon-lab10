@@ -7,49 +7,70 @@
 
 import Foundation
 import FirebaseFirestore
+import FirebaseAuth
 
+@MainActor
 class CommentStore: ObservableObject {
     @Published var comments: [Comment] = []
     
-//    var diaryId: String = ""
+    var diaryID: String = ""
     var recordID: String = ""
+    let userID: String = Auth.auth().currentUser?.uid ?? ""
+    let userNickName: String = Auth.auth().currentUser?.displayName ?? ""
     
-    let database = Firestore.firestore().collection("Records")
     
-    func fetchComments() {
-        database.document(recordID).collection("Comments")
-            .getDocuments { (snapshot, error) in
+    let database = Firestore.firestore().collection("Diaries")
+    // MARK: 댓글 불러오기
+    func fetchComments() async {
+        do {
+            if diaryID != "" && recordID != ""{
+                let snapshot = try await database.document(diaryID).collection("Records").document(recordID).collection("Comments").getDocuments()
                 self.comments.removeAll()
-                if let snapshot {
-                    for document in snapshot.documents{
-                        let docData = document.data()
-                        let id: String = document.documentID
-                        let commentContent: String = docData["commentContent"] as? String ?? ""
-                        let createdAt: Double = docData["createdAt"] as? Double ?? 0
-                        let userID: String = docData["userID"] as? String ?? ""
-                        let userNickName: String = docData["userNickName"] as? String ?? ""
-                        
-                        let comment: Comment = Comment(id: id, commentContent: commentContent, createdAt: createdAt, userID: userID, userNickName: userNickName)
-                        
-                        self.comments.append(comment)
-                    }
+                for document in snapshot.documents{
+                    let docData = document.data()
+                    let id: String = document.documentID
+                    let commentContent: String = docData["commentContent"] as? String ?? ""
+                    let createdAt: Double = docData["createdAt"] as? Double ?? 0
+                    let writerID: String = docData["writerID"] as? String ?? ""
+                    let userNickName: String = docData["userNickName"] as? String ?? ""
+                    
+                    let comment: Comment = Comment(id: id, commentContent: commentContent, createdAt: createdAt, writerID: writerID, userNickName: userNickName)
+                    
+                    self.comments.append(comment)
                 }
+                self.comments = comments.sorted{ $0.createdAt > $1.createdAt }
             }
+        }catch {
+            fatalError()
+        }
     }
     
-    func addComment(_ comment: Comment){
-        database.document(recordID).collection("Comments").document(comment.id)
-            .setData([
-                "commentContent": comment.commentContent,
-                "userID": comment.userID,
-                "createdAt": comment.createdAt,
-                "userNickName": comment.userNickName])
-                
-        fetchComments()
+    // MARK: 댓글 추가하기
+    func addComment(_ comment: Comment) async{
+        do{
+            if diaryID != "" && recordID != ""{
+                try await database.document(diaryID).collection("Records").document(recordID).collection("Comments").document(comment.id)
+                    .setData([
+                        "commentContent": comment.commentContent,
+                        "writerID": userID,
+                        "createdAt": comment.createdAt,
+                        "userNickName": userNickName])
+                await fetchComments()
+            }
+        } catch {
+            fatalError()
+        }
     }
     
-    func removeComment(_ comment: Comment){
-        database.document(recordID).collection("Comments").document(comment.id).delete()
-        fetchComments()
+    // MARK: 댓글 삭제하기
+    func removeComment(commentID: String) async {
+        do {
+            if diaryID != "" && recordID != ""{
+                try await database.document(diaryID).collection("Records").document(recordID).collection("Comments").document(commentID).delete()
+                await fetchComments()
+            }
+        } catch {
+            fatalError()
+        }
     }
 }

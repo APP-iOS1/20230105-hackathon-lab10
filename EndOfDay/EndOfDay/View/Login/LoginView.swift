@@ -6,10 +6,16 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
+extension View {
+    func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+}
 struct LoginView: View {
     @EnvironmentObject private var userStore: UserStore
-    
+    @EnvironmentObject private var diaryStore: DiaryStore
     @State private var emailID: String = ""
     @State private var password: String = ""
     
@@ -32,7 +38,7 @@ struct LoginView: View {
             return ""
         }
     }
-
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -54,6 +60,7 @@ struct LoginView: View {
                         .keyboardType(.default)
                 }
                 .padding([.top, .horizontal])
+                .padding(.top, 10)
                 
                 VStack {
                     if !cautionMessage.isEmpty {
@@ -67,7 +74,14 @@ struct LoginView: View {
                 
                 VStack {
                     Button {
-                        userStore.logIn( emailAddress: emailID, password: password )
+                        Task{
+                            await userStore.logIn( emailAddress: emailID, password: password )
+                            diaryStore.userID = Auth.auth().currentUser?.uid ?? ""
+                            diaryStore.userNickname = Auth.auth().currentUser?.displayName ?? ""
+                            await diaryStore.fetchDiaries()
+                            print("로그인 패치")
+                        }
+//                        userStore.page = "Page2"
                     } label: {
                         Text("로그인")
                             .bold()
@@ -78,6 +92,10 @@ struct LoginView: View {
                             .cornerRadius(10)
                     }
                     .disabled(!cautionMessage.isEmpty)
+//                    .onChange(of: userStore.loginState) { _ in
+//                            diaryStore.userID = Auth.auth().currentUser?.uid ?? ""
+//                            diaryStore.userNickname = Auth.auth().currentUser?.displayName ?? ""
+//                    }
                     
                     HStack {
                         Text("아직 회원이 아니신가요?").foregroundColor(.gray)
@@ -89,11 +107,14 @@ struct LoginView: View {
                     .padding()
                 }
                 .padding(.horizontal)
+                .navigationTitle(Text("로그인"))
+            }
+            .onTapGesture {
+                hideKeyboard()
             }
             Spacer()
         }
         .padding()
-        .navigationTitle("로그인")
         // MARK: 회원 정보가 없을 시 경고창 띄움
         .alert(userStore.errorMessage, isPresented: $userStore.showError) {}
     }
